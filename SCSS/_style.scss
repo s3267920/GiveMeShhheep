@@ -1,0 +1,29 @@
+//color
+@import '_color.scss';
+
+$font: 16px 20px 24px 36px;
+
+//min rwd
+
+$wide: 'min-width: 1800px' !default;
+$desktop: 'min-width: 1200px' !default;
+$tablet-landscape: 'min-width: 900px' !default;
+$tablet-protrait: 'min-width: 600px' !default;
+$phone: 'max-width: 600px' !default;
+
+//max rwd
+
+// $desktop: 'min-width: 1200px' !default;
+// $tablet-landscape: 'min-width: 900px' !default;
+// $tablet-protrait: 'min-width: 600px' !default;
+// $phone: 'max-width: 600px' !default;
+
+@mixin media($query: $phone) {
+  @media screen and ($query) {
+    @content;
+  }
+}
+
+@function color($color-style: other, $color-type: black) {
+  @return map-get(map-get($colors, $color-style), $color-type);
+}
