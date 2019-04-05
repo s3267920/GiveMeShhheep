@@ -38,7 +38,7 @@ header {
           font-weight: 500;
           padding: 20px 0;
           color: color(color_teal, dark);
-          font-size: nth($font, 1);
+          font-size: nth($font, 2);
           &:hover,
           &:active {
             color: color(color_gray, white);
@@ -91,6 +91,7 @@ header {
       margin: 30px 0;
       width: 220px;
       height: 25px;
+      z-index: 10;
       line-height: 25px;
       white-space: nowrap;
       text-indent: 101%;
@@ -137,7 +138,7 @@ header {
           align-items: flex-end;
           margin: 0 10px;
           a {
-            font-size: nth($font, 2);
+            font-size: nth($font, 3);
             padding: 25px 15px;
             border-radius: 50%;
             &:active {
@@ -158,9 +159,7 @@ header {
         display: inline-flex;
         justify-content: flex-end;
         background-image: url(../img/GMS_logo_two-small.svg);
-        // background-size: cover;
         width: 90px;
-        // width: 300px;
         margin: 15px 0;
         height: 86px;
       }
@@ -177,12 +176,12 @@ header {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      font-size: nth($font, 2);
+      font-size: nth($font, 3);
       background-color: color(other, white);
     }
   }
   @media screen and (min-width: 900px) {
-    padding: 0 5%;
+    padding: 0 6.5%;
     justify-content: center;
     align-items: center;
     nav {
@@ -193,12 +192,14 @@ header {
         order: 1;
         display: flex;
         flex-direction: row;
-        // justify-content: flex-end;
         align-items: center;
         li {
           display: inline-flex;
           align-items: flex-end;
           margin: 0 15px;
+          &:first-of-type {
+            margin-left: 0;
+          }
         }
       }
     }
@@ -213,7 +214,6 @@ header {
         display: inline-flex;
         justify-content: flex-end;
         background-image: url(../img/gms.logo.svg);
-        // background-size: cover;
         width: 400px;
         height: 94px;
       }
@@ -221,13 +221,9 @@ header {
     .nav_hamburger {
       display: none;
     }
-    .cart {
-      // font-size: nth($font, 3);
-      // order: 2;
-    }
   }
-  @media screen and (min-width: 1440px) {
-    padding: 0 18% 0 15%;
+  @media screen and (min-width: 1200px) {
+    padding: 0 15%;
     .logo {
       width: 500px;
       order: 1;
@@ -239,7 +235,6 @@ header {
         display: inline-flex;
         justify-content: flex-end;
         background-image: url(../img/gms.logo.svg);
-        // background-size: cover;
         width: 400px;
         height: 94px;
       }
@@ -247,7 +242,6 @@ header {
   }
 }
 footer {
-  margin-top: 30px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -268,7 +262,7 @@ footer {
       align-items: center;
       p {
         font-family: 'Helvetica Neue';
-        font-size: nth($font, 3);
+        font-size: nth($font, 4);
         color: color(color_gray, white);
         margin-left: 20px;
       }
@@ -279,7 +273,7 @@ footer {
     }
     .email_box {
       position: relative;
-      width: 84%;
+      width: 70%;
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -327,7 +321,7 @@ footer {
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    width: 84%;
+    width: 70%;
     box-sizing: border-box;
     padding: 30px 0;
     height: 100%;
@@ -349,6 +343,7 @@ footer {
       }
     }
     .info_bottom_text {
+      font-family: 'PT Mono';
       color: color(color_teal, dark);
       margin-top: 15px;
     }
@@ -369,32 +364,38 @@ footer {
       position: relative;
       display: flex;
       flex-direction: column;
-      // justify-content: space-around;
       align-items: flex-start;
       height: 341px;
-      width: 84%;
+      width: 70%;
       box-sizing: border-box;
       padding: 30px 0;
       .information_left {
         display: flex;
+        height: 90%;
         flex-direction: column;
         justify-content: space-around;
       }
       .info_bottom_text {
         justify-content: flex-end;
         margin: auto;
-        margin-bottom: 0;
       }
-
+      .info_text {
+        font-size: nth($font, 3);
+        line-height: 35px;
+      }
       .info_icon {
-        margin-top: 30px;
+        margin-top: auto;
+        margin-bottom: 30px;
+        a {
+          font-size: 60px;
+        }
       }
       .info_img {
         opacity: 0.5;
         width: 180px;
         display: flex;
         position: absolute;
-        right: 30px;
+        right: 0px;
         top: 70px;
         &:hover {
           opacity: 1;

@@ -1,30 +1,50 @@
-$colors:(color_teal: (white:#cafaff,
-light:#00b9ce,
-main:#27A2AF,
-dark:#004a52,
-teal:#008a9a,
-gray:#8abbc1,
-light30:lighten(#00b9ce, 30%),
-gray30:lighten(#8abbc1, 30%),
-gray25:lighten(#8abbc1, 25%)),
+$colors: (
+  color_teal: (
+    white: #edfdff,
+    light: #00b9ce,
+    main: #27a2af,
+    dark: #004a52,
+    teal: #008a9a,
+    deepTeal: #016a76,
+    gray: #8abbc1,
+    light30: lighten(#00b9ce, 30%),
+    gray30: lighten(#8abbc1, 30%),
+    gray25: lighten(#8abbc1, 25%),
+    dark050: rgba(0, 74, 82, 0.5)
+  ),
+  color_gray: (
+    white: #f2f2f2,
+    light: #e1e1e1,
+    main: #ededed,
+    gray: #9b9b9b,
+    dark: #707070,
+    light20: lighten(#e1e1e1, 10%),
+    white30: lighten(#f2f2f2, 30%)
+  ),
+  color_yellow: (
+    white: #fff6c4,
+    light: #fff187,
+    main: #ffe867,
+    dark: #ffd900
+  ),
+  news: (
+    announcement: #ffe867,
+    announcement_table: #ffb700,
+    newListing: #00a6ff,
+    activity: #8336ff
+  ),
+  other: (
+    white: #fff,
+    black: #000,
+    red: #d0021b,
+    orange: #f5a623,
+    skyblue: #4a90e2,
+    green: #7ed321,
+    error: #ff0000,
+    white30: rgba(255, 255, 255, 0.3),
+    black20: rgba(0, 0, 0, 0.2),
+    black15: rgba(0, 0, 0, 0.15)
+  )
+);
 
-color_gray:(white:#f2f2f2,
-light:#e1e1e1,
-main:#EDEDED,
-gray: #9b9b9b,
-dark:#707070,
-light20:lighten(#e1e1e1, 10%),
-white30:lighten(#f2f2f2, 30%)),
-
-color_yellow:(white:#fff6c4,
-main:#ffe867,
-dark:#ffd900),
-
-other:(white: #fff,
-black: #000,
-red: #d0021b,
-orange: #f5a623,
-skyblue: #4a90e2,
-green: #7ed321,
-error:#ff0000,
-whiteO30: transparentize(#fff, 0.3)));
+$font: 14px 16px 20px 24px 36px;

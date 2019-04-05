@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Home首頁</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="GiveMeShhheep" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="FB上的網址" />
+    <meta property="og:image" content="FB的圖片" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./style/layout.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./style/index.min.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav_hamburger">
+          <button class="hamburger_icon">
+            <div class="icon_box">
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+            </div>
+          </button>
+        </div>
+        <ul id="nav_bar">
+          <li><a href="/">首頁</a></li>
+          <li><a href="">甜點</a></li>
+          <!-- <li class="login"><a href="">登入</a></li> -->
+        </ul>
+        <div class="logo">
+          <a href="/"><h1>GiveMeShhheep</h1></a>
+        </div>
+        <div class="personal">
+          <a class="user" href=""><i class="fas fa-user"></i></a>
+          <a class="cart" href=""><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div
+        class="banner"
+        style="background-image: url(https://images.unsplash.com/photo-1510083065545-d2d4e6193747?w=1050);"
+      >
+        <div class="banner_img_toggle_icon">
+          <a href="javascript:;" class="left_icon"><i class="fas fa-chevron-left"></i></a>
+          <a href="javascript:;" class="right_icon"><i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="banner_img_toggle_box">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="banner_card">
+        <ul>
+          <li>
+            <a href="javascript:;">最新消息<span>latest news</span></a>
+          </li>
+          <li>
+            <a href="javascript:;">新品上市<span>new product</span></a>
+          </li>
+          <li>
+            <a href="javascript:;">我們的故事<span>our story</span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="split_line"></div>
+
+      <div class="content">
+          <div class="news_modal" style="display: none">
+              <div class="news_modal_box">
+                <div class="news_modal_header">
+                    <div class="news_modal_title">
+                        公告
+                      </div>
+                    <a class="close" href="javascript:;"
+                      ><i class="fas fa-times-circle"></i></i
+                    ></a>
+                </div>
+                  <div class="news_modal_content">
+                    <div class="news_text">
+                      <p> GiveMeShhheep 建立。</p>
+                    </div>
+                    <div class="news_date">發布日期：<span>2019-1-10</span></div>
+                  </div>
+              </div>
+            
+            </div>
+        <ul class="content_box">
+          <li class="latest_news">
+            <div class="content_title">最新消息<span>latest news</span></div>
+            <table class="news_content_table">
+              <tr>
+                <th class="news_type_head">類別</th>
+                <th class="news_title_head">標題</th>
+                <th class="news_head">內容</th>
+                <th class="news_date_head">發佈日期</th>
+              </tr>
+              <tr>
+                <td class="news_type announcement">公告</td>
+                <td class="news_title_head"><a href="">第一則消息</a></td>
+                <td class="news">
+                  GiveMeShhheep 建立。
+                </td>
+                <td class="news_date">2019-1-10</td>
+              </tr>
+              <tr class="green_td">
+                <td class="news_type newListing">新品上市</td>
+                <td class="news_title_head"><a href="">第二則消息</a></td>
+                <td class="news">
+                  這是測試用新品上市公告。
+                </td>
+                <td class="news_date">2019-4-3</td>
+              </tr>
+              <tr>
+                <td class="news_type activity">活動</td>
+                <td class="news_title_head"><a href="">第三則消息</a></td>
+                <td class="news">
+                  這是測試用活動公告，實際上可以放多少字數其實我也不是很知道喔。
+                </td>
+                <td class="news_date">2019-4-4</td>
+              </tr>
+            </table>
+
+            <ul class="news_content">
+              <li>
+                <div class="news_type">
+                  公告
+                </div>
+                <div class="news_title">第一則消息</div>
+                <div class="news">
+                  <p>GiveMeShhheep建立。</p>
+                  <a href="">more</a>
+                </div>
+                <div class="news_date">2019-1-10</div>
+              </li>
+              <li>
+                <div class="news_type">
+                  新品上市
+                </div>
+                <div class="news_title">第二則消息</div>
+                <div class="news">
+                  <p>
+                    這是測試用新品上市公告。
+                  </p>
+                  <a href="">more</a>
+                </div>
+                <div class="news_date">2019-4-3</div>
+              </li>
+              <li>
+                <div class="news_type">
+                  活動
+                </div>
+                <div class="news_title">第三則消息</div>
+                <div class="news">
+                  <p>這是測試用活動公告，實際上可以放多少字數其實我也不是很知道喔。</p>
+                  <p>
+                    君不見黃河之水天上來，奔流到海不復回。 君不見高堂明鏡悲白髮，朝如青絲暮成雪。
+                    人生得意須盡歡，莫使金樽空對月。 天生我材必有用，千金散盡還復來。 烹羊宰牛且爲樂，會須一飲三百杯。
+                    岑夫子，丹丘生。將進酒，杯莫停。與君歌一曲，請君爲我側耳聽。 鐘鼓饌玉不足貴，但願長醉不願醒。
+                    古來聖賢皆寂寞，惟有飲者留其名。 陳王昔時宴平樂，斗酒十千恣讙謔。 主人何為言少錢？徑須沽取對君酌。
+                    五花馬，千金裘。呼兒將出換美酒，與爾同銷萬古愁。
+                  </p>
+                  <a href="">more</a>
+                </div>
+                <div class="news_date">2019-4-4</div>
+              </li>
+            </ul>
+            <ul class="pagination">
+              <a href="javascript:;">
+                <li class="go_back">
+                  <i class="fas fa-angle-left"></i>
+                </li>
+              </a>
+              <a href="javascript:;">
+                <li>1</li>
+              </a>
+              <a href="javascript:;">
+                <li class="go_ahead">
+                  <i class="fas fa-angle-right"></i>
+                </li>
+              </a>
+            </ul>
+          </li>
+          <li class="new_product" style="display: none">
+            <div class="content_title">新品上市<span>new product</span></div>
+            <ul class="new_product_content">
+              <li>
+                <div class="product_box">
+                  <div
+                    class="product_box_img"
+                    style="background-image:url(https://images.unsplash.com/photo-1515420023373-9b7d43d4feb9?w=1050);"
+                  ></div>
+                  <div class="type_tag">
+                    本日精選
+                  </div>
+                  <div class="favorite_icon">
+                    <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
+                    <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
+                  </div>
+                </div>
+                <div class="product_box_item">
+                  <div class="product_box_name">
+                    織進你心裡--白灰綠
+                  </div>
+                  <div class="product_box_dollar">
+                    NT$ 450
+                  </div>
+                </div>
+                <input class="add_btn" type="button" value="加入購物車" />
+              </li>
+              <li>
+                <div class="product_box">
+                  <div
+                    class="product_box_img"
+                    style="background-image:url(https://images.unsplash.com/photo-1495829002490-67b34d1730d5?w=1050);"
+                  ></div>
+                  <div class="type_tag">
+                    本日精選
+                  </div>
+                  <div class="favorite_icon">
+                    <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
+                    <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
+                  </div>
+                </div>
+                <div class="product_box_item">
+                  <div class="product_box_name">
+                    厭世羊
+                  </div>
+                  <div class="product_box_dollar">
+                    NT$ 450
+                  </div>
+                </div>
+                <input class="add_btn" type="button" value="加入購物車" />
+              </li>
+              <li>
+                <div class="product_box">
+                  <div
+                    class="product_box_img"
+                    style="background-image:url(https://images.unsplash.com/photo-1513890333407-6f85205e8ef2?w=1050);"
+                  ></div>
+                  <div class="type_tag">
+                    本日精選
+                  </div>
+                  <div class="favorite_icon">
+                    <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
+                    <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
+                  </div>
+                </div>
+                <div class="product_box_item">
+                  <div class="product_box_name">
+                    織進你心裡--白灰
+                  </div>
+                  <div class="product_box_dollar">
+                    NT$ 450
+                  </div>
+                </div>
+                <input class="add_btn" type="button" value="加入購物車" />
+              </li>
+              <li>
+                <div class="product_box">
+                  <div
+                    class="product_box_img"
+                    style="background-image:url(https://images.unsplash.com/photo-1511177946567-9d27572bd1bc?w=967);"
+                  ></div>
+                  <div class="type_tag">
+                    本日精選
+                  </div>
+                  <div class="favorite_icon">
+                    <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
+                    <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
+                  </div>
+                </div>
+                <div class="product_box_item">
+                  <div class="product_box_name">
+                    織進你心裡--白灰
+                  </div>
+                  <div class="product_box_dollar">
+                    NT$ 450
+                  </div>
+                </div>
+                <input class="add_btn" type="button" value="加入購物車" />
+              </li>
+              <li>
+                <div class="product_box">
+                  <div
+                    class="product_box_img"
+                    style="background-image:url(https://images.unsplash.com/photo-1486129273931-27820249c615?w=1050);"
+                  ></div>
+                  <div class="type_tag">
+                    本日精選
+                  </div>
+                  <div class="favorite_icon">
+                    <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
+                    <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
+                  </div>
+                </div>
+                <div class="product_box_item">
+                  <div class="product_box_name">
+                    織進你心裡--棕灰
+                  </div>
+                  <div class="product_box_dollar">
+                    NT$ 450
+                  </div>
+                </div>
+                <input class="add_btn" type="button" value="加入購物車" />
+              </li>
+            </ul>
+          </li>
+          <li class="our_story" style="display: none">
+            <div class="content_title">我們的故事<span>our story</span></div>
+            <ul>
+              <li class="story_content">
+                <div class="story_title sleep">
+                  <img src="./img/do_you_ever_sleep.svg" />
+                </div>
+                <div class="story_img sleep"></div>
+              </li>
+              <li class="story_content">
+                <div class="story_title no_sheep">
+                  <img src="./img/no_sheep.svg" />
+                </div>
+              </li>
+              <li class="story_content">
+                <div class="story_title another_sheep">
+                  <img src="./img/anotherText_add_word.svg" />
+                </div>
+                <div class="story_img another_sheep"></div>
+              </li>
+              <li class="story_content">
+                <div class="story_title reason">
+                  <img src="./img/story_text.svg" />
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <footer>
+      <div class="subscribe">
+        <div class="subscribe_header_title">
+          <p>喜歡的話，訂閱我吧!</p>
+        </div>
+        <div class="email_box">
+          <div class="email_icon"><i class="far fa-envelope"></i></div>
+          <input class="email" type="email" name="email" />
+          <button class="submit_btn" type="submit">
+            <div class="arrow_icon"><i class="fas fa-arrow-right "></i></div>
+          </button>
+        </div>
+      </div>
+      <div class="information">
+        <div class="information_left">
+          <p class="info_text">
+            07-1234-5678 <br />
+            GiveMeShhheep@email.com <br />
+            800 高雄市新興區幸福路 520 號
+          </p>
+          <div class="info_icon">
+            <a href="" class="icon"><i class="fab fa-line"></i></a>
+            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
+          </div>
+        </div>
+        <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
+        <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
+      </div>
+    </footer>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
