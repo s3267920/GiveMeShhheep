@@ -34,7 +34,7 @@ main {
   }
   @media screen and (min-width: 1200px) {
     .banner {
-      width: 80%;
+      width: 75%;
       min-height: 550px;
     }
   }
@@ -299,9 +299,64 @@ main {
         }
       }
     }
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 3%;
+      margin-top: 30px;
+
+      li {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: color(color_teal, dark);
+        width: 50px;
+        height: 50px;
+        background-color: color(other, white);
+        border: 1px solid color(color_gray, gray);
+        font-size: nth($font, 3);
+        &:hover {
+          background-color: color(color_teal, dark);
+          color: color(color_gray, white);
+        }
+      }
+
+      .go_back {
+        border-radius: 5px 0 0 5px;
+        &:hover {
+          color: color(color_gray, white);
+        }
+      }
+
+      .go_ahead {
+        border-radius: 0px 5px 5px 0;
+        &:hover {
+          color: color(color_gray, white);
+        }
+      }
+
+      .lastPage {
+        border-radius: 0px 5px 5px 0;
+      }
+
+      .firstPage {
+        border-radius: 5px 0 0 5px;
+      }
+
+      .currentPage {
+        color: color(color_gray, gray);
+        cursor: default;
+
+        &:hover {
+          background-color: color(other, white);
+          color: color(color_gray, gray);
+        }
+      }
+    }
   }
   @media screen and (min-width: 1200px) {
-    width: 80%;
+    width: 75%;
     .products_content_nav {
       margin-left: 0px;
       margin-right: 5%;
@@ -334,6 +389,10 @@ main {
           font-size: nth($font, 2);
         }
       }
+    }
+    .pagination {
+      margin-top: 10%;
+      margin-right: 0%;
     }
   }
   @media screen and (min-width: 1400px) {
