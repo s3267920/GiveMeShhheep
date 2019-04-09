@@ -21,6 +21,12 @@ $phone: 'max-width: 600px' !default;
     @content;
   }
 }
+@mixin addSelectImg {
+  border-radius: 0;
+  background-position: 90% 50%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
 
 @function color($color-style: other, $color-type: black) {
   @return map-get(map-get($colors, $color-style), $color-type);

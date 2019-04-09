@@ -1,0 +1,45 @@
+<div class="payment">
+  <div class="title">
+    <h4>付款</h4>
+    <div class="step_mark">
+      <div class="step_box">
+        <input type="radio" name="step1" id="step1" />
+        <label for="step1" class="finish "></label>
+      </div>
+      <span></span>
+      <div class="step_box">
+        <input type="radio" name="step2" checked id="step2" />
+        <label for="step2" class="step "></label>
+      </div>
+      <span></span>
+      <div class="step_box">
+        <input type="radio" name="step3" id="step3" />
+        <label for="step3" class="step"></label>
+      </div>
+    </div>
+  </div>
+  <div class="credit_card">
+    <label for="credit_num">信用卡卡號</label>
+    <input type="text" name="credit_num" id="credit_num" placeholder="9012-3456-7890-1234" />
+    <div class="personal_name" autocomplete>
+      <label for="Name">姓名</label>
+      <input type="text" id="name_first" placeholder="王" required autocomplete />
+      <input type="text" id="name_last" placeholder="小明" required autocomplete />
+    </div>
+    <div class="expiration">
+      <label>有效期限</label>
+      <select name="month" id="month" required>
+        <option value="month" disabled selected>月</option>
+      </select>
+      <select name="year" id="year">
+        <option value="year" class="year" disabled selected>年</option>
+      </select>
+    </div>
+    <label for="safe_num">背面末三碼</label>
+    <input type="text" id="safe_num" placeholder="123" />
+  </div>
+  <div class="change_btn">
+    <input class="back_btn" type="submit" value="上一步" />
+    <input class="next_btn" type="submit" value="下一步" />
+  </div>
+</div>

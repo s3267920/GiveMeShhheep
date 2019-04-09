@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Checkout 結帳</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="GiveMeShhheep" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="FB上的網址" />
+    <meta property="og:image" content="FB的圖片" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/checkout.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.0.2/dist/tw-city-selector.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav_hamburger">
+          <button class="hamburger_icon">
+            <div class="icon_box">
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+            </div>
+          </button>
+        </div>
+        <ul id="nav_bar">
+          <li><a href="../">首頁</a></li>
+          <li><a href="./products.html">產品</a></li>
+          <!-- <li class="login"><a href="">登入</a></li> -->
+        </ul>
+        <div class="logo">
+          <a href="/"><h1>GiveMeShhheep</h1></a>
+        </div>
+        <div class="personal">
+          <a class="user" href=""><i class="fas fa-user"></i></a>
+          <a class="cart" href=""><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </nav>
+    </header>
+    <main id="checkout_successful_content">
+      <div class=" success">
+        <div class="step_mark_done">
+          <div class="step_box">
+            <input type="radio" name="step1" id="step1" />
+            <label for="step1" class="finish "></label>
+          </div>
+          <span></span>
+          <div class="step_box">
+            <input type="radio" name="step2" id="step2" />
+            <label for="step2" class="finish "></label>
+          </div>
+          <span></span>
+          <div class="step_box">
+            <input type="radio" name="step3" id="step3" />
+            <label for="step3" class="finish"></label>
+          </div>
+        </div>
+        <div class="success_img"></div>
+      </div>
+      <a href="../html/products.html "><input class="return_btn" type="button " value="繼續逛逛"/></a>
+    </main>
+    <footer>
+      <div class="subscribe">
+        <div class="subscribe_header_title">
+          <p>喜歡的話，訂閱我吧!</p>
+        </div>
+        <div class="email_box">
+          <div class="email_icon"><i class="far fa-envelope"></i></div>
+          <input class="email" type="email" name="email" />
+          <button class="submit_btn" type="submit">
+            <div class="arrow_icon"><i class="fas fa-arrow-right "></i></div>
+          </button>
+        </div>
+      </div>
+      <div class="information">
+        <div class="information_left">
+          <p class="info_text">
+            07-1234-5678 <br />
+            GiveMeShhheep@email.com <br />
+            800 高雄市新興區幸福路 520 號
+          </p>
+          <div class="info_icon">
+            <a href="" class="icon"><i class="fab fa-line"></i></a>
+            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
+          </div>
+        </div>
+        <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
+        <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
+      </div>
+    </footer>
+    <script src=""></script>
+  </body>
+</html>

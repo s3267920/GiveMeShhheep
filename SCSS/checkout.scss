@@ -1,0 +1,760 @@
+@import '_style.scss';
+body {
+  background-color: color(other, white);
+}
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 5%;
+
+  @media screen and (min-width: 900px) {
+    flex-direction: row;
+    padding: 0 3%;
+  }
+  @media screen and (min-width: 1200px) {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 5%;
+  }
+  @media screen and (min-width: 1400px) {
+    width: 60%;
+  }
+}
+#checkout_form {
+  width: 100%;
+  margin-bottom: 5%;
+
+  @media screen and (min-width: 600px) {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 5%;
+  }
+  @media screen and (min-width: 900px) {
+    flex: 1.5;
+    width: 90%;
+  }
+}
+.shipping,
+.payment,
+.receipt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: color(color_teal, dark);
+  .title {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    h4 {
+      display: inline-flex;
+      font-size: nth($font, 5);
+      color: color(color_gray, white);
+      margin: 30px 40px;
+      margin-right: 0;
+      font-weight: 400;
+    }
+    .step_mark {
+      width: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: nowrap;
+      height: 22px;
+      vertical-align: text-bottom;
+      margin-right: 8.69%;
+      margin-left: auto;
+      .step_box {
+        display: inline-block;
+        position: relative;
+        input[type='radio'] {
+          position: relative;
+          z-index: 0;
+          opacity: 0;
+          + .step::after {
+            content: none;
+          }
+        }
+        input[checked] + .step::after {
+          content: '';
+        }
+        #step3 {
+          margin-right: 8.7%;
+        }
+        .step {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          z-index: 10;
+          top: -2px;
+          left: -4px;
+          height: 20px;
+          width: 20px;
+          border: 1px solid color(other, white);
+          border-radius: 50%;
+          //圓心
+          &::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: color(other, white);
+          }
+        }
+        .finish {
+          position: absolute;
+          z-index: 10;
+          top: -1px;
+          left: -3px;
+          height: 20px;
+          width: 20px;
+          border: 1px solid color(other, white);
+          border-radius: 50%;
+          background-color: color(other, white);
+          //打勾
+          &::after {
+            position: absolute;
+            content: '';
+            z-index: 30;
+            display: inline-block;
+            height: 7px;
+            width: 12px;
+            left: 2px;
+            top: 3px;
+            border-left: 3px solid color(other, black);
+            border-bottom: 3px solid color(other, black);
+            transform: rotate(-45deg);
+          }
+        }
+      }
+      > span {
+        display: inline-block;
+        width: 34.2%;
+        vertical-align: middle;
+        border-top: 2px solid color(other, white);
+        opacity: 0.5;
+      }
+    }
+  }
+  .personal_information,
+  .credit_card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    width: 85%;
+    label {
+      width: 49%;
+      color: color(color_teal, white);
+      font-size: nth($font, 3);
+      margin-bottom: 10px;
+    }
+    input,
+    select {
+      width: 49%;
+      height: 56px;
+      color: color(color_teal, dark);
+      background-color: color(color_gray, white);
+      padding-left: 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      &::placeholder {
+        color: color(color_teal, dark);
+        font-weight: 300;
+      }
+    }
+    .name {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      label,
+      input {
+        width: 48%;
+      }
+    }
+    #phone {
+      width: 100%;
+    }
+    .full_address,
+    .expiration {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      label {
+        display: flex;
+        width: 100%;
+      }
+      select {
+        display: inline-flex;
+        width: 49%;
+        margin-bottom: 10px;
+        appearance: none;
+        background-color: color(color_gray, white);
+        background-image: url(../img/arrow_down.svg);
+        @include addSelectImg;
+        background-size: 15px;
+      }
+      input {
+        width: 100%;
+      }
+    }
+  }
+  > .next_btn {
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    font-weight: 500;
+    color: color(color_teal, dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: nth($font, 4);
+    border: 1px solid color(color_yellow, dark);
+    outline: none;
+    background-color: color(color_yellow, main);
+    &:active {
+      box-shadow: 0 0 5px color(color_teal, dark050);
+    }
+  }
+}
+.payment .credit_card {
+  #credit_num {
+    width: 100%;
+    background-image: url(../img/payment.svg);
+    @include addSelectImg;
+    background-position: 95% 50%;
+    background-size: 30px;
+  }
+  .personal_name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      width: 100%;
+    }
+    input {
+      width: 49%;
+    }
+  }
+}
+.receipt {
+  .receipt_btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    input[type='button'] {
+      width: 50%;
+      height: 56px;
+      background-color: color(color_teal, dark);
+      color: color(color_gray, white);
+      border: 1px solid color(color_gray, white);
+      font-size: nth($font, 3);
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 2px color(color_gray, white);
+      }
+    }
+    a > .check {
+      background-color: color(color_gray, white);
+      color: color(color_teal, dark);
+    }
+  }
+  .tag_change {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 5%;
+    label {
+      width: 100%;
+      color: color(color_teal, white);
+      font-size: nth($font, 3);
+    }
+    input,
+    select {
+      width: 100%;
+      height: 56px;
+      color: color(color_teal, dark);
+      background-color: color(color_gray, white);
+      padding-left: 20px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      &::placeholder {
+        color: color(color_teal, dark);
+        font-weight: 300;
+      }
+    }
+    .for_mail {
+      width: 100%;
+      .full_address {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        select {
+          display: inline-flex;
+          width: 49%;
+          margin-bottom: 10px;
+          appearance: none;
+          background-color: color(color_gray, white);
+          background-image: url(../img/arrow_down.svg);
+          @include addSelectImg;
+          background-size: 15px;
+        }
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+.change_btn {
+  display: flex;
+  input {
+    cursor: pointer;
+    width: 50%;
+    height: 60px;
+    font-weight: 500;
+    color: color(color_teal, dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: nth($font, 4);
+    border: 1px solid color(color_teal, dark);
+    outline: none;
+    background-color: color(color_yellow, main);
+    &:active {
+      box-shadow: 0 0 5px color(color_teal, dark050);
+    }
+  }
+}
+.Info_list {
+  display: none;
+  @media screen and (min-width: 600px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 5%;
+    .orders {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: color(other, white);
+      margin-right: 10px;
+      border: 1px solid color(color_teal, gray25);
+      > h4 {
+        width: 100%;
+        font-size: nth($font, 4);
+        text-align: center;
+        height: 60px;
+        line-height: 60px;
+        color: color(color_teal, dark);
+        background-color: color(color_teal, gray25);
+      }
+      .orders_info {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 5%;
+        li {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: color(color_teal, gray);
+          height: 30px;
+          line-height: 30px;
+          font-weight: 300;
+        }
+        .total_title {
+          font-size: nth($font, 3);
+          font-weight: 400;
+          color: color(color_teal, deepTeal);
+          margin-top: 10px;
+        }
+      }
+      .cart_list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 5% 0;
+        border-bottom: 1px solid color(color_gray, light);
+        box-sizing: border-box;
+        &:last-of-type {
+          border-bottom: none;
+        }
+      }
+    }
+    .shopping_list {
+      display: flex;
+      flex: 1.5;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: color(other, white);
+      border: 1px solid color(color_teal, gray25);
+      > h4 {
+        width: 100%;
+        font-size: nth($font, 4);
+        text-align: center;
+        height: 60px;
+        line-height: 60px;
+        color: color(color_teal, dark);
+        background-color: color(color_teal, gray25);
+      }
+      ul {
+        width: 90%;
+      }
+      .order_list {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5% 0;
+        border-bottom: 1px solid color(color_gray, light);
+        box-sizing: border-box;
+        &:last-of-type {
+          border-bottom: none;
+        }
+        .order_list_img {
+          width: 30%;
+          width: 120px;
+          height: 100px;
+          background-size: cover;
+          background-position: center;
+          margin-right: 5%;
+        }
+        .order_list_product_item {
+          width: 60%;
+          color: color(color_teal, gray);
+          font-weight: 300;
+          p {
+            margin-bottom: 5%;
+          }
+          .order_list_total_price {
+            font-weight: 400;
+            font-size: nth($font, 3);
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 3%;
+    .orders {
+      margin-bottom: 5%;
+
+      .orders_info {
+        padding: 5%;
+      }
+    }
+  }
+  @media screen and (min-width: 1400px) {
+    margin-left: 5%;
+    .orders {
+      margin-right: 0;
+    }
+  }
+}
+
+#checkout_successful_content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 460px;
+  margin: 0 auto;
+  background-image: url(https://images.unsplash.com/photo-1513890333407-6f85205e8ef2?w=1050);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-bottom: 60px;
+  .success {
+    width: 100%;
+    margin: 0 auto;
+    .step_mark_done {
+      width: 200px;
+      margin-left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      height: 22px;
+      .step_box {
+        display: inline-block;
+        position: relative;
+        input[type='radio'] {
+          position: relative;
+          z-index: 1;
+          opacity: 0;
+          + .step::after {
+            content: none;
+          }
+        }
+        .step {
+          position: absolute;
+          z-index: 10;
+          top: 0;
+          left: -3px;
+          height: 20px;
+          width: 20px;
+          border: 1px solid color(color_teal, dark);
+          border-radius: 50%;
+          &::before {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            border: 1px solid color(color_teal, dark);
+            border-radius: 50%;
+            top: -1px;
+            left: -1px;
+            opacity: 0.5;
+          }
+          //圓心
+          &::after {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            top: 2px;
+            left: 2px;
+            border-radius: 50%;
+            background-color: color(color_teal, dark);
+          }
+        }
+        .finish {
+          position: absolute;
+          z-index: 10;
+          top: 0;
+          left: -3px;
+          height: 20px;
+          width: 20px;
+          border: 1px solid color(color_teal, dark);
+          border-radius: 50%;
+          background-color: color(color_teal, dark);
+          &::before {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            border: 1px solid color(color_teal, dark);
+            border-radius: 50%;
+            top: -1px;
+            left: -1px;
+            opacity: 0.5;
+          }
+          //打勾
+          &::after {
+            position: absolute;
+            content: '';
+            z-index: 30;
+            display: inline-block;
+            height: 8px;
+            width: 13px;
+            left: 2px;
+            top: 3px;
+            border-left: 2px solid color(color_gray, white);
+            border-bottom: 2px solid color(color_gray, white);
+            transform: rotate(-45deg);
+          }
+        }
+      }
+      > span {
+        display: inline-block;
+        width: 34.2%;
+        vertical-align: middle;
+        border-top: 1px solid color(color_teal, dark);
+        opacity: 0.5;
+      }
+    }
+    .success_img {
+      width: 190px;
+      height: 46px;
+      background-image: url(../img/successful_text.svg);
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      margin-top: 8%;
+      margin-bottom: 50px;
+    }
+  }
+
+  a {
+    width: 100%;
+    position: absolute;
+    bottom: -60px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    .return_btn {
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+      height: 65px;
+      border: none;
+      background-color: color(color_yellow, main);
+      color: color(color_teal, dark);
+      font-size: nth($font, 4);
+      font-weight: 600;
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 2px color(color_teal, dark);
+      }
+    }
+  }
+  @media screen and (min-width: 600px) {
+    margin-bottom: 0;
+    a {
+      position: relative;
+      bottom: 0;
+      .return_btn {
+        width: 300px;
+      }
+    }
+  }
+  @media screen and (min-width: 900px) {
+    width: 80%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+  }
+  @media screen and (min-width: 1200px) {
+    height: 550px;
+  }
+  @media screen and (min-width: 1400px) {
+    width: 70%;
+    height: 700px;
+    .success {
+      width: 100%;
+      margin: 0 auto;
+      .step_mark_done {
+        width: 200px;
+        margin-left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        height: 22px;
+        .step_box {
+          display: inline-block;
+          position: relative;
+          input[type='radio'] {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            + .step::after {
+              content: none;
+            }
+          }
+          .step {
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            left: -3px;
+            height: 20px;
+            width: 20px;
+            border: 1px solid color(color_teal, dark);
+            border-radius: 50%;
+            &::before {
+              position: absolute;
+              content: '';
+              display: inline-block;
+              height: 20px;
+              width: 20px;
+              border: 1px solid color(color_teal, dark);
+              border-radius: 50%;
+              top: -1px;
+              left: -1px;
+              opacity: 0.5;
+            }
+            //圓心
+            &::after {
+              position: absolute;
+              content: '';
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              top: 2px;
+              left: 2px;
+              border-radius: 50%;
+              background-color: color(color_teal, dark);
+            }
+          }
+          .finish {
+            position: absolute;
+            z-index: 10;
+            top: -3px;
+            left: -3px;
+            height: 25px;
+            width: 25px;
+            border: 1px solid color(color_teal, dark);
+            border-radius: 50%;
+            background-color: color(color_teal, dark);
+            &::before {
+              height: 20px;
+              width: 20px;
+              top: -1px;
+              left: -1px;
+            }
+            //打勾
+            &::after {
+              height: 8px;
+              width: 13px;
+              left: 5px;
+              top: 5px;
+              border-left: 3px solid color(color_gray, white);
+              border-bottom: 3px solid color(color_gray, white);
+            }
+          }
+        }
+        > span {
+          position: relative;
+          top: 3px;
+          border-top: 2px solid color(color_teal, dark);
+        }
+      }
+      .success_img {
+        width: 250px;
+        height: 60px;
+        background-image: url(../img/successful_text.svg);
+        background-repeat: no-repeat;
+        margin: 0 auto;
+        margin-top: 5%;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}

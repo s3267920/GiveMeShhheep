@@ -30,13 +30,12 @@ main {
       width: 100%;
       min-height: 560px;
       margin-top: 5%;
-      margin-bottom: 5%;
     }
   }
   @media screen and (min-width: 1200px) {
     .banner {
-      width: 85%;
-      min-height: 500px;
+      width: 80%;
+      min-height: 550px;
     }
   }
 }
@@ -269,6 +268,10 @@ main {
       width: 80%;
       margin: 0 auto;
       margin-left: 20px;
+      > ul li {
+        height: 50px;
+        line-height: 50px;
+      }
     }
     .product_list {
       flex: 2;
@@ -298,7 +301,7 @@ main {
     }
   }
   @media screen and (min-width: 1200px) {
-    width: 85%;
+    width: 80%;
     .products_content_nav {
       margin-left: 0px;
       margin-right: 5%;
