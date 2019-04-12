@@ -53,7 +53,6 @@ main {
   .banner_card {
     width: 100%;
     box-sizing: border-box;
-
     ul {
       display: flex;
       justify-content: center;
@@ -101,9 +100,15 @@ main {
         font-weight: 500;
       }
     }
+    .on_card {
+      background-color: color(color_yellow, main);
+      color: color(color_teal, dark);
+      font-weight: 500;
+    }
   }
+
   .split_line {
-    margin: 6% 0;
+    margin-top: 6%;
   }
   @media screen and (min-width: 600px) {
     .banner {
@@ -196,12 +201,13 @@ main {
       );
       background-size: 18px 2px;
       background-repeat: repeat-x;
+      margin: 6% 0;
     }
   }
   @media screen and (min-width: 1200px) {
     .banner {
-      width: 70%;
-      min-height: 600px;
+      width: 80%;
+      min-height: 500px;
       .banner_img_toggle_icon {
         .left_icon {
           left: 50px;
@@ -218,6 +224,11 @@ main {
       width: 70%;
       height: 3px;
       background-size: 18px 3px;
+    }
+  }
+  @media screen and (min-width: 1400px) {
+    .banner {
+      min-height: 600px;
     }
   }
 }
@@ -242,7 +253,7 @@ main {
     flex-direction: column;
     font-weight: 400;
     letter-spacing: 2px;
-    margin-bottom: 12%;
+    margin-bottom: 6%;
     span {
       font-family: 'PT Mono';
       margin-top: 5px;
@@ -270,6 +281,7 @@ main {
       justify-content: center;
       align-items: center;
       width: 100%;
+
       li {
         display: flex;
         flex-direction: column;
@@ -278,6 +290,7 @@ main {
         width: 95%;
         box-sizing: border-box;
         margin-bottom: 30px;
+        border-radius: 5px 5px 0 0;
         box-shadow: 0 5px 5px color(color_gray, dark);
         > div {
           display: flex;
@@ -290,6 +303,7 @@ main {
             margin-right: auto;
             line-height: 25px;
             margin-top: 10px;
+            text-indent: 25px;
           }
           a {
             margin-top: 30px;
@@ -303,10 +317,12 @@ main {
       }
       .news_type {
         height: 30px;
-        background-color: color(news, announcement);
+        background-color: color(news, style);
+        // background-color: color(ort, );
         color: color(color_teal, dark);
         font-weight: 600;
         letter-spacing: 10px;
+        border-radius: 5px 5px 0 0;
       }
       .news_title {
         height: 50px;
@@ -316,7 +332,7 @@ main {
       }
       .news {
         background-color: color(other, white);
-        padding: 30px;
+        padding: 20px;
         color: color(color_teal, dark);
       }
       .news_date {
@@ -534,6 +550,15 @@ main {
       }
     }
   }
+  .announcement {
+    color: color(news, announcement) !important;
+  }
+  .newListing {
+    color: color(news, newListing) !important;
+  }
+  .activity {
+    color: color(news, activity) !important;
+  }
   @media screen and (min-width: 600px) {
     margin-bottom: 6%;
 
@@ -639,10 +664,20 @@ main {
         top: 0;
         background-color: color(color_teal, dark);
         border-radius: 10px 10px 0 0;
+        .news_modal_style {
+          height: 30px;
+          position: absolute;
+          left: 20px;
+          line-height: 30px;
+          font-size: nth($font, 3);
+          letter-spacing: 5px;
+          border-radius: 5px;
+        }
         .news_modal_title {
           font-size: nth($font, 4);
           letter-spacing: 10px;
         }
+
         .close {
           position: absolute;
           top: 20px;
@@ -661,21 +696,29 @@ main {
         display: flex;
         flex-direction: column;
         padding: 20px;
+
         .news_date {
           display: flex;
           justify-content: flex-end;
+          align-items: flex-end;
           width: 100%;
           margin-top: 20px;
           color: color(color_gray, dark);
         }
         .news_text {
           display: flex;
-          overflow-x: scroll;
+          flex-direction: column;
+          overflow: hidden;
+          overflow-y: auto;
           height: 100%;
           padding: 20px;
           border-radius: 10px 10px 0 0;
+          text-indent: 20px;
           background-color: color(other, white);
           color: color(color_teal, dark);
+          p {
+            margin-bottom: 5px;
+          }
         }
       }
     }
@@ -694,7 +737,6 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: -6%;
         box-sizing: border-box;
         tbody {
           width: 90%;
@@ -713,7 +755,7 @@ main {
             margin-right: auto;
             height: 40px;
             background-color: #fff;
-            background-color: color(news, announcement);
+            background-color: color(news, style);
             color: color(color_teal, dark);
             letter-spacing: 5px;
             padding-left: 15px;
@@ -742,15 +784,6 @@ main {
         .news_type_head,
         .news_type {
           width: 10%;
-          &.announcement {
-            color: color(news, announcement_table);
-          }
-          &.newListing {
-            color: color(news, newListing);
-          }
-          &.activity {
-            color: color(news, activity);
-          }
         }
         .news_title_head,
         .news_title {
@@ -804,12 +837,18 @@ main {
       }
     }
     .our_story {
+      > ul {
+        margin-top: 10%;
+      }
       .story_content {
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-around;
-        margin-bottom: 8%;
+        margin-bottom: 10%;
         height: 300px;
+        &:last-of-type {
+          margin-bottom: 0;
+        }
       }
       .story_title {
         width: 40%;
@@ -852,10 +891,10 @@ main {
     .content_title {
       width: 80%;
       font-size: nth($font, 4);
-      height: 150px;
+      height: 120px;
     }
     .content_box {
-      width: 80%;
+      width: 85%;
       margin: auto;
     }
     .latest_news {
@@ -896,7 +935,7 @@ main {
         flex-direction: row-reverse;
         justify-content: space-around;
         margin: auto;
-        margin-bottom: 8%;
+        margin-bottom: 10%;
         border-radius: 10px;
         height: 300px;
       }
@@ -936,6 +975,11 @@ main {
           background-size: 120%;
         }
       }
+    }
+  }
+  @media screen and (min-width: 1400px) {
+    .content_title {
+      height: 150px;
     }
   }
 }

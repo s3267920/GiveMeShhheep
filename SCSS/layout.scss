@@ -120,6 +120,19 @@ header {
       color: color(color_yellow, dark);
     }
   }
+  .cart > .cart_store {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    font-size: nth($font, 1);
+    position: relative;
+    bottom: -2px;
+    color: color(color_yellow, dark);
+    border-radius: 50%;
+    background-color: color(color_teal, dark);
+  }
   .user {
     margin-right: 10px;
   }
@@ -179,6 +192,22 @@ header {
       border-radius: 50%;
       font-size: nth($font, 3);
       background-color: color(other, white);
+    }
+    .cart {
+      position: relative;
+      .cart_store {
+        position: absolute;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: nth($font, 1);
+        width: 18px;
+        height: 18px;
+        right: -1px;
+        bottom: -1px;
+        color: color(color_teal, dark);
+        background-color: color(color_yellow, main);
+      }
     }
   }
   @media screen and (min-width: 900px) {
