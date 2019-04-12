@@ -271,6 +271,40 @@ header {
     }
   }
 }
+main {
+  .fixed_cart {
+    position: fixed;
+    right: 5px;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: nth($font, 3);
+    background-color: color(other, white);
+    color: color(color_teal, dark);
+    box-shadow: 0 2px 5px color(color_gray, gray);
+    i {
+      padding: 10px 5px;
+    }
+    .fixed_cart_store {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: nth($font, 2);
+      font-weight: 500;
+      border-radius: 0 0 5px 5px;
+      width: 100%;
+      height: 20px;
+      margin-top: auto;
+      color: color(color_teal, dark);
+      background-color: color(color_yellow, dark);
+    }
+  }
+}
 footer {
   width: 100%;
   display: flex;
