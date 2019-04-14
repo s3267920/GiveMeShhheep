@@ -273,6 +273,7 @@ header {
 }
 main {
   .fixed_cart {
+    z-index: 999;
     position: fixed;
     right: 5px;
     top: 50%;
@@ -468,5 +469,31 @@ footer {
         }
       }
     }
+  }
+}
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes bannerImg {
+  0% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  55% {
+    background-position: center;
+  }
+  100% {
+    opacity: 1;
   }
 }

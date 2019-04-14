@@ -15,7 +15,6 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <!-- <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="./style/layout.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="./style/index.min.css" />
   </head>
@@ -41,25 +40,25 @@
         </div>
         <div class="personal">
           <a class="user" href=""><i class="fas fa-user"></i></a>
-          <a class="cart" href="./html/cart.html"><i class="fas fa-shopping-cart"></i><span class="cart_store">2</span></a>
+          <a class="cart" href="./html/cart.html"><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a>
         </div>
       </nav>
     </header>
     <main>
-        <a class="fixed_cart" href="./html/cart.html"><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store">2</span></a>
+        <a class="fixed_cart" href="./html/cart.html"><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store" id="fixed_cart_store">0</span></a>
       <div
         class="banner"
-        style="background-image: url(https://images.unsplash.com/photo-1510083065545-d2d4e6193747?w=1050);"
       >
+      <!-- style="background-image: url(https://images.unsplash.com/photo-1510083065545-d2d4e6193747?w=1800);" -->
         <div class="banner_img_toggle_icon">
           <a href="javascript:;" class="left_icon"><i class="fas fa-chevron-left"></i></a>
           <a href="javascript:;" class="right_icon"><i class="fas fa-chevron-right"></i></a>
         </div>
         <div class="banner_img_toggle_box">
+          <!-- <span></span>
           <span></span>
           <span></span>
-          <span></span>
-          <span></span>
+          <span></span> -->
         </div>
       </div>
       <div class="banner_card">
@@ -78,9 +77,8 @@
       <div class="split_line"></div>
 
       <div class="content">
-          <div class="news_modal"style="display: none" >
-              <!-- style="display: none" -->
-              <div class="news_modal_box">
+          <div class="news_modal "style="display: none" >
+              <div class="news_modal_box slideDown">
                 <div class="news_modal_header">
                     <div class="news_modal_style">
                         公告
@@ -97,11 +95,10 @@
                     </div>
                     <div class="news_date">發布日期：<span>2019-1-10</span></div>
                   </div>
-              </div>
-            
+              </div>          
             </div>
         <ul class="content_box">
-          <li class="latest_news" id="latest_news_content" style="display: none">
+          <li class="latest_news" id="latest_news_content" >
             <div class="content_title">最新消息<span>latest news</span></div>
             <table class="news_content_table">
               <tr>
@@ -200,9 +197,9 @@
               </a>
             </ul>
           </li>
-          <li class="new_product" id="new_product_content" >
+          <li class="new_product" id="new_product_content"  style="display: none">
             <div class="content_title">新品上市<span>new product</span></div>
-            <ul class="new_product_content">
+            <ul class="new_product_content ">
               <!-- <li>
                 <div class="product_box">
                   <div
@@ -376,8 +373,8 @@
             800 高雄市新興區幸福路 520 號
           </p>
           <div class="info_icon">
-            <a href="" class="icon"><i class="fab fa-line"></i></a>
-            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
+            <a href="javascript:;" class="icon" onclick="alert('目前沒有line')"><i class="fab fa-line"></i></a>
+            <a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
         <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>

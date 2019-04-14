@@ -12,10 +12,76 @@ main {
     min-height: 242px;
     background-size: cover;
     background-position: center;
+    background-color: color(color_gray, main);
     position: relative;
     margin-top: 8%;
+    overflow: hidden;
+
+    .banner_img {
+      position: absolute;
+      display: none;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      top: 0;
+      left: 0;
+    }
+    .next_img {
+      display: flex;
+      opacity: 1;
+      z-index: 1;
+      object-position: 0 0;
+    }
+    .bannerImgFadeIn {
+      display: flex;
+      opacity: 1;
+      z-index: 55;
+      object-fit: cover;
+      animation-name: bannerImgFadeIn;
+      animation-duration: 9s;
+      @keyframes bannerImgFadeIn {
+        0% {
+          visibility: visible;
+          opacity: 1;
+          object-position: 0 0;
+          transition: object-position 5s transform 3s;
+        }
+        80% {
+          opacity: 1;
+          object-position: center;
+        }
+        100% {
+          opacity: 0;
+          object-position: center;
+        }
+      }
+    }
+    .bannerImgPauseFadeIn {
+      display: flex;
+      opacity: 1;
+      z-index: 55;
+      object-fit: cover;
+      animation-name: bannerImgPauseFadeIn;
+      animation-duration: 9s;
+      @keyframes bannerImgPauseFadeIn {
+        0% {
+          visibility: visible;
+          opacity: 1;
+          object-position: 0 0;
+          transition: object-position 5s transform 3s;
+        }
+        100% {
+          opacity: 1;
+          object-position: center;
+        }
+      }
+    }
+
     .banner_img_toggle_icon {
       a {
+        z-index: 99;
         position: absolute;
         font-size: nth($font, 3);
         opacity: 0.5;
@@ -37,15 +103,25 @@ main {
     .banner_img_toggle_box {
       display: flex;
       position: absolute;
+      z-index: 99;
       bottom: 4%;
       right: 4%;
       span {
+        cursor: pointer;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: color(color_teal, dark);
         width: 20px;
         height: 20px;
         margin-right: 5px;
         border-radius: 50%;
-        background-color: #fff;
-        display: inline-flex;
+        font-weight: 500;
+        background-color: color(other, white);
+        &:hover {
+          // background-color: color(other, white);
+          background-color: color(color_yellow, white);
+        }
       }
     }
   }
@@ -136,16 +212,6 @@ main {
           right: 30px;
         }
       }
-      .banner_img_toggle_box {
-        span {
-          width: 20px;
-          height: 20px;
-          margin-right: 5px;
-          border-radius: 50%;
-          background-color: #fff;
-          display: inline-flex;
-        }
-      }
     }
     .banner_card {
       width: 100%;
@@ -163,7 +229,7 @@ main {
       width: 100%;
       min-height: 560px;
       margin-top: 5%;
-      margin-bottom: 5%;
+      margin-bottom: 4%;
       .banner_img_toggle_box {
         span {
           width: 30px;
@@ -201,12 +267,12 @@ main {
       );
       background-size: 18px 2px;
       background-repeat: repeat-x;
-      margin: 6% 0;
+      margin: 4% 0;
     }
   }
   @media screen and (min-width: 1200px) {
     .banner {
-      width: 80%;
+      width: 75%;
       min-height: 500px;
       .banner_img_toggle_icon {
         .left_icon {
@@ -253,7 +319,7 @@ main {
     flex-direction: column;
     font-weight: 400;
     letter-spacing: 2px;
-    margin-bottom: 6%;
+    margin-bottom: 4%;
     span {
       font-family: 'PT Mono';
       margin-top: 5px;
@@ -560,7 +626,7 @@ main {
     color: color(news, activity) !important;
   }
   @media screen and (min-width: 600px) {
-    margin-bottom: 6%;
+    margin-bottom: 4%;
 
     .content_title {
       font-size: nth($font, 3);
@@ -653,6 +719,20 @@ main {
         background-color: color(color_gray, light);
         color: color(other, white);
         border-radius: 10px 10px 0 0;
+        animation-name: modalSlideDown;
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+        @keyframes modalSlideDown {
+          0% {
+            height: 0;
+            transform: translateY(-50%);
+          }
+          100% {
+            height: 600px;
+            transition: height 0.5s;
+            transform: translateY(0);
+          }
+        }
       }
       .news_modal_header {
         width: 100%;
