@@ -206,24 +206,24 @@
     }
     //div
     let newsContentUl = document.querySelector('.news_content');
-    for (let i = 0; i < data.length; i++) {
-      let time = new Date(data[i].date.seconds * 1000);
+    data.forEach(newData => {
+      let time = new Date(newData.date.seconds * 1000);
       let currentDate = `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
       let newLi = document.createElement('li');
-      liContent = `<div class="news_type ${styleColor(data[i].style)}">
-      ${data[i].style}
+      liContent = `<div class="news_type ${styleColor(newData.style)}">
+      ${newData.style}
   </div>
-  <div class="news_title" data-index='${data[i].index}'>${data[i].title}</div>
+  <div class="news_title" data-index='${newData.index}'>${newData.title}</div>
   <div class="news">
-    <p>${data[i].content.length > 100 ? data[i].content.slice(0, 100) + '...' : data[i].content}</p>
-    <a href="javascript:;"  data-index='${data[i].index}' style="display:${
-        data[i].content.length > 100 ? 'flex' : 'none'
+    <p>${newData.content.length > 100 ? newData.content.slice(0, 100) + '...' : newData.content}</p>
+    <a href="javascript:;"  data-index='${newData.index}' style="display:${
+        newData.content.length > 100 ? 'flex' : 'none'
       }">more</a>
   </div>
   <div class="news_date">${currentDate}</div>`;
       newLi.innerHTML += liContent;
       newsContentUl.appendChild(newLi);
-    }
+    });
     newsContentUl.addEventListener('click', e => {
       let index = e.target.dataset.index;
       if (e.target && e.target.textContent === 'more') {

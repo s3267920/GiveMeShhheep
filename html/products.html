@@ -15,7 +15,7 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css" />
+    <!-- <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../style/products.min.css" />
   </head>
@@ -41,176 +41,45 @@
         </div>
         <div class="personal">
           <a class="user" href=""><i class="fas fa-user"></i></a>
-          <a class="cart" href="./html/cart.html"
-            ><i class="fas fa-shopping-cart"></i><span class="cart_store">2</span></a
+          <a class="cart" href="./cart.html"
+            ><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a
           >
         </div>
       </nav>
     </header>
     <main>
-      <a class="fixed_cart" href="./html/cart.html"
-        ><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store">2</span></a
+      <a class="fixed_cart" href="./cart.html"
+        ><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store" id="fixed_cart_store">0</span></a
       >
       <div
         class="banner"
-        style="background-image: url(https://images.unsplash.com/photo-1510083065545-d2d4e6193747?w=1050);"
+        style="background-image: url(https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1050);"
       ></div>
       <div class="products_content">
         <nav class="products_content_nav">
-          <ul>
+          <ul id="products_content_ul">
             <li class="list_title">類別</li>
             <li class="all_product selected">
               <div class="all_product_item">
                 <a href="javascript:;">所有產品（<span>48</span>）</a>
-                <a href="javascript:;" class="more_item"> <i class="fas fa-plus"></i></a>
+                <a href="javascript:;" class="more_item"> <i id="more_item" class="fas fa-plus"></i></a>
               </div>
-              <ul class="all_product_item_list" style="display: none;">
-                <li><a href="javascript:;">織進你心裡（<span>3</span>）</a></li>
-                <li><a href="javascript:;">羊羊系列（<span>2</span>）</a></li>
-              </ul>
+              <ul class="all_product_item_list" style="display: none"></ul>
             </li>
-            <li><a href="">本日精選（<span>10</span>）</a></li>
-            <li><a href="">人氣推薦（<span>26</span>）</a></li>
-            <li><a href="">新品上市（<span>12</span>）</a></li>
+            <!-- <li id="product_of_the_day"><a href="javascript:;">本日精選（<span>10</span>）</a></li>
+            <li id="popular"><a href="javascript:;">人氣推薦（<span>26</span>）</a></li>
+            <li id="new_product"><a href="javascript:;">新品上市（<span>12</span>）</a></li> -->
           </ul>
         </nav>
         <div class="product_list">
-          <ul class="product_list_content">
-            <li>
-              <div class="product_box">
-                <div
-                  class="product_box_img"
-                  style="background-image:url(https://images.unsplash.com/photo-1515420023373-9b7d43d4feb9?w=1050);"
-                ></div>
-                <div class="type_tag">
-                  本日精選
-                </div>
-                <div class="favorite_icon">
-                  <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
-                  <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
-                </div>
-              </div>
-              <div class="product_box_item">
-                <div class="product_box_name">
-                  織進你心裡--白灰綠
-                </div>
-                <div class="product_box_dollar">
-                  NT$ 450
-                </div>
-              </div>
-              <input class="add_btn" type="button" value="加入購物車" />
-            </li>
-            <li>
-              <div class="product_box">
-                <div
-                  class="product_box_img"
-                  style="background-image:url(https://images.unsplash.com/photo-1495829002490-67b34d1730d5?w=1050);"
-                ></div>
-                <div class="type_tag">
-                  本日精選
-                </div>
-                <div class="favorite_icon">
-                  <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
-                  <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
-                </div>
-              </div>
-              <div class="product_box_item">
-                <div class="product_box_name">
-                  厭世羊
-                </div>
-                <div class="product_box_dollar">
-                  NT$ 450
-                </div>
-              </div>
-              <input class="add_btn" type="button" value="加入購物車" />
-            </li>
-            <li>
-              <div class="product_box">
-                <div
-                  class="product_box_img"
-                  style="background-image:url(https://images.unsplash.com/photo-1513890333407-6f85205e8ef2?w=1050);"
-                ></div>
-                <div class="type_tag">
-                  本日精選
-                </div>
-                <div class="favorite_icon">
-                  <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
-                  <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
-                </div>
-              </div>
-              <div class="product_box_item">
-                <div class="product_box_name">
-                  織進你心裡--白灰
-                </div>
-                <div class="product_box_dollar">
-                  NT$ 450
-                </div>
-              </div>
-              <input class="add_btn" type="button" value="加入購物車" />
-            </li>
-            <li>
-              <div class="product_box">
-                <div
-                  class="product_box_img"
-                  style="background-image:url(https://images.unsplash.com/photo-1511177946567-9d27572bd1bc?w=967);"
-                ></div>
-                <div class="type_tag">
-                  本日精選
-                </div>
-                <div class="favorite_icon">
-                  <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
-                  <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
-                </div>
-              </div>
-              <div class="product_box_item">
-                <div class="product_box_name">
-                  織進你心裡--白灰
-                </div>
-                <div class="product_box_dollar">
-                  NT$ 450
-                </div>
-              </div>
-              <input class="add_btn" type="button" value="加入購物車" />
-            </li>
-            <li>
-              <div class="product_box">
-                <div
-                  class="product_box_img"
-                  style="background-image:url(https://images.unsplash.com/photo-1486129273931-27820249c615?w=1050);"
-                ></div>
-                <div class="type_tag">
-                  本日精選
-                </div>
-                <div class="favorite_icon">
-                  <a href="" class="favorite_icon_off"><i class="far fa-heart"></i></a>
-                  <a href="" class="favorite_icon_on" style="display:none"><i class="fas fa-heart"></i></a>
-                </div>
-              </div>
-              <div class="product_box_item">
-                <div class="product_box_name">
-                  織進你心裡--棕灰
-                </div>
-                <div class="product_box_dollar">
-                  NT$ 450
-                </div>
-              </div>
-              <input class="add_btn" type="button" value="加入購物車" />
-            </li>
-          </ul>
+          <ul class="product_list_content"></ul>
           <ul class="pagination">
-            <a href="javascript:;">
-              <li class="go_back">
-                <i class="fas fa-angle-left"></i>
-              </li>
-            </a>
-            <a href="javascript:;">
-              <li>1</li>
-            </a>
-            <a href="javascript:;">
-              <li class="go_ahead">
-                <i class="fas fa-angle-right"></i>
-              </li>
-            </a>
+            <li class="go_back">
+              <a href="javascript:;" class="go_back"><i id="go_back" class="fas fa-angle-left"></i></a>
+            </li>
+            <li class="go_ahead">
+              <a href="javascript:;" class="go_ahead"> <i id="go_ahead" class="fas fa-angle-right"></i> </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -236,14 +105,18 @@
             800 高雄市新興區幸福路 520 號
           </p>
           <div class="info_icon">
-            <a href="" class="icon"><i class="fab fa-line"></i></a>
-            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
+            <a href="javascript:;" class="icon" onclick="alert('目前沒有line')"><i class="fab fa-line"></i></a>
+            <a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
         <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
         <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
       </div>
     </footer>
-    <script src="/js/index.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/products.js"></script>
   </body>
 </html>
