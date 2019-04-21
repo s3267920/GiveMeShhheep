@@ -1,13 +1,5 @@
 (function() {
-  //firebase init
-  let config = {
-    apiKey: 'AIzaSyCSb1bfu4cMXGkW15bxOa17RQTsiB9DbT4',
-    authDomain: 'givemeshhheep.firebaseapp.com',
-    databaseURL: 'https://givemeshhheep.firebaseio.com',
-    projectId: 'givemeshhheep'
-  };
-  firebase.initializeApp(config);
-  let db = firebase.firestore();
+  let db = firebase;
 
   //banner
   function bannerHandler() {
@@ -162,7 +154,8 @@
   //最新消息
   function getNewsData() {
     let newsData = [];
-    db.collection('news')
+    db.firestore()
+      .collection('news')
       .orderBy('index', 'asc')
       .get()
       .then(querySnapshot => {
@@ -280,12 +273,45 @@
       newsModal.style.display = 'none';
     });
   }
-  getNewsData();
-  //新品上市
 
+  //新品上市
+  let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+  let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+  window.addEventListener('load', () => {
+    const user = db.auth().currentUser;
+    if (user) {
+      db.firestore()
+        .collection('customersUser')
+        .doc(user.uid)
+        .get()
+        .then(doc => {
+          if (doc.data().cartList) {
+            cartProduct = doc.data().cartList || [];
+          } else {
+            db.firestore()
+              .collection('customersUser')
+              .doc(user.uid)
+              .update({ cartList: cartProduct });
+          }
+          if (doc.data().favoriteList) {
+            favoriteList = doc.data().favoriteList || [];
+          } else {
+            db.firestore()
+              .collection('customersUser')
+              .doc(user.uid)
+              .update({ favoriteList: favoriteList });
+          }
+        });
+    } else {
+      favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+      cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+    }
+    getNewsData();
+  });
   function getNewProducts() {
     let productData = [];
-    db.collection('user')
+    db.firestore()
+      .collection('user')
       .doc('lEhSHeJpNKf6h58s7t2q5URBgDm2')
       .collection('product')
       .orderBy('productIndex', 'asc')
@@ -315,8 +341,7 @@
         newProductHandler(productData);
       });
   }
-  let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
-  let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+
   function newProductHandler(data) {
     let newProductContent = document.querySelector('.new_product_content');
     let content = '';

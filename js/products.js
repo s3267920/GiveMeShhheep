@@ -1,16 +1,10 @@
 (function() {
-  //firebase init
-  let config = {
-    apiKey: 'AIzaSyCSb1bfu4cMXGkW15bxOa17RQTsiB9DbT4',
-    authDomain: 'givemeshhheep.firebaseapp.com',
-    databaseURL: 'https://givemeshhheep.firebaseio.com',
-    projectId: 'givemeshhheep'
-  };
-  firebase.initializeApp(config);
-  let db = firebase.firestore();
+  let db = firebase;
   let page = location.search.split('page=')[1] ? Number(location.search.split('page=')[1].split('&')[0]) : 1;
   let type = location.search.split('type=')[1] ? location.search.split('type=')[1].split('&')[0] : 'all';
   let series = location.search.split('series=')[1] ? location.search.split('series=')[1].split('&')[0] : '';
+  let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+  let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
   //使用 form 來做 httpParams
   //參考 https://stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
   //參考 https://pjchender.blogspot.com/2016/06/javascript-for-in-function.html
@@ -31,14 +25,45 @@
     document.body.appendChild(newForm);
     newForm.submit();
   }
+  let a = '';
+
   window.addEventListener('load', () => {
+    const user = db.auth().currentUser;
+    if (user) {
+      db.firestore()
+        .collection('customersUser')
+        .doc(user.uid)
+        .get()
+        .then(doc => {
+          if (doc.data().cartList) {
+            cartProduct = doc.data().cartList || [];
+          } else {
+            db.firestore()
+              .collection('customersUser')
+              .doc(user.uid)
+              .update({ cartList: cartProduct });
+          }
+          if (doc.data().favoriteList) {
+            favoriteList = doc.data().favoriteList || [];
+          } else {
+            db.firestore()
+              .collection('customersUser')
+              .doc(user.uid)
+              .update({ favoriteList: favoriteList });
+          }
+        });
+    } else {
+      favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+      cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+    }
     getProductData();
   });
 
   //get product data
   function getProductData() {
     let productData = [];
-    db.collection('user')
+    db.firestore()
+      .collection('user')
       .doc('lEhSHeJpNKf6h58s7t2q5URBgDm2')
       .collection('product')
       .orderBy('productIndex', 'asc')
@@ -179,6 +204,8 @@
       });
     }
     function productTypeNavHandler(data) {
+      let allQuantity = document.querySelector('.all_product_item').querySelector('span');
+      allQuantity.textContent = data.length;
       productsListHandleAndRender(data, 'tag', productsContentUl);
       productsContentNav.addEventListener('click', e => {
         if (e.target && e.target.id === 'more_item') {
@@ -372,8 +399,6 @@
     }
   }
 
-  let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
-  let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
   function ProductListHandler(data) {
     let productListContent = document.querySelector('.product_list_content');
     let content = '';
@@ -431,11 +456,21 @@
           favoriteIcon.children[1].style.display = 'flex';
           favoriteList.push(data[dataIndex].id);
         }
+        const user = db.auth().currentUser;
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .update({ favoriteList: favoriteList });
         localStorageFavoriteData(favoriteList);
       }
       function localStorageCartProductData(data) {
         let cartProductListToString = JSON.stringify(data);
         localStorage.setItem('cartList', cartProductListToString);
+        const user = db.auth().currentUser;
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .update({ cartList: cartProduct });
       }
       if (e.target.className === 'add_btn') {
         //如果點選同一樣的話只累加數量
