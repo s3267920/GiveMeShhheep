@@ -1,0 +1,346 @@
+@import '_style.scss';
+
+main {
+  width: 100%;
+  height: 100%;
+  background-color: color(color_gray, light20);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .login,
+  .sign_up {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: color(color_teal, gray30);
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    label {
+      font-size: nth($font, 3);
+      color: color(color_teal, dark);
+      margin-right: 10px;
+      width: 120px;
+      display: flex;
+      text-transform: capitalize;
+    }
+
+    input {
+      transition: width 0.1s linear;
+      color: color(color_teal, dark);
+      display: flex;
+      line-height: 45px;
+      width: 90%;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 5px;
+      outline: none;
+      border: 1px solid color(color_teal, dark);
+      font-size: nth($font, 3);
+
+      &::placeholder {
+        padding-left: 20px;
+        font-size: nth($font, 2);
+        color: color(color_teal, gray);
+      }
+
+      &:focus {
+        height: 50px;
+        box-shadow: 0 0 5px color(color_teal, dark);
+
+        &::placeholder {
+          padding-left: 0;
+          font-size: nth($font, 2);
+          color: color(color_teal, gray);
+        }
+      }
+    }
+
+    .error {
+      border: 1px solid color(other, error);
+
+      &:focus {
+        box-shadow: 0 0 5px color(other, error);
+      }
+    }
+
+    .login_icon {
+      position: absolute;
+      left: 110px;
+      top: 14px;
+      color: color(color_teal, gray);
+      transition: opacity 2s;
+    }
+  }
+
+  .sign_up {
+    label {
+      width: 30px;
+    }
+
+    input {
+      transition: none;
+      height: 45px;
+      padding: 0 10px;
+
+      &::placeholder {
+        padding-left: 5px;
+      }
+
+      &:focus::placeholder {
+        color: transparent;
+      }
+    }
+
+    select {
+      display: flex;
+      height: 45px;
+      width: 100%;
+      margin: 0 5px;
+      color: color(color_teal, dark);
+      border-radius: 5px;
+      outline: none;
+      border: 1px solid color(color_teal, dark);
+      font-size: nth($font, 3);
+      text-indent: 10px;
+      appearance: none;
+      background-repeat: no-repeat;
+      background-position: 90% center;
+      background-size: 15px;
+      background-color: color(other, white);
+      &:last-of-type {
+        margin-right: 0;
+      }
+      &:focus {
+        box-shadow: 0 0 5px color(color_teal, dark);
+      }
+
+      &.triangle_down {
+        background-image: url(../img/angle-down-darkTeal.svg);
+      }
+    }
+
+    .birthday_select {
+      flex-direction: row;
+    }
+
+    .sign_up_icon {
+      font-size: 1.25em;
+    }
+  }
+
+  .isFocus {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    position: relative;
+
+    label {
+      display: flex;
+      justify-content: flex-end;
+      position: absolute;
+      width: 80px;
+      top: -11px;
+      left: 10px;
+      z-index: 10;
+
+      span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 81px;
+        height: 13px;
+        box-sizing: border-box;
+        background-color: color(color_teal, gray30);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 81px;
+        height: 13px;
+        box-sizing: border-box;
+        background-color: color(color_teal, gray30);
+      }
+
+      &[for='user_password'] {
+        width: 120px;
+
+        span {
+          width: 120px;
+        }
+      }
+    }
+
+    .login_icon {
+      position: absolute;
+      font-size: 1.5em;
+      top: -14px;
+      left: 14px;
+      color: color(color_teal, dark);
+      z-index: 11;
+    }
+  }
+
+  .login_header,
+  .sign_up_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 25px;
+    height: 70px;
+    background-color: color(color_teal, dark);
+    margin-bottom: 30px;
+    border-radius: 5px 5px 0 0;
+
+    h2 {
+      font-size: nth($font, 4);
+      color: color(other, white);
+    }
+  }
+
+  .input_group {
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 20px 5%;
+    margin-bottom: 30px;
+  }
+
+  .error_msg {
+    position: absolute;
+    display: flex;
+    bottom: -30px;
+    left: 0;
+    font-size: nth($font, 1);
+    color: color(other, error);
+
+    &.sign_up_error {
+      bottom: -20px;
+      left: 40px;
+    }
+  }
+
+  .login_other,
+  .sign_up_other {
+    margin: 0 5%;
+    display: flex;
+    font-size: nth($font, 1);
+    justify-content: flex-end;
+    color: color(color_teal, dark);
+
+    a {
+      color: color(color_teal, gray);
+
+      &:hover {
+        color: color(color_teal, main);
+      }
+    }
+
+    .change_to_sign_up {
+      margin-left: 15px;
+    }
+  }
+
+  .sign_up_other > a {
+    margin-left: 10px;
+  }
+
+  .submit_btn {
+    cursor: pointer;
+    width: 90%;
+    height: 50px;
+    margin: 30px auto;
+    margin-bottom: 40px;
+    font-size: nth($font, 3);
+    border: 1px solid color(color_teal, dark);
+    border-radius: 5px;
+    background-color: color(other, white);
+    outline: none;
+    &:active {
+      background-color: color(color_teal, dark);
+      color: color(other, white);
+      box-shadow: 0 0 5px color(color_teal, dark);
+    }
+
+    &:active {
+      box-shadow: 0 0 5px color(color_yellow, main);
+    }
+  }
+  .submit_btn[active] {
+    background-color: color(color_teal, dark);
+    color: color(other, white);
+    box-shadow: 0 0 5px color(color_teal, dark);
+  }
+  .checking {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 15px;
+      height: 20px;
+      background-color: color(color_teal, dark);
+      animation-name: checkLoading;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: step-start;
+    }
+  }
+  .errorActive {
+    border-color: color(other, error) !important;
+    &:focus {
+      box-shadow: 0 0 5px color(other, error) !important;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    .login,
+    .sign_up {
+      width: 450px;
+    }
+  }
+}
+
+@keyframes checkLoading {
+  8% {
+    width: 16px;
+  }
+
+  33% {
+    width: 10px;
+  }
+
+  66% {
+    width: 5px;
+  }
+
+  99% {
+    width: 0px;
+  }
+}
+
+@keyframes iconMove {
+  0% {
+    position: absolute;
+    left: 70px;
+    top: 10px;
+  }
+
+  99% {
+    position: absolute;
+    font-size: 1.5em;
+    top: -12px;
+    left: 14px;
+  }
+}
