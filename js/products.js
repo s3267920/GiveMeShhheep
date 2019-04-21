@@ -142,23 +142,6 @@
     let allProductItemList = document.querySelector('.all_product_item_list');
     function allProductItemListHandler(data) {
       productsListHandleAndRender(data, 'series', allProductItemList);
-      // let allSeries = [];
-      // data.forEach(data => {
-      //   allSeries.push(data.series);
-      // });
-      // let filterSeries = allSeries.filter((series, index, arr) => {
-      //   return arr.indexOf(series) === index;
-      // });
-      // let seriesData = allSeries.reduce((allSeries, series) => {
-      //   if (!allSeries[series]) allSeries[series] = 1;
-      //   else allSeries[series] += 1;
-      //   return allSeries;
-      // }, {});
-      // filterSeries.forEach(data => {
-      //   let newLi = document.createElement('li');
-      //   newLi.innerHTML = `<a href="javascript:;">${data}（<span>${seriesData[data]}</span>）</a>`;
-      //   allProductItemList.appendChild(newLi);
-      // });
       allProductItemList.addEventListener('click', e => {
         let abbreviationSeries;
         switch (e.target.textContent.split('（')[0]) {
@@ -430,7 +413,7 @@
           ${newData.productName}
           </div>
           <div class="product_box_dollar">
-            NT$  ${newData.price.original}
+            NT$  ${newData.price.discount}
           </div>
         </div>
         <input class="add_btn" type="button" value="加入購物車" />`;
@@ -440,59 +423,106 @@
       productListContent.appendChild(newLi);
     });
     productListContent.addEventListener('click', e => {
+      const user = db.auth().currentUser;
       function localStorageFavoriteData(data) {
         let favoriteListToString = JSON.stringify(data);
         localStorage.setItem('newProductsData', favoriteListToString);
       }
       if (e.target.parentNode.parentNode.className === 'favorite_icon') {
-        let favoriteIcon = e.target.parentNode.parentNode;
-        let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
-        if (e.target.parentNode.className === 'favorite_icon_on') {
-          e.target.parentNode.style.display = 'none';
-          favoriteIcon.children[0].style.display = 'flex';
-          favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
+        if (user) {
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+              if (doc.data().favoriteList) {
+                favoriteList = doc.data().favoriteList || [];
+              } else {
+                db.firestore()
+                  .collection('customersUser')
+                  .doc(user.uid)
+                  .update({ favoriteList: favoriteList });
+              }
+              console.log(favoriteList);
+              addFavoriteHandler(favoriteList);
+            });
         } else {
-          e.target.parentNode.style.display = 'none';
-          favoriteIcon.children[1].style.display = 'flex';
-          favoriteList.push(data[dataIndex].id);
+          favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+          addFavoriteHandler(favoriteList);
         }
-        const user = db.auth().currentUser;
-        db.firestore()
-          .collection('customersUser')
-          .doc(user.uid)
-          .update({ favoriteList: favoriteList });
-        localStorageFavoriteData(favoriteList);
+        function addFavoriteHandler(favoriteList) {
+          let favoriteIcon = e.target.parentNode.parentNode;
+          let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
+          if (e.target.parentNode.className === 'favorite_icon_on') {
+            e.target.parentNode.style.display = 'none';
+            favoriteIcon.children[0].style.display = 'flex';
+            favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
+          } else {
+            e.target.parentNode.style.display = 'none';
+            favoriteIcon.children[1].style.display = 'flex';
+            favoriteList.push(data[dataIndex].id);
+          }
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .update({ favoriteList: favoriteList });
+          localStorageFavoriteData(favoriteList);
+        }
       }
       function localStorageCartProductData(data) {
         let cartProductListToString = JSON.stringify(data);
         localStorage.setItem('cartList', cartProductListToString);
-        const user = db.auth().currentUser;
-        db.firestore()
-          .collection('customersUser')
-          .doc(user.uid)
-          .update({ cartList: cartProduct });
       }
       if (e.target.className === 'add_btn') {
-        //如果點選同一樣的話只累加數量
-        let index = e.target.parentNode.dataset.index;
-        let isRepeat = () => {
-          return cartProduct.some(compareData => {
-            return compareData.dataId === data[index].id;
-          });
-        };
-        if (!cartProduct.length || isRepeat() === false) {
-          cartProduct.push({ dataId: data[index].id, quantity: 1 });
+        if (user) {
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+              if (doc.data().cartList) {
+                cartProduct = doc.data().cartList || [];
+              } else {
+                db.firestore()
+                  .collection('customersUser')
+                  .doc(user.uid)
+                  .update({ cartList: cartProduct });
+              }
+              addProductHandler(cartProduct);
+            });
         } else {
-          cartProduct.forEach(cartProduct => {
-            if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
-            else return;
-          });
+          cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+          addProductHandler(cartProduct);
         }
-        let cartStore = document.getElementById('cart_store');
-        let fixedCartStore = document.getElementById('fixed_cart_store');
-        cartStore.textContent = cartProduct.length;
-        fixedCartStore.textContent = cartProduct.length;
-        localStorageCartProductData(cartProduct);
+        function addProductHandler(cartProduct) {
+          //如果點選同一樣的話只累加數量
+          let index = e.target.parentNode.dataset.index;
+          let isRepeat = () => {
+            return cartProduct.some(compareData => {
+              return compareData.dataId === data[index].id;
+            });
+          };
+          if (!cartProduct.length || isRepeat() === false) {
+            cartProduct.push({
+              dataId: data[index].id,
+              quantity: 1
+            });
+          } else {
+            cartProduct.forEach(cartProduct => {
+              if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
+              else return;
+            });
+          }
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .update({ cartList: cartProduct });
+          let cartStore = document.getElementById('cart_store');
+          let fixedCartStore = document.getElementById('fixed_cart_store');
+          cartStore.textContent = cartProduct.length;
+          fixedCartStore.textContent = cartProduct.length;
+          localStorageCartProductData(cartProduct);
+        }
       }
     });
   }

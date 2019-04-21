@@ -20,7 +20,8 @@ $colors: (
     main: #ededed,
     gray: #9b9b9b,
     dark: #707070,
-    light20: lighten(#e1e1e1, 10%),
+    light20: lighten(#e1e1e1, 20%),
+    light10: lighten(#e1e1e1, 10%),
     white30: lighten(#f2f2f2, 30%)
   ),
   color_yellow: (

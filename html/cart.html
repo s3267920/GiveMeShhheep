@@ -39,95 +39,32 @@
           <a href="/"><h1>GiveMeShhheep</h1></a>
         </div>
         <div class="personal">
-          <a class="user" href=""><i class="fas fa-user"></i></a>
-          <a class="cart" href="./html/cart.html"
-            ><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a
+          <a class="user" id="user" href="javascript:;"><i class="fas fa-user"></i></a>
+          <a class="cart" id="cart" href="javascript:;"
+            ><i class="fas fa-shopping-cart cart_icon"></i><span class="cart_store" id="cart_store">0</span></a
           >
         </div>
       </nav>
     </header>
+    <div class="loading_modal">
+      <div class="loading">
+        <div class="loadingAnimate">
+          <div class="sheep"></div>
+        </div>
+      </div>
+    </div>
     <main>
       <div class="my_cart">
         <h4>您的購物車</h4>
-        <ul id="cart_list_content">
-          <li class="cart_list">
-            <div class="cart_list_product">
-              <div
-                class="cart_list_img"
-                style="background-image:url(https://images.unsplash.com/photo-1513890333407-6f85205e8ef2?w=1050)"
-              ></div>
-              <div class="cart_list_product_item">
-                <p>織進你心裡--白灰</p>
-                <span>NT$ 450</span>
-              </div>
-            </div>
-            <div class="cart_list_item">
-              <ul class="quantity">
-                <li><input type="button" name="lower" value="-" class="lower" /></li>
-                <li class="quantity_num">2</li>
-                <li><input type="button" value="+" class="add " /></li>
-              </ul>
-              <div class="cart_list_price">
-                <div class="price">NT$ 900</div>
-                <div class="delete"><i class="far fa-trash-alt"></i></div>
-              </div>
-            </div>
-          </li>
-          <li class="cart_list">
-            <div class="cart_list_product">
-              <div
-                class="cart_list_img"
-                style="background-image:url(https://images.unsplash.com/photo-1486129273931-27820249c615?w=1050)"
-              ></div>
-              <div class="cart_list_product_item">
-                <p>織進你心裡--棕灰</p>
-                <span>NT$ 450</span>
-              </div>
-            </div>
-            <div class="cart_list_item">
-              <ul class="quantity">
-                <li><input type="button" name="lower" value="-" class="lower" /></li>
-                <li class="quantity_num">2</li>
-                <li><input type="button" value="+" class="add " /></li>
-              </ul>
-              <div class="cart_list_price">
-                <div class="price">NT$ 900</div>
-                <div class="delete"><i class="far fa-trash-alt"></i></div>
-              </div>
-            </div>
-          </li>
-          <li class="cart_list">
-            <div class="cart_list_product">
-              <div
-                class="cart_list_img"
-                style="background-image:url(https://images.unsplash.com/photo-1495829002490-67b34d1730d5?w=1050)"
-              ></div>
-              <div class="cart_list_product_item">
-                <p>厭世羊</p>
-                <span>NT$ 450</span>
-              </div>
-            </div>
-            <div class="cart_list_item">
-              <ul class="quantity">
-                <li><input type="button" name="lower" value="-" class="lower" /></li>
-                <li class="quantity_num">2</li>
-                <li><input type="button" value="+" class="add " /></li>
-              </ul>
-              <div class="cart_list_price">
-                <div class="price">NT$ 900</div>
-                <div class="delete"><i class="far fa-trash-alt"></i></div>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <ul id="cart_list_content"></ul>
       </div>
       <div class="orders">
         <h4>訂單摘要</h4>
         <div class="line"></div>
         <ul class="orders_info">
-          <li>小計<span class="subtotal ">NT$ 2,700</span></li>
-          <li>運費 <span class="shipping_rate ">NT$ 300</span></li>
-          <li class="total_title">總計<span class="total ">NT$ 3,000</span></li>
+          <li>小計<span class="subtotal">NT$ 0</span></li>
+          <li>運費 <span class="shipping_rate">NT$ 0</span></li>
+          <li class="total_title">總計<span class="total ">NT$ 0</span></li>
         </ul>
         <a href="./checkoutStepOne.html" class="checkout"><input class="checkout_btn" type="submit" value="結帳"/></a>
       </div>
