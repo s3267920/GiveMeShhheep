@@ -1,6 +1,11 @@
 @import '_style.scss';
 @import '_reset.scss';
-
+html {
+  //避免換頁閃白屏問題
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Chrome and Safari */
+  -moz-backface-visibility: hidden; /* Firefox */
+}
 body {
   min-width: 375px;
   margin: 0 auto;
@@ -120,18 +125,21 @@ header {
       color: color(color_yellow, dark);
     }
   }
-  .cart > .cart_store {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 15px;
-    height: 15px;
-    font-size: nth($font, 1);
-    position: relative;
-    bottom: -2px;
-    color: color(color_yellow, dark);
-    border-radius: 50%;
-    background-color: color(color_teal, dark);
+  .cart {
+    margin-left: 10px;
+    .cart_store {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 15px;
+      height: 15px;
+      font-size: nth($font, 1);
+      position: relative;
+      bottom: -2px;
+      color: color(color_yellow, dark);
+      border-radius: 50%;
+      background-color: color(color_teal, dark);
+    }
   }
   .user {
     margin-right: 10px;
@@ -226,7 +234,7 @@ header {
         li {
           display: inline-flex;
           align-items: flex-end;
-          margin: 0 15px;
+          margin: 0 5px;
           &:first-of-type {
             margin-left: 0;
           }
@@ -247,6 +255,9 @@ header {
         width: 400px;
         height: 94px;
       }
+    }
+    .cart {
+      margin-left: 10px;
     }
     .nav_hamburger {
       display: none;
@@ -497,3 +508,4 @@ footer {
     opacity: 1;
   }
 }
+@import '_loadingPage.scss';

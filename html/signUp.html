@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SignUp註冊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="GiveMeShhheep" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="FB上的網址" />
+    <meta property="og:image" content="FB的圖片" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/loginAndSignUp.min.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav_hamburger">
+          <button class="hamburger_icon">
+            <div class="icon_box">
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+            </div>
+          </button>
+        </div>
+        <ul id="nav_bar">
+          <li><a href="../">首頁</a></li>
+          <li><a href="./products.html">產品</a></li>
+          <!-- <li class="login"><a href="">登入</a></li> -->
+        </ul>
+        <div class="logo">
+          <a href="/"><h1>GiveMeShhheep</h1></a>
+        </div>
+        <div class="personal">
+          <a class="user" href=""><i class="fas fa-user"></i></a>
+          <a class="cart" href="./cart.html"
+            ><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a
+          >
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="sign_up">
+        <div class="sign_up_header">
+          <h2>
+            註冊
+            <span>signUp</span>
+          </h2>
+        </div>
+        <div class="sign_up_form">
+          <div class="input_group">
+            <input type="text" name="userName" id="user_name" placeholder="Name" value="" />
+            <label for="user_name">
+              <i class="fas fa-user fa-lg sign_up_icon"></i>
+            </label>
+            <div class="error_msg sign_up_error" id="user_name_error_msg"></div>
+          </div>
+          <div class="input_group birthday_select" id="birthday_select">
+            <label for="birthday_year">
+              <i class="fas fa-birthday-cake fa-lg sign_up_icon"></i>
+            </label>
+            <select name="year" id="birthday_year" class="triangle_down" value="">
+              <option value="" selected disabled>年</option>
+            </select>
+            <select class="triangle_down" name="month" id="birthday_month" value="">
+              <option value="" selected disabled>月</option>
+            </select>
+            <select class="triangle_down" name="day" id="birthday_day" value="">
+              <option value="" selected disabled>日</option>
+            </select>
+            <div class="error_msg sign_up_error" id="user_birthday_error_msg"></div>
+          </div>
+          <div class="input_group">
+            <input type="text" name="email" id="user_email" placeholder="Email" value="" />
+            <label for="user_email">
+              <i class="far fa-envelope fa-lg sign_up_icon"></i>
+            </label>
+            <div class="error_msg sign_up_error" id="user_email_error_msg"></div>
+          </div>
+          <div class="input_group">
+            <input type="password" name="password" id="user_password" placeholder="Password" value="" />
+            <label for="user_password">
+              <i class="fas fa-key fa-lg sign_up_icon"></i>
+            </label>
+            <div class="error_msg sign_up_error" id="user_password_error_msg"></div>
+          </div>
+        </div>
+        <div class="sign_up_other">
+          已有帳號？
+          <a class="change_to_login" href="./login.html">登入</a>
+        </div>
+        <button type="submit" class="submit_btn ">
+          註冊
+          <span style="display:none">...</span>
+        </button>
+      </div>
+    </main>
+    <footer>
+      <div class="subscribe">
+        <div class="subscribe_header_title">
+          <p>喜歡的話，訂閱我吧!</p>
+        </div>
+        <div class="email_box">
+          <div class="email_icon"><i class="far fa-envelope"></i></div>
+          <input class="email" type="email" name="email" />
+          <button class="submit_btn" type="submit">
+            <div class="arrow_icon"><i class="fas fa-arrow-right "></i></div>
+          </button>
+        </div>
+      </div>
+      <div class="information">
+        <div class="information_left">
+          <p class="info_text">
+            07-1234-5678 <br />
+            GiveMeShhheep@email.com <br />
+            800 高雄市新興區幸福路 520 號
+          </p>
+          <div class="info_icon">
+            <a href="" class="icon"><i class="fab fa-line"></i></a>
+            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
+          </div>
+        </div>
+        <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
+        <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
+      </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/loginAndSignUp.js"></script>
+  </body>
+</html>

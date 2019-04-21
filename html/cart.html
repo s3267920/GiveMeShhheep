@@ -15,7 +15,6 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../style/cart.min.css" />
   </head>
@@ -34,7 +33,7 @@
         <ul id="nav_bar">
           <li><a href="../">首頁</a></li>
           <li><a href="./products.html">產品</a></li>
-          <!-- <li class="login"><a href="">登入</a></li> -->
+          <li class="sign_out"><a href="javascript:;">登出</a></li>
         </ul>
         <div class="logo">
           <a href="/"><h1>GiveMeShhheep</h1></a>
@@ -50,7 +49,7 @@
     <main>
       <div class="my_cart">
         <h4>您的購物車</h4>
-        <ul>
+        <ul id="cart_list_content">
           <li class="cart_list">
             <div class="cart_list_product">
               <div
@@ -162,6 +161,10 @@
         <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
       </div>
     </footer>
-    <script src="/js/index.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/cart.js"></script>
   </body>
 </html>

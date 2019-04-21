@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Products產品</title>
+    <title>Login登入</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:title" content="GiveMeShhheep" />
     <meta property="og:type" content="website" />
@@ -15,9 +15,8 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <!-- <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/pt-mono" type="text/css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../style/products.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/loginAndSignUp.min.css" />
   </head>
   <body>
     <header>
@@ -32,15 +31,15 @@
           </button>
         </div>
         <ul id="nav_bar">
-          <li><a href="/">首頁</a></li>
-          <li><a href="">產品</a></li>
-          <li class="sign_out" style="display:none"><a href="javascript:;">登出</a></li>
+          <li><a href="../">首頁</a></li>
+          <li><a href="./products.html">產品</a></li>
+          <!-- <li class="login"><a href="">登入</a></li> -->
         </ul>
         <div class="logo">
           <a href="/"><h1>GiveMeShhheep</h1></a>
         </div>
         <div class="personal">
-          <a class="user" href="javascript:;"><i class="fas fa-user"></i> </a>
+          <a class="user" href=""><i class="fas fa-user"></i></a>
           <a class="cart" href="./cart.html"
             ><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a
           >
@@ -48,40 +47,40 @@
       </nav>
     </header>
     <main>
-      <a class="fixed_cart" href="./cart.html"
-        ><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store" id="fixed_cart_store">0</span></a
-      >
-      <div
-        class="banner"
-        style="background-image: url(https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1050);"
-      ></div>
-      <div class="products_content">
-        <nav class="products_content_nav">
-          <ul id="products_content_ul">
-            <li class="list_title">類別</li>
-            <li class="all_product selected">
-              <div class="all_product_item">
-                <a href="javascript:;">所有產品（<span></span>）</a>
-                <a href="javascript:;" class="more_item"> <i id="more_item" class="fas fa-plus"></i></a>
-              </div>
-              <ul class="all_product_item_list" style="display: none"></ul>
-            </li>
-            <!-- <li id="product_of_the_day"><a href="javascript:;">本日精選（<span>10</span>）</a></li>
-            <li id="popular"><a href="javascript:;">人氣推薦（<span>26</span>）</a></li>
-            <li id="new_product"><a href="javascript:;">新品上市（<span>12</span>）</a></li> -->
-          </ul>
-        </nav>
-        <div class="product_list">
-          <ul class="product_list_content"></ul>
-          <ul class="pagination">
-            <li class="go_back">
-              <a href="javascript:;" class="go_back"><i id="go_back" class="fas fa-angle-left"></i></a>
-            </li>
-            <li class="go_ahead">
-              <a href="javascript:;" class="go_ahead"> <i id="go_ahead" class="fas fa-angle-right"></i> </a>
-            </li>
-          </ul>
+      <div class="login">
+        <div class="login_header">
+          <h2>
+            登入
+            <span>Login</span>
+          </h2>
         </div>
+        <div class="input_group ">
+          <input type="email" name="user_email" id="user_email" placeholder="example@gmail.com" value="" />
+          <i class="far fa-envelope fa-lg login_icon login_icon_email"></i>
+          <label for="user_email">
+            email
+            <span></span>
+          </label>
+          <div class="error_msg login_error" id="user_email_error_msg"></div>
+        </div>
+        <div class="input_group ">
+          <input type="password" name="user_password" id="user_password" placeholder="password" value="" />
+          <i class="fas fa-key fa-lg login_icon login_icon_password"></i>
+          <label for="user_password">
+            password
+            <span></span>
+          </label>
+          <div class="error_msg login_error" id="user_password_error_msg"></div>
+        </div>
+
+        <div class="login_other">
+          還沒有帳號？
+          <a class="change_to_sign_up" href="./signUp.html">註冊</a>
+        </div>
+        <button class="submit_btn" type="submit" value="submit">
+          登入
+          <span style="display:none">...</span>
+        </button>
       </div>
     </main>
     <footer>
@@ -105,8 +104,8 @@
             800 高雄市新興區幸福路 520 號
           </p>
           <div class="info_icon">
-            <a href="javascript:;" class="icon" onclick="alert('目前沒有line')"><i class="fab fa-line"></i></a>
-            <a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-square"></i></a>
+            <a href="" class="icon"><i class="fab fa-line"></i></a>
+            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
         <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
@@ -117,6 +116,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
     <script src="/js/layout.js"></script>
-    <script src="/js/products.js"></script>
+    <script src="/js/loginAndSignUp.js"></script>
   </body>
 </html>
