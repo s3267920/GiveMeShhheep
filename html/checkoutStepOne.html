@@ -24,14 +24,17 @@
       <label for="lastName">名字</label>
       <input type="text" id="firstName" placeholder="王" required autocomplete />
       <input type="text" id="lastName" placeholder="小明" required autocomplete />
+      <div class="error_msg" id="name_error"></div>
     </div>
     <label for="phone">電話</label>
     <input type="tel" id="phone" placeholder="0912-345-678" autocomplete />
+    <div class="error_msg" id="phone_error"></div>
     <div class="full_address">
       <label for="address">地址</label>
-      <select name="country" id="country" required></select>
+      <select name="county" id="county" required></select>
       <select name="district" id="district"></select>
       <input type="text" id="address" placeholder="幸福路520號" required />
+      <div class="error_msg" id="address_error"></div>
     </div>
   </div>
   <input class="next_btn shipping_btn" type="submit" id="next_btn" value="下一步" />

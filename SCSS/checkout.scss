@@ -130,8 +130,8 @@ main {
             width: 12px;
             left: 2px;
             top: 3px;
-            border-left: 3px solid color(other, black);
-            border-bottom: 3px solid color(other, black);
+            border-left: 3px solid color(color_teal, deepTeal);
+            border-bottom: 3px solid color(color_teal, deepTeal);
             transform: rotate(-45deg);
           }
         }
@@ -235,13 +235,59 @@ main {
   }
 }
 .payment .credit_card {
-  #credit_num {
+  label[for='credit_num_one'] {
     width: 100%;
-    background-image: url(../img/payment.svg);
-    @include addSelectImg;
-    background-position: 95% 50%;
-    background-size: 30px;
+    display: flex;
   }
+  .expiration select {
+    margin-bottom: 20px;
+  }
+
+  .credit_num_warning {
+    font-size: nth($font, 1);
+    margin-left: auto;
+    color: color(color_teal, gray);
+  }
+  .credit_num {
+    width: 100%;
+    position: relative;
+    background-color: color(other, white);
+    box-sizing: border-box;
+    // height: 56px;
+    margin-bottom: 20px;
+    input {
+      width: 12%;
+      background-color: color(other, white);
+      margin-bottom: 0;
+      letter-spacing: 2px;
+      padding-left: 10px;
+      &:first-of-type {
+        width: 13.5%;
+        padding-left: 20px;
+      }
+      &::placeholder {
+        letter-spacing: 2px;
+      }
+    }
+    .credit_num_line {
+      color: color(color_teal, dark);
+      font-size: nth($font, 3);
+    }
+    .credit_icon {
+      position: absolute;
+      top: 14px;
+      right: 5%;
+      font-size: 30px;
+      color: color(color_teal, dark);
+      i {
+        display: none;
+      }
+      .credit_card_icon_default {
+        display: flex;
+      }
+    }
+  }
+
   .personal_name {
     display: flex;
     flex-direction: row;
@@ -341,7 +387,7 @@ main {
     justify-content: center;
     align-items: center;
     font-size: nth($font, 4);
-    border: 1px solid color(color_teal, dark);
+    border: 1px solid color(color_teal, deepTeal);
     outline: none;
     background-color: color(color_yellow, main);
     &:active {
@@ -349,7 +395,6 @@ main {
     }
   }
 }
-
 .error_msg {
   width: 100%;
   margin-top: -10px;
@@ -360,6 +405,9 @@ main {
   border: 2px solid color(other, error) !important;
   &:focus {
     box-shadow: 0 0 10px color(other, error) !important;
+  }
+  .credit_icon {
+    color: color(other, error) !important;
   }
 }
 .Info_list {

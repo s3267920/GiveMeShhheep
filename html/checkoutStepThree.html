@@ -35,26 +35,17 @@
     <div class="for_mail" style="display: none;">
       <div class="full_address">
         <label for="address">地址</label>
-        <select name="country" id="country" required></select>
-        <select name="area" id="area"></select>
+        <select name="county" id="county" required></select>
+        <select name="district" id="district"></select>
         <input type="text" id="address" placeholder="幸福路520號" required />
       </div>
-      <script>
-        new TwCitySelector({
-          el: '.full_address',
-          elCounty: '#country',
-          elDistrict: '#area',
-          selectedCounty: '高雄市',
-          selectedDistrict: '新興區'
-        });
-      </script>
       <label for="receipt_num">統一編號（選填）</label>
       <input type="text " id="receipt_num" placeholder="12345678 " />
     </div>
   </div>
 
   <div class="change_btn">
-    <input class="back_btn" type="submit" value="上一步" />
-    <input class="finished_btn" type="submit" value="確認結帳" />
+    <input class="back_btn" id="back_btn" type="submit" value="上一步" />
+    <input class="finished_btn" id="finished_btn" type="submit" value="確認結帳" />
   </div>
 </div>
