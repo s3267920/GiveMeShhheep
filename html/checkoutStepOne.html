@@ -1,177 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Checkout 結帳</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:title" content="GiveMeShhheep" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="FB上的網址" />
-    <meta property="og:image" content="FB的圖片" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../style/checkout.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.0.2/dist/tw-city-selector.min.js"></script>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <div class="nav_hamburger">
-          <button class="hamburger_icon">
-            <div class="icon_box">
-              <span class="icon_bar"></span>
-              <span class="icon_bar"></span>
-              <span class="icon_bar"></span>
-            </div>
-          </button>
-        </div>
-        <ul id="nav_bar">
-          <li><a href="../">首頁</a></li>
-          <li><a href="./products.html">產品</a></li>
-          <li class="sign_out" style="display:none"><a href="javascript:;">登出</a></li>
-        </ul>
-        <div class="logo">
-          <a href="/"><h1>GiveMeShhheep</h1></a>
-        </div>
-        <div class="personal">
-          <a class="user" href=""><i class="fas fa-user"></i></a>
-          <a class="cart" href="./html/cart.html"
-            ><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a
-          >
-        </div>
-      </nav>
-    </header>
-    <main id="checkout_content">
-      <div id="checkout_form">
-        <div class="shipping">
-          <div class="title">
-            <h4>運送</h4>
-            <div class="step_mark">
-              <div class="step_box">
-                <input type="radio" name="step1" checked id="step1" />
-                <label for="step1" class="step "></label>
-              </div>
-              <span></span>
-              <div class="step_box">
-                <input type="radio" name="step2" id="step2" />
-                <label for="step2" class="step "></label>
-              </div>
-              <span></span>
-              <div class="step_box">
-                <input type="radio" name="step3" id="step3" />
-                <label for="step3" class="step"></label>
-              </div>
-            </div>
-          </div>
-          <div class="personal_information" autocomplete>
-            <div class="name">
-              <label for="firstName">姓氏</label>
-              <label for="lastName">名字</label>
-              <input type="text" id="firstName" placeholder="王" required autocomplete />
-              <input type="text" id="lastName" placeholder="小明" required autocomplete />
-            </div>
-            <label for="phone">電話</label>
-            <input type="tel" id="phone" placeholder="0912-345-678" autocomplete />
-            <div class="full_address">
-              <label for="address">地址</label>
-              <select name="country" id="country" required></select>
-              <select name="area" id="area"></select>
-              <input type="text" id="address" placeholder="幸福路520號" required />
-            </div>
-            <script>
-              new TwCitySelector({
-                el: '.full_address',
-                elCounty: '#country',
-                elDistrict: '#area',
-                selectedCounty: '高雄市',
-                selectedDistrict: '新興區'
-              });
-            </script>
-          </div>
-          <input class="next_btn shipping_btn" type="submit" value="下一步" />
-        </div>
+<div class="shipping">
+  <div class="title">
+    <h4>運送</h4>
+    <div class="step_mark">
+      <div class="step_box">
+        <input type="radio" name="step1" checked id="step1" />
+        <label for="step1" class="step "></label>
       </div>
-      <div class="Info_list">
-        <div class="orders">
-          <h4>訂單摘要</h4>
-          <ul class="orders_info">
-            <li>小計<span class="subtotal ">NT$ 2,700</span></li>
-            <li>運費 <span class="shipping_rate ">NT$ 300</span></li>
-            <li class="total_title">總計<span class="total ">NT$ 3,000</span></li>
-          </ul>
-        </div>
-        <div class="shopping_list">
-          <h4>購物清單</h4>
-          <ul>
-            <li class="order_list">
-              <div
-                class="order_list_img"
-                style="background-image:url(https://images.unsplash.com/photo-1513890333407-6f85205e8ef2?w=1050)"
-              ></div>
-              <div class="order_list_product_item">
-                <p>織進你心裡--白灰（<span class="order_list_product_quantity">2</span>）</p>
-                <span class="order_list_total_price">NT$ 900</span>
-              </div>
-            </li>
-            <li class="order_list">
-              <div
-                class="order_list_img"
-                style="background-image:url(https://images.unsplash.com/photo-1486129273931-27820249c615?w=1050)"
-              ></div>
-              <div class="order_list_product_item">
-                <p>織進你心裡--棕灰（<span class="order_list_product_quantity">2</span>）</p>
-                <span class="order_list_total_price">NT$ 900</span>
-              </div>
-            </li>
-            <li class="order_list">
-              <div
-                class="order_list_img"
-                style="background-image:url(https://images.unsplash.com/photo-1495829002490-67b34d1730d5?w=1050)"
-              ></div>
-              <div class="order_list_product_item">
-                <p>厭世羊（<span class="order_list_product_quantity">2</span>）</p>
-                <span class="order_list_total_price">NT$ 900</span>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <span></span>
+      <div class="step_box">
+        <input type="radio" name="step2" id="step2" />
+        <label for="step2" class="step "></label>
       </div>
-    </main>
-    <footer>
-      <div class="subscribe">
-        <div class="subscribe_header_title">
-          <p>喜歡的話，訂閱我吧!</p>
-        </div>
-        <div class="email_box">
-          <div class="email_icon"><i class="far fa-envelope"></i></div>
-          <input class="email" type="email" name="email" />
-          <button class="submit_btn" type="submit">
-            <div class="arrow_icon"><i class="fas fa-arrow-right "></i></div>
-          </button>
-        </div>
+      <span></span>
+      <div class="step_box">
+        <input type="radio" name="step3" id="step3" />
+        <label for="step3" class="step"></label>
       </div>
-      <div class="information">
-        <div class="information_left">
-          <p class="info_text">
-            07-1234-5678 <br />
-            GiveMeShhheep@email.com <br />
-            800 高雄市新興區幸福路 520 號
-          </p>
-          <div class="info_icon">
-            <a href="" class="icon"><i class="fab fa-line"></i></a>
-            <a href="" class="icon"><i class="fab fa-facebook-square"></i></a>
-          </div>
-        </div>
-        <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
-        <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
-      </div>
-    </footer>
-    <script src="/js/checkout.js"></script>
-  </body>
-</html>
+    </div>
+  </div>
+  <div class="personal_information" autocomplete>
+    <div class="name">
+      <label for="firstName">姓氏</label>
+      <label for="lastName">名字</label>
+      <input type="text" id="firstName" placeholder="王" required autocomplete />
+      <input type="text" id="lastName" placeholder="小明" required autocomplete />
+    </div>
+    <label for="phone">電話</label>
+    <input type="tel" id="phone" placeholder="0912-345-678" autocomplete />
+    <div class="full_address">
+      <label for="address">地址</label>
+      <select name="country" id="country" required></select>
+      <select name="district" id="district"></select>
+      <input type="text" id="address" placeholder="幸福路520號" required />
+    </div>
+  </div>
+  <input class="next_btn shipping_btn" type="submit" id="next_btn" value="下一步" />
+</div>

@@ -181,7 +181,7 @@
       return parts.join('.');
     }
     let totalPrice = commaHandle(String(totalProductPrice + shippingRateMoney));
-    subtotal.textContent = `NT$ ${totalProductPrice}`;
+    subtotal.textContent = `NT$ ${commaHandle(String(totalProductPrice))}`;
     shippingRate.textContent = `NT$ ${shippingRateMoney}`;
     total.textContent = `NT$ ${totalPrice}`;
   }
