@@ -42,47 +42,46 @@
       safeNum: ''
     },
     receipt: {
+      method: 'CUI',
       forMail: {
-        address: {
-          zipCode: '',
-          county: '',
-          district: '',
-          other: ''
-        }
+        zipCode: '',
+        county: '',
+        district: '',
+        other: ''
       },
       CUI: {
-        email: '',
-        number: ''
-      }
+        email: ''
+      },
+      receipt_number: ''
     }
   };
-  // window.addEventListener('load', () => {
-  //   db.auth().onAuthStateChanged(user => {
-  //     if (!user) {
-  //       return (location.href = '../html/login.html');
-  //     }
-  //     if (user) {
-  //       db.firestore()
-  //         .collection('customersUser')
-  //         .doc(user.uid)
-  //         .get()
-  //         .then(doc => {
-  //           if (doc.data().cartList) {
-  //             cartProduct = doc.data().cartList || [];
-  //           } else {
-  //             db.firestore()
-  //               .collection('customersUser')
-  //               .doc(user.uid)
-  //               .update({ cartList: cartProduct });
-  //           }
-  //           getProductData(cartProduct);
-  //         });
-  //     } else {
-  //       cartStore.textContent = cartProduct.length;
-  //       getProductData(cartProduct);
-  //     }
-  //   });
-  // });
+  window.addEventListener('load', () => {
+    db.auth().onAuthStateChanged(user => {
+      if (!user) {
+        return (location.href = '../html/login.html');
+      }
+      if (user) {
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .get()
+          .then(doc => {
+            if (doc.data().cartList) {
+              cartProduct = doc.data().cartList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ cartList: cartProduct });
+            }
+            getProductData(cartProduct);
+          });
+      } else {
+        cartStore.textContent = cartProduct.length;
+        getProductData(cartProduct);
+      }
+    });
+  });
   function getProductData(cartListProduct) {
     let productData = [];
     db.firestore()
@@ -130,15 +129,21 @@
           }
         });
         orderData.cartListData = cartListData;
-        // orderListHandler(cartListData);
+        orderListHandler(cartListData);
+        let totalProductPrice = 0;
+        cartListData.forEach(data => {
+          totalProductPrice += Number(data.price.discount) * data.quantity;
+        });
+        orderData.price.totalPrice = totalProductPrice;
+        orderData.price.shippingRate = 300;
         // main.style.visibility = 'visible';
         // loading.style.display = 'none';
       });
   }
 
-  // window.addEventListener('beforeunload', e => {
-  //   e.returnValue = '確定離開當前頁面嗎？';
-  // });
+  window.addEventListener('beforeunload', e => {
+    e.returnValue = '確定離開當前頁面嗎？';
+  });
   //訂單摘要
   function orderListHandler(cartListData) {
     let subtotal = document.querySelector('.subtotal');
@@ -198,10 +203,12 @@
           xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
               checkoutForm.innerHTML = xhr.responseText;
+              paymentHandler();
             }
           };
         }
-      } else if (e.target.parentNode.parentNode.className === 'payment') {
+      }
+      if (e.target.parentNode.parentNode.className === 'payment') {
         let paymentData = orderData.payment;
         if (
           paymentData.creditCartNum.all.length < 16 ||
@@ -215,120 +222,202 @@
         } else {
           xhr.open('GET', './checkoutStepThree.html', true);
           xhr.send();
-          if (document.querySelector('.full_address'))
-            new TwCitySelector({
-              el: '.full_address',
-              elCounty: '#county',
-              elDistrict: '#district',
-              hasZipcode: true,
-              standardWords: true,
-              hiddenZipcode: true
-            });
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              checkoutForm.innerHTML = xhr.responseText;
+              receiptHandler();
+            }
+          };
         }
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            checkoutForm.innerHTML = xhr.responseText;
-          }
-        };
       }
-    } else if (e && e.target.id === 'back_btn') {
+    }
+    if (e && e.target.id === 'back_btn') {
       if (e.target.parentNode.parentNode.className === 'payment') {
         xhr.open('GET', './checkoutStepOne.html', true);
         xhr.send();
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
             checkoutForm.innerHTML = xhr.responseText;
-            let shippingContent = document.querySelector('.shipping');
-            shippingContent.addEventListener('change', shippingChangeHandler);
-            document.querySelector('#phone').addEventListener('keydown', numberHandler);
-            new TwCitySelector({
-              el: '.full_address',
-              elCounty: '#county',
-              elDistrict: '#district',
-              hasZipcode: true,
-              standardWords: true,
-              hiddenZipcode: true
-            });
+            shippingHandler();
           }
         };
-      } else if (e.target.parentNode.parentNode.className === 'receipt') {
+      }
+      if (e.target.parentNode.parentNode.className === 'receipt') {
+        xhr.open('GET', './checkoutStepTwo.html', true);
+        xhr.send();
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
             checkoutForm.innerHTML = xhr.responseText;
+            paymentHandler();
           }
         };
-        xhr.open('GET', './checkoutStepTwo.html', true);
-        xhr.send();
       }
     }
-    function shippingErrorCondition(e, shippingData) {
-      if (shippingData.name.firstName === '') {
-        e.target.parentNode.querySelector('#firstName').classList.add('errorActive');
-        e.target.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
-      }
-      if (shippingData.name.lastName === '') {
-        e.target.parentNode.querySelector('#lastName').classList.add('errorActive');
-        e.target.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
-      }
-      if (shippingData.phone === '') {
-        e.target.parentNode.querySelector('#phone').classList.add('errorActive');
-        e.target.parentNode.querySelector('#phone_error').textContent = '請輸入電話';
-      }
-      if (
-        shippingData.address.county === '' ||
-        shippingData.address.district === '' ||
-        shippingData.address.other === ''
-      ) {
-        e.target.parentNode.querySelector('#address_error').textContent = '請輸入完整地址';
-      }
-      if (shippingData.address.county === '') {
-        e.target.parentNode.querySelector('#county').classList.add('errorActive');
-      }
-      if (shippingData.address.district === '') {
-        e.target.parentNode.querySelector('#district').classList.add('errorActive');
-      }
-      if (shippingData.address.other === '') {
-        e.target.parentNode.querySelector('#address').classList.add('errorActive');
-      }
-    }
-    function paymentErrorCondition(e, paymentData) {
-      //信用卡卡號驗證
-      if (paymentData.creditCartNum.all.length < 16) {
-        e.target.parentNode.parentNode.querySelector('.credit_num').classList.add('errorActive');
-        e.target.parentNode.parentNode.querySelector('#credit_num_error').textContent = '請輸入完整的信用卡卡號';
-      } else if (paymentData.creditCartNum.all.length === 16) {
-        if (!creditCardVerify(paymentData.creditCartNum.all)) {
-          e.target.parentNode.parentNode.querySelector('#credit_num_error').textContent = '信用卡錯誤';
+    if (e && e.target.id === 'finished_btn') {
+      let receiptData = orderData.receipt;
+      if (receiptData.method === 'CUI') {
+        if (receiptData.CUI.email === '') {
+          document.querySelector('#email').classList.add('errorActive');
+          document.querySelector('#email_error').textContent = '請輸入電子郵件';
+        } else {
+          submitData(orderData);
         }
       }
-      //姓名
-      if (paymentData.creditName.firstName === '') {
-        e.target.parentNode.parentNode.querySelector('#firstName').classList.add('errorActive');
-        e.target.parentNode.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
+      if (receiptData.method === 'mail') {
+        if (
+          receiptData.forMail.county === '' ||
+          receiptData.forMail.district === '' ||
+          receiptData.forMail.other === ''
+        ) {
+          if (receiptData.forMail.county === '') {
+            document.querySelector('#county').classList.add('errorActive');
+          }
+          if (receiptData.forMail.district === '') {
+            document.querySelector('#district').classList.add('errorActive');
+          }
+          if (receiptData.forMail.other === '') {
+            document.querySelector('#address').classList.add('errorActive');
+          }
+          document.querySelector('#full_address_error').textContent = '請選擇縣市區域，並輸入地址';
+        } else {
+          location.href = '../html/checkoutSuccess.html';
+        }
       }
-      if (paymentData.creditName.lastName === '') {
-        e.target.parentNode.parentNode.querySelector('#lastName').classList.add('errorActive');
-        e.target.parentNode.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
+    }
+  }
+  function submitData(orderData) {
+    const newOrderData = {
+      cartListData: orderData.cartListData,
+      price: {
+        shippingRate: orderData.price.shippingRate,
+        totalPrice: orderData.price.totalPrice
+      },
+      shipping: {
+        name: {
+          firstName: orderData.shipping.name.firstName,
+          lastName: orderData.shipping.name.lastName
+        },
+        phone: orderData.shipping.phone,
+        address: {
+          zipCode: orderData.shipping.address.zipCode,
+          county: orderData.shipping.address.county,
+          district: orderData.shipping.address.district,
+          other: orderData.shipping.address.other
+        }
+      },
+      receipt: {
+        method: orderData.receipt.method,
+        forMail: {
+          zipCode: orderData.receipt.forMail.zipCode,
+          county: orderData.receipt.forMail.county,
+          district: orderData.receipt.forMail.district,
+          other: orderData.receipt.forMail.other
+        },
+        CUI: {
+          email: orderData.receipt.CUI.email
+        },
+        receipt_number: orderData.receipt.receipt_number
       }
-      //有效期限
-      if (paymentData.expiration.month === '') {
-        e.target.parentNode.parentNode.querySelector('#expiration_month').classList.add('errorActive');
-        e.target.parentNode.parentNode.querySelector('#expiration_error').textContent = '請選擇有效期限';
-      }
-      if (paymentData.expiration.year === '') {
-        e.target.parentNode.parentNode.querySelector('#expiration_year').classList.add('errorActive');
-        e.target.parentNode.parentNode.querySelector('#expiration_error').textContent = '請選擇有效期限';
-      }
-      //安全碼
-      if (paymentData.safeNum === '') {
-        e.target.parentNode.parentNode.querySelector('#safe_num').classList.add('errorActive');
-        e.target.parentNode.parentNode.querySelector('#safe_num_error').textContent = '請輸入安全碼';
-      }
+    };
+    let user = db.auth().currentUser;
+    db.firestore()
+      .collection('customersUser')
+      .doc(user.uid)
+      .collection('order')
+      .add(newOrderData)
+      .then(doc => {
+        db.firestore()
+          .collection('user')
+          .doc('lEhSHeJpNKf6h58s7t2q5URBgDm2')
+          .collection('customersOrder')
+          .doc(doc.id)
+          .set(newOrderData)
+          .then(doc => {
+            resetData(orderData);
+            location.href = '../html/checkoutSuccess.html';
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    function resetData(orderData) {
+      let cleanOrderData = {
+        cartListData: [],
+        price: {
+          shippingRate: 0,
+          totalPrice: 0
+        },
+        shipping: {
+          name: {
+            firstName: '',
+            lastName: ''
+          },
+          phone: '',
+          address: {
+            zipCode: '',
+            county: '',
+            district: '',
+            other: ''
+          }
+        },
+        payment: {
+          creditCartNum: {
+            one: '',
+            two: '',
+            three: '',
+            four: '',
+            all: ''
+          },
+          creditName: {
+            firstName: '',
+            lastName: ''
+          },
+          expiration: {
+            month: '',
+            year: ''
+          },
+          safeNum: ''
+        },
+        receipt: {
+          method: 'CUI',
+          forMail: {
+            zipCode: '',
+            county: '',
+            district: '',
+            other: ''
+          },
+          CUI: {
+            email: ''
+          },
+          receipt_number: ''
+        }
+      };
+      orderData = cleanOrderData;
+      db.firestore()
+        .collection('customersUser')
+        .doc(user.uid)
+        .update({ cartList: [] });
     }
   }
 
   //運送
   let shippingContent = document.querySelector('.shipping');
+  function shippingHandler() {
+    let shippingContent = document.querySelector('.shipping');
+    if (shippingContent) {
+      shippingContent.addEventListener('change', shippingChangeHandler);
+      document.querySelector('#phone').addEventListener('keydown', numberHandler);
+      if (document.querySelector('.full_address'))
+        new TwCitySelector({
+          el: '.full_address',
+          elCounty: '#county',
+          elDistrict: '#district',
+          hasZipcode: true,
+          standardWords: true,
+          hiddenZipcode: true
+        });
+    }
+  }
   function shippingChangeHandler(e) {
     let shippingData = orderData.shipping;
     if (e && e.target.parentNode.className === 'name') {
@@ -376,9 +465,50 @@
       }
     }
   }
+  function shippingErrorCondition(e, shippingData) {
+    if (shippingData.name.firstName === '') {
+      e.target.parentNode.querySelector('#firstName').classList.add('errorActive');
+      e.target.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
+    }
+    if (shippingData.name.lastName === '') {
+      e.target.parentNode.querySelector('#lastName').classList.add('errorActive');
+      e.target.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
+    }
+    if (shippingData.phone === '') {
+      e.target.parentNode.querySelector('#phone').classList.add('errorActive');
+      e.target.parentNode.querySelector('#phone_error').textContent = '請輸入電話';
+    }
+    if (
+      shippingData.address.county === '' ||
+      shippingData.address.district === '' ||
+      shippingData.address.other === ''
+    ) {
+      e.target.parentNode.querySelector('#address_error').textContent = '請輸入完整地址';
+    }
+    if (shippingData.address.county === '') {
+      e.target.parentNode.querySelector('#county').classList.add('errorActive');
+    }
+    if (shippingData.address.district === '') {
+      e.target.parentNode.querySelector('#district').classList.add('errorActive');
+    }
+    if (shippingData.address.other === '') {
+      e.target.parentNode.querySelector('#address').classList.add('errorActive');
+    }
+  }
 
   //付款
   let paymentContent = document.querySelector('.payment');
+  function paymentHandler() {
+    let paymentContent = document.querySelector('.payment');
+    if (paymentContent) {
+      document.querySelector('.credit_num').addEventListener('keydown', numberHandler);
+      document.querySelector('.credit_num').addEventListener('input', creditCardTypeHandler);
+      document.querySelector('.credit_num').addEventListener('input', creditCardNumInputHandler);
+      document.querySelector('#safe_num').addEventListener('keydown', numberHandler);
+      paymentContent.addEventListener('change', paymentChangeHandler);
+      expirationRender();
+    }
+  }
   function paymentChangeHandler(e) {
     let paymentData = orderData.payment;
     if (e && e.target.parentNode.className === 'credit_num') {
@@ -401,24 +531,45 @@
         }
       }
       if (e && e.target.parentNode.className === 'credit_num') {
-        console.log(creditCart.all);
-        if (creditCart.all.length >= 16 && !creditCardVerify(creditCart.all)) {
+        if (creditCart.all.length === 16 && !creditCardVerify(creditCart.all)) {
           e.target.parentNode.parentNode.querySelector('.credit_num').classList.add('errorActive');
           e.target.parentNode.parentNode.querySelector('#credit_num_error').textContent = '信用卡錯誤';
-          console.log('no:' + creditCart.all);
         }
       }
-    } else if (e && e.target.parentNode.className === 'personal_name') {
-      if (e.target.id === 'firstName') paymentData.creditName.firstName = e.target.value;
-      if (e.target.id === 'lastName') paymentData.creditName.lastName = e.target.value;
-    } else if (e && e.target.parentNode.className === 'expiration') {
+    }
+    if (e && e.target.parentNode.className === 'personal_name') {
+      if (e.target.id === 'firstName') {
+        paymentData.creditName.firstName = e.target.value;
+        if (paymentData.creditName.firstName !== '') {
+          e.target.classList.remove('errorActive');
+        }
+      }
+      if (e.target.id === 'lastName') {
+        paymentData.creditName.lastName = e.target.value;
+        if (paymentData.creditName.lastName !== '') {
+          e.target.classList.remove('errorActive');
+        }
+      }
+    }
+    if (e && e.target.parentNode.className === 'expiration') {
       if (e.target.id === 'expiration_month') {
         paymentData.expiration.month = e.target.value;
-      } else if (e.target.id === 'expiration_year') {
-        paymentData.expiration.year = e.target.value;
+        if (paymentData.expiration.month !== '') {
+          e.target.classList.remove('errorActive');
+        }
       }
-    } else if (e && e.target.id === 'safe_num') {
+      if (e.target.id === 'expiration_year') {
+        paymentData.expiration.year = e.target.value;
+        if (paymentData.expiration.year !== '') {
+          e.target.classList.remove('errorActive');
+        }
+      }
+    }
+    if (e && e.target.id === 'safe_num') {
       paymentData.safeNum = e.target.value;
+      if (paymentData.safeNum !== '') {
+        e.target.classList.remove('errorActive');
+      }
     }
   }
   function expirationRender() {
@@ -438,6 +589,40 @@
       newOption.setAttribute('value', i);
       newOption.textContent = i + '月';
       expirationMonth.appendChild(newOption);
+    }
+  }
+  function paymentErrorCondition(e, paymentData) {
+    //信用卡卡號驗證
+    if (paymentData.creditCartNum.all.length < 16) {
+      e.target.parentNode.parentNode.querySelector('.credit_num').classList.add('errorActive');
+      e.target.parentNode.parentNode.querySelector('#credit_num_error').textContent = '請輸入完整的信用卡卡號';
+    } else if (paymentData.creditCartNum.all.length === 16) {
+      if (!creditCardVerify(paymentData.creditCartNum.all)) {
+        e.target.parentNode.parentNode.querySelector('#credit_num_error').textContent = '信用卡錯誤';
+      }
+    }
+    //姓名
+    if (paymentData.creditName.firstName === '') {
+      e.target.parentNode.parentNode.querySelector('#firstName').classList.add('errorActive');
+      e.target.parentNode.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
+    }
+    if (paymentData.creditName.lastName === '') {
+      e.target.parentNode.parentNode.querySelector('#lastName').classList.add('errorActive');
+      e.target.parentNode.parentNode.querySelector('#name_error').textContent = '請輸入姓名';
+    }
+    //有效期限
+    if (paymentData.expiration.month === '') {
+      e.target.parentNode.parentNode.querySelector('#expiration_month').classList.add('errorActive');
+      e.target.parentNode.parentNode.querySelector('#expiration_error').textContent = '請選擇有效期限';
+    }
+    if (paymentData.expiration.year === '') {
+      e.target.parentNode.parentNode.querySelector('#expiration_year').classList.add('errorActive');
+      e.target.parentNode.parentNode.querySelector('#expiration_error').textContent = '請選擇有效期限';
+    }
+    //安全碼
+    if (paymentData.safeNum === '') {
+      e.target.parentNode.parentNode.querySelector('#safe_num').classList.add('errorActive');
+      e.target.parentNode.parentNode.querySelector('#safe_num_error').textContent = '請輸入安全碼';
     }
   }
   //限制只能數字輸入
@@ -554,27 +739,127 @@
 
   //發票
   let receiptContent = document.querySelector('.receipt');
-
-  if (shippingContent) {
-    shippingContent.addEventListener('change', shippingChangeHandler);
-    document.querySelector('#phone').addEventListener('keydown', numberHandler);
-    if (document.querySelector('.full_address'))
-      new TwCitySelector({
-        el: '.full_address',
-        elCounty: '#county',
-        elDistrict: '#district',
-        hasZipcode: true,
-        standardWords: true,
-        hiddenZipcode: true
-      });
-  } else if (paymentContent) {
-    document.querySelector('.credit_num').addEventListener('keydown', numberHandler);
-    document.querySelector('.credit_num').addEventListener('input', creditCardTypeHandler);
-    document.querySelector('.credit_num').addEventListener('input', creditCardNumInputHandler);
-    document.querySelector('#safe_num').addEventListener('keydown', numberHandler);
-    paymentContent.addEventListener('change', paymentChangeHandler);
-    expirationRender();
-  } else if (receiptContent) {
+  function receiptHandler() {
+    let receiptContent = document.querySelector('.receipt');
+    if (receiptContent) {
+      receiptContent.addEventListener('change', receiptChangeHandler);
+      receiptContent.addEventListener('input', receiptInputHandler);
+      document.querySelector('.receipt_btn').addEventListener('click', receiptTypeToggle);
+      document.querySelector('#receipt_num').addEventListener('keydown', numberHandler);
+      if (document.querySelector('.full_address'))
+        new TwCitySelector({
+          el: '.full_address',
+          elCounty: '#county',
+          elDistrict: '#district',
+          hasZipcode: true,
+          standardWords: true,
+          hiddenZipcode: true
+        });
+    }
   }
+  function receiptTypeToggle(e) {
+    let forMailContent = document.querySelector('.for_mail');
+    let CUIContent = document.querySelector('.CUI');
+    let receiptData = orderData.receipt;
+    if (e.target.id === 'CUI_btn') {
+      e.target.classList.add('check');
+      e.target.parentNode.parentNode.querySelector('#for_mail_btn').classList.remove('check');
+      forMailContent.style.display = 'none';
+      CUIContent.style.display = 'flex';
+      receiptData.method = 'CUI';
+      receiptData.forMail.county = '';
+      receiptData.forMail.district = '';
+      receiptData.forMail.other = '';
+      receiptData.forMail.zipCode = '';
+      document.querySelector('#county').value = '';
+      document.querySelector('#district').value = '';
+      document.querySelector('#address').value = '';
+      document.querySelector('.zipcode').value = '';
+    }
+    if (e.target.id === 'for_mail_btn') {
+      receiptData.method = 'mail';
+      e.target.classList.add('check');
+      e.target.parentNode.parentNode.querySelector('#CUI_btn').classList.remove('check');
+      forMailContent.style.display = 'flex';
+      CUIContent.style.display = 'none';
+      document.querySelector('#email').value = '';
+      receiptData.CUI.email = '';
+    }
+  }
+  function receiptChangeHandler(e) {
+    let receiptData = orderData.receipt;
+    if (e.target.id === 'email') {
+      receiptData.CUI.email = e.target.value.trim();
+      if (!validEmail(receiptData.CUI.email)) {
+        e.target.classList.add('errorActive');
+        document.querySelector('#email_error').textContent = '請輸入正確的電子郵件';
+      }
+      if (validEmail(receiptData.CUI.email)) {
+        e.target.classList.remove('errorActive');
+        document.querySelector('#email_error').textContent = '';
+      }
+    }
+    if (e.target.id === 'receipt_num') {
+      receiptData.receipt_num = e.target.value.trim();
+      if (receiptData.receipt_num.length < 8 || receiptData.receipt_num.length > 8) {
+        e.target.classList.add('errorActive');
+        document.querySelector('#receipt_num_error').textContent = '請輸入八碼的編號';
+      }
+      if (receiptData.receipt_num === '' || receiptData.receipt_num.length === 8) {
+        e.target.classList.remove('errorActive');
+        document.querySelector('#receipt_num_error').textContent = '';
+      }
+    }
+    if (e.target.parentNode.className === 'full_address') {
+      if (e.target.id === 'county') {
+        receiptData.forMail.county = e.target.value;
+        if (receiptData.forMail.county !== '') {
+          e.target.classList.remove('errorActive');
+        }
+      }
+      if (e.target.id === 'district') {
+        receiptData.forMail.district = e.target.value;
+        if (receiptData.forMail.district !== '') {
+          e.target.classList.remove('errorActive');
+        }
+      }
+      if (e.target.id === 'address') {
+        receiptData.forMail.zipCode = e.target.parentNode.querySelector('.zipcode').value;
+        receiptData.forMail.other = e.target.value;
+        if (receiptData.forMail.other !== '') {
+          e.target.classList.remove('errorActive');
+        }
+      }
+      if (
+        receiptData.forMail.district !== '' &&
+        receiptData.forMail.county !== '' &&
+        receiptData.forMail.other !== ''
+      ) {
+        document.querySelector('#full_address_error').textContent = '';
+      }
+    }
+  }
+  function receiptInputHandler(e) {
+    let receiptData = orderData.receipt;
+    if (e.target.id === 'address') {
+      if (receiptData.forMail.district === '' || receiptData.forMail.county === '') {
+        document.querySelector('#full_address_error').textContent = '請選擇縣市與區域';
+        if (receiptData.forMail.district === '') {
+          document.querySelector('#district').classList.add('errorActive');
+        }
+        if (receiptData.forMail.county === '') {
+          document.querySelector('#county').classList.add('errorActive');
+        }
+      }
+    }
+  }
+  function validEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
   checkoutForm.addEventListener('click', AJAXClickHandler);
+  shippingHandler();
+  paymentHandler();
+  receiptHandler();
 })();

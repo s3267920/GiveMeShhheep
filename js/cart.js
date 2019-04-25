@@ -82,9 +82,16 @@
         cartListHandler(cartListData, cartListProduct);
         main.style.visibility = 'visible';
         loading.style.display = 'none';
+        let checkoutBtn = document.querySelector('.checkout_btn');
+        checkoutBtn.addEventListener('click', e => {
+          if (cartListData.length) {
+            location.href = '../html/checkout.html';
+          }
+        });
       });
   }
   let cartListContent = document.querySelector('#cart_list_content');
+
   //購物車列表
   function cartListHandler(cartListData, cartListQuantity) {
     let content = '';
@@ -119,6 +126,9 @@
     }
     orderListHandler(cartListData, cartListQuantity);
     cartListContent.addEventListener('click', cartListClickHandler);
+    if (cartListQuantity.length) {
+      document.querySelector('.checkout').classList.add('checkout_btn_allow');
+    }
     function cartListClickHandler(e) {
       const user = db.auth().currentUser;
       let cartListLi = e.target.parentNode.parentNode.parentNode.parentNode;
@@ -127,6 +137,7 @@
       let totalPrice = e.target.parentNode.parentNode.parentNode.querySelector('.price');
       let productPrice = Number(cartListLi.querySelector('.cart_list_product_item span').textContent.split('NT$ ')[1]);
       let productName = cartListLi.querySelector('.cart_list_product_item p').textContent;
+
       if (e && e.target.className === 'add') {
         quantityNum.textContent = Number(quantityNum.textContent) + 1;
         cartListQuantity.forEach(cartProduct => {
@@ -155,6 +166,10 @@
         if (confirm(`確定刪除${productName}嗎？`)) {
           cartListLi.remove();
           cartListQuantity.splice(index, 1);
+          let test = cartListContent.getElementsByTagName('li');
+          if (!cartListQuantity.length) {
+            document.querySelector('.checkout').classList.remove('checkout_btn_allow');
+          }
           db.firestore()
             .collection('customersUser')
             .doc(user.uid)

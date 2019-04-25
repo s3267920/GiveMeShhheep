@@ -307,16 +307,14 @@ main {
     margin: 0 auto;
     margin-bottom: 30px;
     input[type='button'] {
+      cursor: pointer;
       width: 50%;
       height: 56px;
       background-color: color(color_teal, dark);
       color: color(color_gray, white);
       border: 1px solid color(color_gray, white);
       font-size: nth($font, 3);
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 2px color(color_gray, white);
-      }
+      outline: none;
     }
     a > .check {
       background-color: color(color_gray, white);
@@ -351,7 +349,14 @@ main {
         font-weight: 300;
       }
     }
+    .CUI {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
     .for_mail {
+      display: flex;
+      flex-direction: column;
       width: 100%;
       .full_address {
         display: flex;
@@ -375,7 +380,7 @@ main {
     }
   }
 }
-.change_btn {
+.step_btn {
   display: flex;
   input {
     cursor: pointer;

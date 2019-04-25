@@ -19,17 +19,16 @@
     </div>
   </div>
   <div class="receipt_btn">
-    <a href="javascript:;"><input type="button" value="電子發票" class="check CUI_btn "/></a
-    ><a href="javascript:;"><input type="button" value="郵寄發票" class="for_mail_btn"/></a>
+    <a href="javascript:;"><input type="button" value="電子發票" class="CUI_btn check" id="CUI_btn"/></a
+    ><a href="javascript:;"><input type="button" value="郵寄發票" class="for_mail_btn " id="for_mail_btn"/></a>
   </div>
 
   <div class="tag_change">
     <!-- 電子發票 -->
     <div class="CUI">
       <label for="email">電子郵件信箱</label>
-      <input type="email" id="email " placeholder="example@email.com" required />
-      <label for="receipt_num">統一編號（選填）</label>
-      <input type="text " id="receipt_num" placeholder="12345678 " />
+      <input type="email" id="email" placeholder="example@gmail.com" required />
+      <div class="error_msg" id="email_error"></div>
     </div>
     <!-- 郵寄發票 -->
     <div class="for_mail" style="display: none;">
@@ -37,14 +36,16 @@
         <label for="address">地址</label>
         <select name="county" id="county" required></select>
         <select name="district" id="district"></select>
+        <div class="error_msg" id="select_address_msg"></div>
         <input type="text" id="address" placeholder="幸福路520號" required />
       </div>
-      <label for="receipt_num">統一編號（選填）</label>
-      <input type="text " id="receipt_num" placeholder="12345678 " />
+      <div class="error_msg" id="full_address_error"></div>
     </div>
+    <label for="receipt_num">統一編號（選填）</label>
+    <input type="text " id="receipt_num" placeholder="12345678" />
+    <div class="error_msg" id="receipt_num_error"></div>
   </div>
-
-  <div class="change_btn">
+  <div class="step_btn">
     <input class="back_btn" id="back_btn" type="submit" value="上一步" />
     <input class="finished_btn" id="finished_btn" type="submit" value="確認結帳" />
   </div>

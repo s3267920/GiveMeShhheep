@@ -25,38 +25,38 @@
     document.body.appendChild(newForm);
     newForm.submit();
   }
-  let a = '';
 
   window.addEventListener('load', () => {
-    const user = db.auth().currentUser;
-    if (user) {
-      db.firestore()
-        .collection('customersUser')
-        .doc(user.uid)
-        .get()
-        .then(doc => {
-          if (doc.data().cartList) {
-            cartProduct = doc.data().cartList || [];
-          } else {
-            db.firestore()
-              .collection('customersUser')
-              .doc(user.uid)
-              .update({ cartList: cartProduct });
-          }
-          if (doc.data().favoriteList) {
-            favoriteList = doc.data().favoriteList || [];
-          } else {
-            db.firestore()
-              .collection('customersUser')
-              .doc(user.uid)
-              .update({ favoriteList: favoriteList });
-          }
-        });
-    } else {
-      favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
-      cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
-    }
-    getProductData();
+    db.auth().onAuthStateChanged(user => {
+      if (user) {
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .get()
+          .then(doc => {
+            if (doc.data().cartList) {
+              cartProduct = doc.data().cartList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ cartList: cartProduct });
+            }
+            if (doc.data().favoriteList) {
+              favoriteList = doc.data().favoriteList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ favoriteList: favoriteList });
+            }
+          });
+      } else {
+        favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+        cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+      }
+      getProductData();
+    });
   });
 
   //get product data

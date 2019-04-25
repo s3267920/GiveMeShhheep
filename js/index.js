@@ -1,6 +1,5 @@
 (function() {
   let db = firebase;
-
   //banner
   function bannerHandler() {
     let bannerToggleItem = document.querySelector('.banner_img_toggle_box');
@@ -278,35 +277,36 @@
   let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
   let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
   window.addEventListener('load', () => {
-    const user = db.auth().currentUser;
-    if (user) {
-      db.firestore()
-        .collection('customersUser')
-        .doc(user.uid)
-        .get()
-        .then(doc => {
-          if (doc.data().cartList) {
-            cartProduct = doc.data().cartList || [];
-          } else {
-            db.firestore()
-              .collection('customersUser')
-              .doc(user.uid)
-              .update({ cartList: cartProduct });
-          }
-          if (doc.data().favoriteList) {
-            favoriteList = doc.data().favoriteList || [];
-          } else {
-            db.firestore()
-              .collection('customersUser')
-              .doc(user.uid)
-              .update({ favoriteList: favoriteList });
-          }
-        });
-    } else {
-      favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
-      cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
-    }
-    getNewsData();
+    db.auth().onAuthStateChanged(user => {
+      if (user) {
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .get()
+          .then(doc => {
+            if (doc.data().cartList) {
+              cartProduct = doc.data().cartList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ cartList: cartProduct });
+            }
+            if (doc.data().favoriteList) {
+              favoriteList = doc.data().favoriteList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ favoriteList: favoriteList });
+            }
+          });
+      } else {
+        favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+        cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+      }
+      getNewsData();
+    });
   });
   function getNewProducts() {
     let productData = [];
@@ -334,7 +334,7 @@
             status: doc.data().status,
             productIndex: doc.data().productIndex
           };
-          if (data.tag === '新品上市') {
+          if (data.status && data.tag === '新品上市') {
             productData.push(data);
           }
         });
@@ -384,50 +384,150 @@
     }
 
     newProductContent.addEventListener('click', e => {
+      const user = db.auth().currentUser;
       function localStorageFavoriteData(data) {
         let favoriteListToString = JSON.stringify(data);
         localStorage.setItem('newProductsData', favoriteListToString);
       }
       if (e.target.parentNode.parentNode.className === 'favorite_icon') {
-        let favoriteIcon = e.target.parentNode.parentNode;
-        let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
-        if (e.target.parentNode.className === 'favorite_icon_on') {
-          e.target.parentNode.style.display = 'none';
-          favoriteIcon.children[0].style.display = 'flex';
-          favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
+        if (user) {
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+              if (doc.data().favoriteList) {
+                favoriteList = doc.data().favoriteList || [];
+              } else {
+                db.firestore()
+                  .collection('customersUser')
+                  .doc(user.uid)
+                  .update({ favoriteList: favoriteList });
+              }
+              addFavoriteHandler(favoriteList);
+            });
         } else {
-          e.target.parentNode.style.display = 'none';
-          favoriteIcon.children[1].style.display = 'flex';
-          favoriteList.push(data[dataIndex].id);
+          favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+          addFavoriteHandler(favoriteList);
         }
-        localStorageFavoriteData(favoriteList);
+        function addFavoriteHandler(favoriteList) {
+          let favoriteIcon = e.target.parentNode.parentNode;
+          let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
+          if (e.target.parentNode.className === 'favorite_icon_on') {
+            e.target.parentNode.style.display = 'none';
+            favoriteIcon.children[0].style.display = 'flex';
+            favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
+          } else {
+            e.target.parentNode.style.display = 'none';
+            favoriteIcon.children[1].style.display = 'flex';
+            favoriteList.push(data[dataIndex].id);
+          }
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .update({ favoriteList: favoriteList });
+          localStorageFavoriteData(favoriteList);
+        }
       }
       function localStorageCartProductData(data) {
         let cartProductListToString = JSON.stringify(data);
         localStorage.setItem('cartList', cartProductListToString);
       }
       if (e.target.className === 'add_btn') {
-        //如果點選同一樣的話只累加數量
-        let index = e.target.parentNode.dataset.index;
-        let isRepeat = () => {
-          return cartProduct.some(compareData => {
-            return compareData.dataId === data[index].id;
-          });
-        };
-        if (!cartProduct.length || isRepeat() === false) {
-          cartProduct.push({ dataId: data[index].id, quantity: 1 });
+        if (user) {
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+              if (doc.data().cartList) {
+                cartProduct = doc.data().cartList || [];
+              } else {
+                db.firestore()
+                  .collection('customersUser')
+                  .doc(user.uid)
+                  .update({ cartList: cartProduct });
+              }
+              addProductHandler(cartProduct);
+            });
         } else {
-          cartProduct.forEach(cartProduct => {
-            if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
-            else return;
-          });
+          cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+          addProductHandler(cartProduct);
         }
-        let cartStore = document.getElementById('cart_store');
-        let fixedCartStore = document.getElementById('fixed_cart_store');
-        cartStore.textContent = cartProduct.length;
-        fixedCartStore.textContent = cartProduct.length;
-        localStorageCartProductData(cartProduct);
+        function addProductHandler(cartProduct) {
+          //如果點選同一樣的話只累加數量
+          let index = e.target.parentNode.dataset.index;
+          let isRepeat = () => {
+            return cartProduct.some(compareData => {
+              return compareData.dataId === data[index].id;
+            });
+          };
+          if (!cartProduct.length || isRepeat() === false) {
+            cartProduct.push({
+              dataId: data[index].id,
+              quantity: 1
+            });
+          } else {
+            cartProduct.forEach(cartProduct => {
+              if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
+              else return;
+            });
+          }
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .update({ cartList: cartProduct });
+          let cartStore = document.getElementById('cart_store');
+          let fixedCartStore = document.getElementById('fixed_cart_store');
+          cartStore.textContent = cartProduct.length;
+          fixedCartStore.textContent = cartProduct.length;
+          localStorageCartProductData(cartProduct);
+        }
       }
+      // function localStorageFavoriteData(data) {
+      //   let favoriteListToString = JSON.stringify(data);
+      //   localStorage.setItem('newProductsData', favoriteListToString);
+      // }
+      // if (e.target.parentNode.parentNode.className === 'favorite_icon') {
+      //   let favoriteIcon = e.target.parentNode.parentNode;
+      //   let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
+      //   if (e.target.parentNode.className === 'favorite_icon_on') {
+      //     e.target.parentNode.style.display = 'none';
+      //     favoriteIcon.children[0].style.display = 'flex';
+      //     favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
+      //   } else {
+      //     e.target.parentNode.style.display = 'none';
+      //     favoriteIcon.children[1].style.display = 'flex';
+      //     favoriteList.push(data[dataIndex].id);
+      //   }
+      //   localStorageFavoriteData(favoriteList);
+      // }
+      // function localStorageCartProductData(data) {
+      //   let cartProductListToString = JSON.stringify(data);
+      //   localStorage.setItem('cartList', cartProductListToString);
+      // }
+      // if (e.target.className === 'add_btn') {
+      //   //如果點選同一樣的話只累加數量
+      //   let index = e.target.parentNode.dataset.index;
+      //   let isRepeat = () => {
+      //     return cartProduct.some(compareData => {
+      //       return compareData.dataId === data[index].id;
+      //     });
+      //   };
+      //   if (!cartProduct.length || isRepeat() === false) {
+      //     cartProduct.push({ dataId: data[index].id, quantity: 1 });
+      //   } else {
+      //     cartProduct.forEach(cartProduct => {
+      //       if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
+      //       else return;
+      //     });
+      //   }
+      //   let cartStore = document.getElementById('cart_store');
+      //   let fixedCartStore = document.getElementById('fixed_cart_store');
+      //   cartStore.textContent = cartProduct.length;
+      //   fixedCartStore.textContent = cartProduct.length;
+      //   localStorageCartProductData(cartProduct);
+      // }
     });
   }
   getNewProducts();

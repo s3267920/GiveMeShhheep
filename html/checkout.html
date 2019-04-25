@@ -40,7 +40,7 @@
         </div>
         <div class="personal">
           <a class="user" href=""><i class="fas fa-user"></i></a>
-          <a class="cart" href="./html/cart.html"
+          <a class="cart" href="./cart.html"
             ><i class="fas fa-shopping-cart"></i><span class="cart_store" id="cart_store">0</span></a
           >
         </div>
@@ -48,59 +48,7 @@
     </header>
     <main id="checkout_content">
       <div id="checkout_form">
-        <div class="receipt">
-          <div class="title">
-            <h4>付款</h4>
-            <div class="step_mark">
-              <div class="step_box">
-                <input type="radio" name="step1" id="step1" />
-                <label for="step1" class="finish "></label>
-              </div>
-              <span></span>
-              <div class="step_box">
-                <input type="radio" name="step2" id="step2" />
-                <label for="step2" class="finish "></label>
-              </div>
-              <span></span>
-              <div class="step_box">
-                <input type="radio" name="step3" id="step3" checked />
-                <label for="step3" class="step"></label>
-              </div>
-            </div>
-          </div>
-          <div class="receipt_btn">
-            <a href="javascript:;"><input type="button" value="電子發票" class="check CUI_btn "/></a
-            ><a href="javascript:;"><input type="button" value="郵寄發票" class="for_mail_btn"/></a>
-          </div>
-
-          <div class="tag_change">
-            <!-- 電子發票 -->
-            <div class="CUI">
-              <label for="email">電子郵件信箱</label>
-              <input type="email" id="email " placeholder="example@email.com" required />
-              <label for="receipt_num">統一編號（選填）</label>
-              <input type="text " id="receipt_num" placeholder="12345678 " />
-            </div>
-            <!-- 郵寄發票 -->
-            <div class="for_mail" style="display: none;">
-              <div class="full_address">
-                <label for="address">地址</label>
-                <select name="county" id="county" required></select>
-                <select name="district" id="district"></select>
-                <input type="text" id="address" placeholder="幸福路520號" required />
-              </div>
-              <label for="receipt_num">統一編號（選填）</label>
-              <input type="text " id="receipt_num" placeholder="12345678 " />
-            </div>
-          </div>
-
-          <div class="change_btn">
-            <input class="back_btn" id="back_btn" type="submit" value="上一步" />
-            <input class="finished_btn" id="finished_btn" type="submit" value="確認結帳" />
-          </div>
-        </div>
-
-        <!-- <div class="shipping">
+        <div class="shipping">
           <div class="title">
             <h4>運送</h4>
             <div class="step_mark">
@@ -129,7 +77,7 @@
               <div class="error_msg" id="name_error"></div>
             </div>
             <label for="phone">電話</label>
-            <input type="tel" id="phone" placeholder="0912-345-678" autocomplete />
+            <input type="tel" id="phone" placeholder="0912345678" autocomplete />
             <div class="error_msg" id="phone_error"></div>
             <div class="full_address">
               <label for="address">地址</label>
@@ -140,7 +88,7 @@
             </div>
           </div>
           <input class="next_btn shipping_btn" type="submit" id="next_btn" value="下一步" />
-        </div> -->
+        </div>
       </div>
       <div class="Info_list">
         <div class="orders">
