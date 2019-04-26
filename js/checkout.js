@@ -141,9 +141,9 @@
       });
   }
 
-  window.addEventListener('beforeunload', e => {
-    e.returnValue = '確定離開當前頁面嗎？';
-  });
+  // window.addEventListener('beforeunload', e => {
+  //   e.returnValue = '確定離開當前頁面嗎？';
+  // });
   //訂單摘要
   function orderListHandler(cartListData) {
     let subtotal = document.querySelector('.subtotal');
@@ -280,7 +280,7 @@
           }
           document.querySelector('#full_address_error').textContent = '請選擇縣市區域，並輸入地址';
         } else {
-          location.href = '../html/checkoutSuccess.html';
+          submitData(orderData);
         }
       }
     }
@@ -317,87 +317,91 @@
           email: orderData.receipt.CUI.email
         },
         receipt_number: orderData.receipt.receipt_number
-      }
+      },
+      orderDate: new Date()
     };
-    let user = db.auth().currentUser;
-    db.firestore()
-      .collection('customersUser')
-      .doc(user.uid)
-      .collection('order')
-      .add(newOrderData)
-      .then(doc => {
+    db.auth().onAuthStateChanged(user => {
+      if (user) {
         db.firestore()
-          .collection('user')
-          .doc('lEhSHeJpNKf6h58s7t2q5URBgDm2')
-          .collection('customersOrder')
-          .doc(doc.id)
-          .set(newOrderData)
+          .collection('customersUser')
+          .doc(user.uid)
+          .collection('order')
+          .add(newOrderData)
           .then(doc => {
-            resetData(orderData);
-            location.href = '../html/checkoutSuccess.html';
+            db.firestore()
+              .collection('user')
+              .doc('lEhSHeJpNKf6h58s7t2q5URBgDm2')
+              .collection('customersOrder')
+              .doc(doc.id)
+              .set(newOrderData)
+              .then(doc => {
+                resetData(orderData);
+                location.href = '../html/checkoutSuccess.html';
+              });
+          })
+          .catch(error => {
+            console.log(error);
           });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    function resetData(orderData) {
-      let cleanOrderData = {
-        cartListData: [],
-        price: {
-          shippingRate: 0,
-          totalPrice: 0
-        },
-        shipping: {
-          name: {
-            firstName: '',
-            lastName: ''
+      }
+      function resetData(orderData) {
+        let cleanOrderData = {
+          cartListData: [],
+          price: {
+            shippingRate: 0,
+            totalPrice: 0
           },
-          phone: '',
-          address: {
-            zipCode: '',
-            county: '',
-            district: '',
-            other: ''
+          shipping: {
+            name: {
+              firstName: '',
+              lastName: ''
+            },
+            phone: '',
+            address: {
+              zipCode: '',
+              county: '',
+              district: '',
+              other: ''
+            }
+          },
+          payment: {
+            creditCartNum: {
+              one: '',
+              two: '',
+              three: '',
+              four: '',
+              all: ''
+            },
+            creditName: {
+              firstName: '',
+              lastName: ''
+            },
+            expiration: {
+              month: '',
+              year: ''
+            },
+            safeNum: ''
+          },
+          receipt: {
+            method: 'CUI',
+            forMail: {
+              zipCode: '',
+              county: '',
+              district: '',
+              other: ''
+            },
+            CUI: {
+              email: ''
+            },
+            receipt_number: ''
           }
-        },
-        payment: {
-          creditCartNum: {
-            one: '',
-            two: '',
-            three: '',
-            four: '',
-            all: ''
-          },
-          creditName: {
-            firstName: '',
-            lastName: ''
-          },
-          expiration: {
-            month: '',
-            year: ''
-          },
-          safeNum: ''
-        },
-        receipt: {
-          method: 'CUI',
-          forMail: {
-            zipCode: '',
-            county: '',
-            district: '',
-            other: ''
-          },
-          CUI: {
-            email: ''
-          },
-          receipt_number: ''
-        }
-      };
-      orderData = cleanOrderData;
-      db.firestore()
-        .collection('customersUser')
-        .doc(user.uid)
-        .update({ cartList: [] });
-    }
+        };
+        orderData = cleanOrderData;
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .update({ cartList: [] });
+      }
+    });
   }
 
   //運送
