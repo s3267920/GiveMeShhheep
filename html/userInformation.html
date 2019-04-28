@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Orders訂單</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="GiveMeShhheep" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="FB上的網址" />
+    <meta property="og:image" content="FB的圖片" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/customerBackstage.min.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav_hamburger">
+          <button class="hamburger_icon">
+            <div class="icon_box">
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+            </div>
+          </button>
+        </div>
+        <ul id="nav_bar">
+          <li><a href="/">首頁</a></li>
+          <li><a href="">產品</a></li>
+          <li class="sign_out" style="display:none"><a href="javascript:;">登出</a></li>
+        </ul>
+        <div class="logo">
+          <a href="/"><h1>GiveMeShhheep</h1></a>
+        </div>
+        <div class="personal">
+          <a class="user" href="javascript:;"><i class="fas fa-user"></i> </a>
+          <a class="cart" href="javascript:;"
+            ><i class="fas fa-shopping-cart cart_icon"></i><span class="cart_store" id="cart_store">0</span></a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <nav>
+        <ul>
+          <li class="user_information has_select">
+            <a href="./userInformation.html">個人資訊</a>
+          </li>
+          <li class="all_order"><a href="./order.html">所有訂單</a></li>
+          <li class="all_order_item on_user_page">
+            <ul>
+              <li><a href="javascript:;" id="order_in_progress">進行中</a></li>
+              <li><a href="javascript:;" id="order_done">已完成</a></li>
+            </ul>
+          </li>
+          <li class="item_toggle">
+            <button class="item_toggle_btn" id="left_btn">
+              <i class="fas fa-chevron-left" id="left_icon"></i>
+            </button>
+            <button class="item_toggle_btn" id="right_btn" style="display:none">
+              <i class="fas fa-chevron-right" id="right_icon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div class="user_data_content">
+        <div class="user_id">用戶編號： <span>A456DQW2E4848QS</span></div>
+        <div class="user_name">
+          <label for="userName">暱稱：</label>
+          <input type="text" id="userName" value="" />
+          <a href="javascript:;" class="edit_icon"><i class="far fa-edit"></i></a>
+        </div>
+        <div class="user_email">
+          <label for="email">Email(不可改)：</label>
+          <input type="text" id="email" value="" disabled />
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>2019 Design and make by Lucy Chen</p>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/customerBackstage.js"></script>
+  </body>
+</html>

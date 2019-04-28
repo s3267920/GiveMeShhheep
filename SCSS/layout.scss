@@ -90,7 +90,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 220px;
+    width: 215px;
     order: 2;
     h1 {
       margin: 0;
@@ -133,6 +133,7 @@ header {
   }
   .cart {
     margin-left: 10px;
+    height: 30px;
     .cart_store {
       display: inline-flex;
       justify-content: center;
@@ -148,7 +149,8 @@ header {
     }
   }
   .user {
-    margin-right: 10px;
+    height: 30px;
+    width: 30px;
   }
   .loginStatus {
     color: color(color_teal, deepTeal);
@@ -212,6 +214,9 @@ header {
       border-radius: 50%;
       font-size: nth($font, 3);
       background-color: color(other, white);
+    }
+    .user {
+      margin-right: 10px;
     }
     .cart {
       position: relative;
@@ -530,5 +535,10 @@ footer {
   100% {
     opacity: 1;
   }
+}
+
+.slideDown {
+  height: 100% !important;
+  transition: all 0.3s ease;
 }
 @import '_loadingPage.scss';

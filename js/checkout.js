@@ -318,7 +318,8 @@
         },
         receipt_number: orderData.receipt.receipt_number
       },
-      orderDate: new Date()
+      orderDate: new Date(),
+      status: 'in progress'
     };
     db.auth().onAuthStateChanged(user => {
       if (user) {
