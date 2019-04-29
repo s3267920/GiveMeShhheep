@@ -481,33 +481,77 @@ main > nav {
   }
 }
 .user_data_content {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  padding: 30px 20px;
   box-sizing: border-box;
-  background-color: color(other, white);
+  background-color: color(color_gray, light);
   > div {
     width: 100%;
     height: 50px;
+    line-height: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0 10px;
     box-sizing: border-box;
+    color: color(color_teal, dark);
+    margin-bottom: 5%;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
   .user_id {
     span {
       margin-left: 10px;
     }
   }
-}
-
-footer {
-  background-color: color(color_teal, dark);
-  height: 60px;
-  > p {
-    color: color(color_gray, white);
+  .user_name,
+  .user_email {
+    label {
+      min-width: 80px;
+    }
+    input {
+      height: 50px;
+      flex: 2;
+      border: none;
+      color: color(color_teal, dark);
+      background-color: color(color_gray, light);
+      padding: 0 10px;
+    }
+    input#userName {
+      background-color: color(color_gray, white);
+    }
+    input:read-only {
+      outline: none;
+      background-color: color(color_gray, light) !important;
+    }
+    > a {
+      cursor: pointer;
+      color: color(color_teal, dark);
+      font-size: nth($font, 3);
+    }
+    .edit_icon {
+      text-align: center;
+      width: 25px;
+      margin-left: 10px;
+    }
+    #check_icon {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    width: 90%;
+    margin: 10% auto;
+  }
+  @media screen and (min-width: 900px) {
+    width: 70%;
+  }
+  @media screen and (min-width: 1400px) {
+    width: 60%;
+    margin: 5% auto;
   }
 }

@@ -9,7 +9,6 @@
     db.auth().onAuthStateChanged(user => {
       if (user) {
         let currentUrl = window.location.href;
-        console.log();
         if (/order.html/.test(currentUrl)) {
           let orderData = [];
           db.firestore()
@@ -43,12 +42,28 @@
             });
         }
         if (/userInformation.html/.test(currentUrl)) {
+          let userDataContent = document.querySelector('.user_data_content');
+          let userData;
+          db.firestore()
+            .collection('customersUser')
+            .doc(user.uid)
+            .get()
+            .then(data => {
+              userData = {
+                email: data.data().email,
+                userID: data.data().userID,
+                userName: data.data().userName
+              };
+              userInfoDataRender(userData);
+            });
+          userDataContent.addEventListener('click', userInfoClickHandler);
         }
       } else {
         location.href = '../html/login.html';
       }
     });
   });
+  //訂單頁
   function OrderSlideBtnHandler(e) {
     if (e.target.id === 'left_btn' || e.target.id === 'left_icon') {
       main.querySelector('nav').classList.add('all_order_item_slide');
@@ -126,5 +141,39 @@
         orderListItem[i].appendChild(newLi);
       });
     }
+  }
+
+  //用戶頁
+
+  function userInfoClickHandler(e) {
+    let userName = document.querySelector('#userName');
+    let editIcon = document.querySelector('#edit_icon');
+    let checkIcon = document.querySelector('#check_icon');
+    if (e.target.id === 'edit_icon') {
+      userName.removeAttribute('readonly');
+      editIcon.style.display = 'none';
+      checkIcon.style.display = 'block';
+    }
+    if (e.target.id === 'check_icon') {
+      userName.setAttribute('readonly', 'value');
+      editIcon.style.display = 'block';
+      checkIcon.style.display = 'none';
+      let user = db.auth().currentUser;
+      let userNameChangedValue = e.target.parentNode.parentNode.querySelector('input').value;
+      db.firestore()
+        .collection('customersUser')
+        .doc(user.uid)
+        .update({
+          userName: userNameChangedValue
+        });
+    }
+  }
+  function userInfoDataRender(userData) {
+    let userIdDiv = document.querySelector('.user_id');
+    let userNameInput = document.querySelector('#userName');
+    let userEmailInput = document.querySelector('#userEmail');
+    userIdDiv.children[0].textContent = userData.userID;
+    userNameInput.value = userData.userName;
+    userEmailInput.value = userData.email;
   }
 })();

@@ -71,21 +71,20 @@
         </ul>
       </nav>
       <div class="user_data_content">
-        <div class="user_id">用戶編號： <span>A456DQW2E4848QS</span></div>
+        <div class="user_id">用戶編號： <span></span></div>
         <div class="user_name">
-          <label for="userName">暱稱：</label>
-          <input type="text" id="userName" value="" />
-          <a href="javascript:;" class="edit_icon"><i class="far fa-edit"></i></a>
+          <label for="userName">用戶名稱：</label>
+          <input type="text" id="userName" value="" readonly="value" />
+          <a href="javascript:;" class="edit_icon"
+            ><i class="far fa-edit" id="edit_icon"></i> <i class="fas fa-check" id="check_icon"></i
+          ></a>
         </div>
         <div class="user_email">
-          <label for="email">Email(不可改)：</label>
-          <input type="text" id="email" value="" disabled />
+          <label for="userEmail">Email：</label>
+          <input type="text" id="userEmail" value="" disabled />
         </div>
       </div>
     </main>
-    <footer>
-      <p>2019 Design and make by Lucy Chen</p>
-    </footer>
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
