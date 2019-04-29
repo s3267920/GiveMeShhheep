@@ -5,6 +5,8 @@
   let series = location.search.split('series=')[1] ? location.search.split('series=')[1].split('&')[0] : '';
   let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
   let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+  let main = document.querySelector('main');
+  let loading = document.querySelector('.loading_modal');
   //使用 form 來做 httpParams
   //參考 https://stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
   //參考 https://pjchender.blogspot.com/2016/06/javascript-for-in-function.html
@@ -132,9 +134,40 @@
           }
           paginationHandle(filterData('tag', tag));
         }
-
         productTypeHandler(productData);
+        productsContentLiSelectHandler();
+        loading.style.display = 'none';
+        main.style.visibility = 'visible';
       });
+  }
+  //類別選單選取
+  function productsContentLiSelectHandler() {
+    let productsContentLi = document.querySelectorAll('#products_content_ul >li');
+    let tag = '';
+    switch (type) {
+      case 'product_of_the_day':
+        tag = '本日精選';
+        break;
+      case 'popular':
+        tag = '人氣推薦';
+        break;
+      case 'new_product':
+        tag = '新品上市';
+        break;
+      default:
+        tag = 'all';
+        break;
+    }
+    for (let i = 1; i < productsContentLi.length; i++) {
+      let li = productsContentLi[i];
+      if (li.children[0].textContent.split('（')[0] === tag) {
+        li.classList.add('selected');
+      } else if (tag === 'all') {
+        productsContentLi[1].classList.add('selected');
+      } else {
+        li.classList.remove('selected');
+      }
+    }
   }
   //資料類別
   function productTypeHandler(data) {
@@ -162,10 +195,8 @@
       });
     }
     allProductItemListHandler(data);
-
     //類別
     let productsContentNav = document.querySelector('.products_content_nav');
-    let productsContentUl = document.querySelector('#products_content_ul');
     //data 資料 , type 種類 , parent 要插入的元素
     function productsListHandleAndRender(data, type, parent) {
       let allData = [];
@@ -187,6 +218,7 @@
       });
     }
     function productTypeNavHandler(data) {
+      let productsContentUl = document.querySelector('#products_content_ul');
       let allQuantity = document.querySelector('.all_product_item').querySelector('span');
       allQuantity.textContent = data.length;
       productsListHandleAndRender(data, 'tag', productsContentUl);
@@ -219,7 +251,6 @@
               break;
           }
           postDataHandle('products.html', { page: page, type: type });
-          console.log(series);
         }
       });
     }
@@ -410,7 +441,7 @@
         </div>
         <div class="product_box_item">
           <div class="product_box_name">
-          ${newData.productName}
+          <a href="javascript:;">${newData.productName}</a>
           </div>
           <div class="product_box_dollar">
             NT$  ${newData.price.discount}
@@ -422,8 +453,9 @@
       newLi.classList.add('fadeInDown');
       productListContent.appendChild(newLi);
     });
-    productListContent.addEventListener('click', e => {
+    function productListContentClickHandler(e) {
       const user = db.auth().currentUser;
+      //喜歡部分
       function localStorageFavoriteData(data) {
         let favoriteListToString = JSON.stringify(data);
         localStorage.setItem('newProductsData', favoriteListToString);
@@ -469,6 +501,7 @@
           localStorageFavoriteData(favoriteList);
         }
       }
+      //加入購物車部分
       function localStorageCartProductData(data) {
         let cartProductListToString = JSON.stringify(data);
         localStorage.setItem('cartList', cartProductListToString);
@@ -524,6 +557,12 @@
           localStorageCartProductData(cartProduct);
         }
       }
-    });
+      //進入商品頁
+      if (e.target.nodeName === 'A') {
+        let index = e.target.parentNode.parentNode.parentNode.dataset.index;
+        window.location.href = `../html/productItem.html?id=${data[index].id}`;
+      }
+    }
+    productListContent.addEventListener('click', productListContentClickHandler);
   }
 })();

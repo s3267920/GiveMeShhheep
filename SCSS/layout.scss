@@ -311,6 +311,9 @@ header {
   }
 }
 main {
+  max-width: 1800px;
+  margin: 0 auto;
+  min-height: 650px;
   .fixed_cart {
     z-index: 999;
     position: fixed;

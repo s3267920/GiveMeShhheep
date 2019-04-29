@@ -3,6 +3,12 @@
   let allOrdersSlide = document.querySelector('.item_toggle');
   let main = document.querySelector('main');
   let allOrderItem = document.querySelector('.all_order_item');
+  let loading = document.querySelector('.loading');
+  let userDataContent = document.querySelector('.user_data_content');
+  if (userDataContent) {
+    userDataContent.style.visibility = 'hidden';
+  }
+  main.style.visibility = 'visible';
   window.addEventListener('load', e => {
     allOrdersSlide.addEventListener('click', OrderSlideBtnHandler);
     allOrderItem.addEventListener('click', allOrderItemClickHandler);
@@ -39,10 +45,10 @@
                 }
               });
               orderListRender(filterData);
+              loading.style.display = 'none';
             });
         }
         if (/userInformation.html/.test(currentUrl)) {
-          let userDataContent = document.querySelector('.user_data_content');
           let userData;
           db.firestore()
             .collection('customersUser')
@@ -55,6 +61,8 @@
                 userName: data.data().userName
               };
               userInfoDataRender(userData);
+              loading.style.display = 'none';
+              userDataContent.style.visibility = 'visible';
             });
           userDataContent.addEventListener('click', userInfoClickHandler);
         }

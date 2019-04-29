@@ -39,13 +39,20 @@
           <a href="/"><h1>GiveMeShhheep</h1></a>
         </div>
         <div class="personal">
-          <a class="user" id='user' href="javascript:;"><i class="fas fa-user"></i></a>
+          <a class="user" id='user' href="javascript:;"><i class="fas fa-user" id='user_icon'></i></a>
           <a class="cart" id='cart' href="javascript:;"
-            ><i class="fas fa-shopping-cart cart_icon"></i><span class="cart_store" id="cart_store">0</span></a
+            ><i class="fas fa-shopping-cart " id='cart_icon'></i><span class="cart_store" id="cart_store">0</span></a
           >
         </div>
       </nav>
     </header>
+    <div class="loading_modal">
+      <div class="loading">
+        <div class="loadingAnimate">
+          <div class="sheep"></div>
+        </div>
+      </div>
+    </div>
     <main>
         <a class="fixed_cart" href="./html/cart.html"><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store" id="fixed_cart_store">0</span></a>
       <div
@@ -73,7 +80,6 @@
         </ul>
       </div>
       <div class="split_line"></div>
-
       <div class="content">
           <div class="news_modal "style="display: none" >
               <div class="news_modal_box slideDown">
@@ -119,7 +125,7 @@
           </li>
           <li class="new_product" id="new_product_content"  style="display: none">
             <div class="content_title">新品上市<span>new product</span></div>
-            <ul class="new_product_content ">
+            <ul class="new_product_content">
             </ul>
           </li>
           <li class="our_story" id="our_story_content" style="display: none">

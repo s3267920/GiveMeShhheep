@@ -552,6 +552,13 @@ main {
       .product_box_name {
         width: 58%;
         font-weight: 300;
+        a {
+          color: color(color_teal, dark);
+          line-height: 24px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
       .product_box_dollar {
         width: 42%;

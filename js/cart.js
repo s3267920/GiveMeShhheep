@@ -30,6 +30,8 @@
         cartStore.textContent = cartProduct.length;
         getProductData(cartProduct);
       }
+      loading.style.display = 'none';
+      main.style.visibility = 'visible';
     });
   });
 
@@ -105,8 +107,8 @@
           class="cart_list_img"
           style="background-image:url(${data[i].imgList[0].src})"
         ></div>
-        <div class="cart_list_product_item">
-          <p>${data[i].productName}</p>
+        <div class="cart_list_product_item">   
+          <p><a href="javascript:;"> ${data[i].productName}</a></p>
           <span>NT$ ${data[i].price.discount}</span>
         </div>
       </div>
@@ -125,6 +127,7 @@
       cartListContent.appendChild(newLi);
     }
     orderListHandler(cartListData, cartListQuantity);
+    console.log(cartListData);
     cartListContent.addEventListener('click', cartListClickHandler);
     if (cartListQuantity.length) {
       document.querySelector('.checkout').classList.add('checkout_btn_allow');
@@ -137,24 +140,34 @@
       let totalPrice = e.target.parentNode.parentNode.parentNode.querySelector('.price');
       let productPrice = Number(cartListLi.querySelector('.cart_list_product_item span').textContent.split('NT$ ')[1]);
       let productName = cartListLi.querySelector('.cart_list_product_item p').textContent;
-
+      //進入商品頁
+      if (e.target.nodeName === 'A') {
+        let index = e.target.parentNode.parentNode.parentNode.parentNode.dataset.index;
+        window.location.href = `../html/productItem.html?id=${cartListData[index].id}`;
+      }
       if (e && e.target.className === 'add') {
         quantityNum.textContent = Number(quantityNum.textContent) + 1;
         cartListQuantity.forEach(cartProduct => {
-          if (cartProduct.dataId === cartListData[index].id) cartProduct.quantity++;
-          else return;
+          if (cartProduct.dataId === cartListData[index].id) {
+            cartProduct.quantity++;
+            cartListData[index].quantity++;
+          } else return;
         });
         db.firestore()
           .collection('customersUser')
           .doc(user.uid)
           .update({ cartList: cartListQuantity });
         totalPrice.textContent = `NT$ ${productPrice * Number(quantityNum.textContent)}`;
-      } else if (e && e.target.className === 'lower') {
+        orderListHandler(cartListData);
+      }
+      if (e && e.target.className === 'lower') {
         if (Number(quantityNum.textContent) > 1) {
           quantityNum.textContent = Number(quantityNum.textContent) - 1;
           cartListQuantity.forEach(cartProduct => {
-            if (cartProduct.dataId === cartListData[index].id) cartProduct.quantity--;
-            else return;
+            if (cartProduct.dataId === cartListData[index].id) {
+              cartProduct.quantity--;
+              cartListData[index].quantity--;
+            } else return;
           });
         }
         db.firestore()
@@ -162,10 +175,13 @@
           .doc(user.uid)
           .update({ cartList: cartListQuantity });
         totalPrice.textContent = `NT$ ${productPrice * Number(quantityNum.textContent)}`;
-      } else if (e && (e.target.nodeName === 'I' || e.target.className === 'delete')) {
+        orderListHandler(cartListData);
+      }
+      if (e && (e.target.nodeName === 'I' || e.target.className === 'delete')) {
         if (confirm(`確定刪除${productName}嗎？`)) {
           cartListLi.remove();
           cartListQuantity.splice(index, 1);
+          cartListData.splice(index, 1);
           let test = cartListContent.getElementsByTagName('li');
           if (!cartListQuantity.length) {
             document.querySelector('.checkout').classList.remove('checkout_btn_allow');
@@ -174,6 +190,7 @@
             .collection('customersUser')
             .doc(user.uid)
             .update({ cartList: cartListQuantity });
+          orderListHandler(cartListData);
         } else {
           return;
         }

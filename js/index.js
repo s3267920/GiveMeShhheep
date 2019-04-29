@@ -1,5 +1,46 @@
 (function() {
   let db = firebase;
+  let main = document.querySelector('main');
+  let loading = document.querySelector('.loading_modal');
+  let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+  let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+  let newsContentTable = document.querySelector('.news_content_table');
+  let newsContentTbody = newsContentTable.children[0];
+  window.addEventListener('load', () => {
+    db.auth().onAuthStateChanged(user => {
+      if (user) {
+        db.firestore()
+          .collection('customersUser')
+          .doc(user.uid)
+          .get()
+          .then(doc => {
+            if (doc.data().cartList) {
+              cartProduct = doc.data().cartList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ cartList: cartProduct });
+            }
+            if (doc.data().favoriteList) {
+              favoriteList = doc.data().favoriteList || [];
+            } else {
+              db.firestore()
+                .collection('customersUser')
+                .doc(user.uid)
+                .update({ favoriteList: favoriteList });
+            }
+          });
+      } else {
+        favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
+        cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
+      }
+      getNewsData();
+    });
+    getNewProducts();
+  });
+  bannerCardHandler();
+  bannerHandler();
   //banner
   function bannerHandler() {
     let bannerToggleItem = document.querySelector('.banner_img_toggle_box');
@@ -103,9 +144,7 @@
       });
     });
   }
-  bannerHandler();
-  let newsContentTable = document.querySelector('.news_content_table');
-  let newsContentTbody = newsContentTable.children[0];
+
   //banner card
   function bannerCardHandler() {
     let bannerCardList = document.getElementById('banner_card_list');
@@ -149,7 +188,7 @@
       }
     });
   }
-  bannerCardHandler();
+
   //最新消息
   function getNewsData() {
     let newsData = [];
@@ -171,6 +210,9 @@
         });
         addNewsContent(newsData);
         newsModal(newsData);
+
+        loading.style.display = 'none';
+        main.style.visibility = 'visible';
       });
   }
   function addNewsContent(data) {
@@ -274,40 +316,7 @@
   }
 
   //新品上市
-  let favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
-  let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
-  window.addEventListener('load', () => {
-    db.auth().onAuthStateChanged(user => {
-      if (user) {
-        db.firestore()
-          .collection('customersUser')
-          .doc(user.uid)
-          .get()
-          .then(doc => {
-            if (doc.data().cartList) {
-              cartProduct = doc.data().cartList || [];
-            } else {
-              db.firestore()
-                .collection('customersUser')
-                .doc(user.uid)
-                .update({ cartList: cartProduct });
-            }
-            if (doc.data().favoriteList) {
-              favoriteList = doc.data().favoriteList || [];
-            } else {
-              db.firestore()
-                .collection('customersUser')
-                .doc(user.uid)
-                .update({ favoriteList: favoriteList });
-            }
-          });
-      } else {
-        favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
-        cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
-      }
-      getNewsData();
-    });
-  });
+
   function getNewProducts() {
     let productData = [];
     db.firestore()
@@ -370,7 +379,7 @@
         </div>
         <div class="product_box_item">
           <div class="product_box_name">
-          ${data[i].productName}
+          <a href="javascript:;"> ${data[i].productName}</a>    
           </div>
           <div class="product_box_dollar">
             NT$  ${data[i].price.original}
@@ -484,6 +493,11 @@
           localStorageCartProductData(cartProduct);
         }
       }
+      //進入商品頁
+      if (e.target.nodeName === 'A') {
+        let index = e.target.parentNode.parentNode.parentNode.dataset.index;
+        window.location.href = `../html/productItem.html?id=${data[index].id}`;
+      }
       // function localStorageFavoriteData(data) {
       //   let favoriteListToString = JSON.stringify(data);
       //   localStorage.setItem('newProductsData', favoriteListToString);
@@ -530,5 +544,4 @@
       // }
     });
   }
-  getNewProducts();
 })();

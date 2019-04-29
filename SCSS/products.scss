@@ -217,6 +217,13 @@ main {
         color: color(color_teal, dark);
         padding: 5px;
         line-height: 24px;
+        a {
+          color: color(color_teal, dark);
+          line-height: 24px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
       .product_box_name {
         width: 58%;
