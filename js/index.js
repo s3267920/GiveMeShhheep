@@ -35,9 +35,9 @@
         favoriteList = JSON.parse(localStorage.getItem('newProductsData')) || [];
         cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
       }
+      getNewProducts();
       getNewsData();
     });
-    getNewProducts();
   });
   bannerCardHandler();
   bannerHandler();
@@ -208,12 +208,160 @@
           };
           newsData.push(data);
         });
-        addNewsContent(newsData);
         newsModal(newsData);
-
+        paginationHandle(newsData);
         loading.style.display = 'none';
         main.style.visibility = 'visible';
       });
+  }
+  let page = 1;
+  function paginationHandle(data) {
+    // onPage
+    let pagination = document.querySelector('.pagination');
+    let goBack = document.querySelector('.go_back');
+    let goAhead = document.querySelector('.go_ahead');
+    let pageUrl = page;
+    let limit = 7, //每頁顯示資料數
+      currentPage = pageUrl, //
+      limitPage = 5, //標籤顯示數量
+      totalPage = Math.ceil(data.length / limit); //總頁數
+    let startPage = startPageCondition(); //分頁起始
+    endPage = endPageCondition(); //分頁結束
+    let showPage = totalPage > limitPage ? 5 : totalPage;
+    if (pageUrl === 1 || pageUrl === 0) {
+      currentPage = 1;
+    } else if (pageUrl >= totalPage) {
+      currentPage = totalPage;
+    } else {
+      currentPage = pageUrl;
+    }
+    function startPageCondition() {
+      let start = 1;
+      if (totalPage < limitPage || currentPage < limitPage) {
+        start = 1;
+      } else {
+        if (totalPage % limitPage !== 0) {
+          if (totalPage - currentPage < limitPage - 1) start = totalPage - limitPage + 1;
+          else if (
+            currentPage === totalPage - (currentPage % limitPage) ||
+            currentPage === totalPage ||
+            totalPage < pageUrl
+          )
+            start = totalPage - limitPage + 1;
+          else start = currentPage - (currentPage % limitPage === 0 ? 5 : currentPage % limitPage) + 1;
+        } else {
+          start = totalPage - limitPage + 1;
+        }
+      }
+      return start;
+    }
+    function endPageCondition() {
+      let end = 1;
+      if (totalPage < limitPage) {
+        end = totalPage;
+      } else {
+        if (totalPage % limitPage === 0 || totalPage <= pageUrl) {
+          end = startPage + limitPage - 1;
+        } else {
+          if (totalPage > limitPage) end = startPage + limitPage - 1;
+          else pageUrl >= totalPage ? (end = totalPage) : (end = currentPage - (pageUrl % limitPage) + 1);
+        }
+      }
+      return end;
+    }
+    //產品渲染
+    let newFilterData = [];
+    for (
+      let i = (currentPage - 1) * limit;
+      i < (currentPage * limit > data.length ? data.length : currentPage * limit);
+      i++
+    ) {
+      newFilterData.push(data[i]);
+    }
+    addNewsContent(newFilterData);
+    //分頁
+    let pages = pagination.getElementsByTagName('li');
+    function addPage() {
+      for (let i = startPage, j = 1; i <= endPage; i++) {
+        let newLi = document.createElement('li');
+        newLi.innerHTML = `<a href="javaScript:;">${i}</a>`;
+        if (pages.length !== showPage + 2) {
+          pagination.insertBefore(newLi, goAhead);
+        } else {
+          pagination.removeChild(pages[j]);
+          pagination.insertBefore(newLi, goAhead);
+        }
+      }
+    }
+    addPage();
+    pageStatus();
+    pagination.addEventListener('click', e => {
+      if ((e.target && e.target.className === 'go_back') || (e.target && e.target.id === 'go_back')) {
+        //頁數可以被整除
+        if (totalPage % limitPage === 0) {
+          startPage - limitPage < 0 ? (startPage = 1) : (startPage = startPage - limitPage);
+          endPage - limitPage < limitPage ? (endPage = limitPage) : (endPage = endPage - limitPage);
+        } else if (totalPage % limitPage !== 0) {
+          //頁數不能被整除
+          if (startPage - limitPage < 0) startPage = 1;
+          else if (startPage === totalPage - limitPage + 1)
+            startPage = totalPage - (totalPage % limitPage) - limitPage + 1;
+          else startPage = startPage - limitPage;
+
+          if (endPage - limitPage < 1) endPage = limitPage;
+          else if (endPage === totalPage) endPage = totalPage - (totalPage % limitPage);
+          else endPage = endPage - limitPage;
+        }
+      } else if ((e.target && e.target.className === 'go_ahead') || (e.target && e.target.id === 'go_ahead')) {
+        if (totalPage % limitPage === 0) {
+          if (startPage + limitPage > totalPage) return;
+          else startPage = startPage + limitPage;
+          if (endPage + limitPage >= totalPage) endPage = totalPage;
+          else endPage = endPage + limitPage;
+        } else if (totalPage % limitPage !== 0) {
+          if (startPage + limitPage >= totalPage || startPage + limitPage * 2 > totalPage) {
+            startPage = totalPage - limitPage + 1;
+          } else startPage = startPage + limitPage;
+
+          if (endPage + limitPage >= totalPage) endPage = totalPage;
+          else endPage = endPage + limitPage;
+        }
+      }
+      addPage();
+      pageStatus();
+      if ((e.target.className !== 'go_back' || e.target.className !== 'go_ahead') && e.target.nodeName !== 'UL') {
+        page = Number(e.target.textContent);
+      }
+    });
+    //分頁狀態
+    function pageStatus() {
+      for (let i = 0; i < pages.length; i++) {
+        Number(pages[i].children[0].textContent) === currentPage
+          ? pages[i].classList.add('onPage')
+          : pages[i].classList.remove('onPage');
+      }
+      if (totalPage === 1) {
+        goBack.style.setProperty('visibility', 'hidden');
+        goAhead.style.setProperty('visibility', 'hidden');
+        pages[1].style.borderRadius = '5px';
+      } else if (totalPage <= showPage) {
+        goBack.style.setProperty('display', 'none');
+        goAhead.style.setProperty('display', 'none');
+        pages[1].style.borderRadius = '5px 0 0 5px';
+        pages[showPage].style.borderRadius = ' 0 5px  5px 0';
+      } else if (startPage === 1) {
+        goBack.style.setProperty('visibility', 'hidden');
+        goAhead.style.setProperty('visibility', 'visible');
+        pages[1].style.borderRadius = '5px 0 0 5px';
+      } else if (currentPage === totalPage || endPage === totalPage) {
+        goAhead.style.setProperty('visibility', 'hidden');
+        goBack.style.setProperty('visibility', 'visible');
+        pages[showPage].style.borderRadius = '0 5px 5px 0';
+      } else {
+        goAhead.style.setProperty('visibility', 'visible');
+        goBack.style.setProperty('visibility', 'visible');
+      }
+    }
   }
   function addNewsContent(data) {
     let trContent = '';
@@ -498,50 +646,50 @@
         let index = e.target.parentNode.parentNode.parentNode.dataset.index;
         window.location.href = `../html/productItem.html?id=${data[index].id}`;
       }
-      // function localStorageFavoriteData(data) {
-      //   let favoriteListToString = JSON.stringify(data);
-      //   localStorage.setItem('newProductsData', favoriteListToString);
-      // }
-      // if (e.target.parentNode.parentNode.className === 'favorite_icon') {
-      //   let favoriteIcon = e.target.parentNode.parentNode;
-      //   let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
-      //   if (e.target.parentNode.className === 'favorite_icon_on') {
-      //     e.target.parentNode.style.display = 'none';
-      //     favoriteIcon.children[0].style.display = 'flex';
-      //     favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
-      //   } else {
-      //     e.target.parentNode.style.display = 'none';
-      //     favoriteIcon.children[1].style.display = 'flex';
-      //     favoriteList.push(data[dataIndex].id);
-      //   }
-      //   localStorageFavoriteData(favoriteList);
-      // }
-      // function localStorageCartProductData(data) {
-      //   let cartProductListToString = JSON.stringify(data);
-      //   localStorage.setItem('cartList', cartProductListToString);
-      // }
-      // if (e.target.className === 'add_btn') {
-      //   //如果點選同一樣的話只累加數量
-      //   let index = e.target.parentNode.dataset.index;
-      //   let isRepeat = () => {
-      //     return cartProduct.some(compareData => {
-      //       return compareData.dataId === data[index].id;
-      //     });
-      //   };
-      //   if (!cartProduct.length || isRepeat() === false) {
-      //     cartProduct.push({ dataId: data[index].id, quantity: 1 });
-      //   } else {
-      //     cartProduct.forEach(cartProduct => {
-      //       if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
-      //       else return;
-      //     });
-      //   }
-      //   let cartStore = document.getElementById('cart_store');
-      //   let fixedCartStore = document.getElementById('fixed_cart_store');
-      //   cartStore.textContent = cartProduct.length;
-      //   fixedCartStore.textContent = cartProduct.length;
-      //   localStorageCartProductData(cartProduct);
-      // }
+      function localStorageFavoriteData(data) {
+        let favoriteListToString = JSON.stringify(data);
+        localStorage.setItem('newProductsData', favoriteListToString);
+      }
+      if (e.target.parentNode.parentNode.className === 'favorite_icon') {
+        let favoriteIcon = e.target.parentNode.parentNode;
+        let dataIndex = favoriteIcon.parentNode.parentNode.dataset.index;
+        if (e.target.parentNode.className === 'favorite_icon_on') {
+          e.target.parentNode.style.display = 'none';
+          favoriteIcon.children[0].style.display = 'flex';
+          favoriteList.splice(favoriteList.indexOf(data[dataIndex].id), 1);
+        } else {
+          e.target.parentNode.style.display = 'none';
+          favoriteIcon.children[1].style.display = 'flex';
+          favoriteList.push(data[dataIndex].id);
+        }
+        localStorageFavoriteData(favoriteList);
+      }
+      function localStorageCartProductData(data) {
+        let cartProductListToString = JSON.stringify(data);
+        localStorage.setItem('cartList', cartProductListToString);
+      }
+      if (e.target.className === 'add_btn') {
+        //如果點選同一樣的話只累加數量
+        let index = e.target.parentNode.dataset.index;
+        let isRepeat = () => {
+          return cartProduct.some(compareData => {
+            return compareData.dataId === data[index].id;
+          });
+        };
+        if (!cartProduct.length || isRepeat() === false) {
+          cartProduct.push({ dataId: data[index].id, quantity: 1 });
+        } else {
+          cartProduct.forEach(cartProduct => {
+            if (cartProduct.dataId === data[index].id) cartProduct.quantity++;
+            else return;
+          });
+        }
+        let cartStore = document.getElementById('cart_store');
+        let fixedCartStore = document.getElementById('fixed_cart_store');
+        cartStore.textContent = cartProduct.length;
+        fixedCartStore.textContent = cartProduct.length;
+        localStorageCartProductData(cartProduct);
+      }
     });
   }
 })();
