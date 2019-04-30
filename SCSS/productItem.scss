@@ -1,0 +1,215 @@
+@import '_style.scss';
+
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.product_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  > div {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+  }
+  .product_img_box {
+    position: relative;
+    border: 5px solid color(color_teal, darkGray);
+    .product_img {
+      width: 100%;
+      height: 350px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    .product_img_icon {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: color(color_teal, dark);
+      background-color: color(other, white30);
+      width: 30px;
+      height: 50px;
+    }
+    .left_icon {
+      left: 10px;
+      top: 45%;
+    }
+    .right_icon {
+      right: 10px;
+      top: 45%;
+    }
+  }
+  .product_Info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    .product_name,
+    .product_price {
+      width: 100%;
+      font-size: nth($font, 4);
+      color: color(color_teal, dark);
+      margin-bottom: 5%;
+      line-height: 60px;
+      padding-left: 5%;
+    }
+    .product_price {
+      width: 45%;
+      line-height: 20px;
+    }
+    .product_inventory {
+      width: 50%;
+      text-align: right;
+      line-height: 20px;
+      color: color(color_gray, dark);
+    }
+    .product_quantity {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 5%;
+      li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 48px;
+        height: 48px;
+        border: 1px solid color(color_teal, lightGray);
+        background-color: color(other, white);
+        color: color(color_teal, dark);
+      }
+      input {
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        border: none;
+        color: color(color_teal, dark);
+        background-color: color(other, white);
+        font-size: nth($font, 3);
+        outline: none;
+        &:hover {
+          background-color: color(color_yellow, white);
+        }
+        &:active {
+          box-shadow: 0 0 3px color(color_teal, dark);
+        }
+      }
+    }
+  }
+  .add_btn {
+    cursor: pointer;
+    width: 100%;
+    height: 65px;
+    border: none;
+    background-color: color(color_gray, dark);
+    color: color(color_gray, white);
+    font-size: nth($font, 3);
+    font-weight: 500;
+    outline: none;
+    &:hover {
+      background-color: color(color_teal, dark);
+      color: color(other, white);
+    }
+    &:active {
+      box-shadow: 0 0 5px color(color_gray, dark);
+    }
+  }
+  .product_discription {
+    width: 100%;
+    min-height: 100px;
+    background-color: color(other, white);
+    padding: 10px;
+    font-size: nth($font, 3);
+    color: color(color_teal, dark);
+    display: flex;
+    flex-direction: column;
+    p {
+      margin-bottom: 20px;
+      &:nth-of-type(2) {
+        padding: 10px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 80%;
+    .product_discription {
+      min-height: 200px;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 85%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    .product_img_box {
+      flex: 1.5;
+      width: 60%;
+      height: 360px;
+      box-sizing: border-box;
+    }
+    .product_Info {
+      flex: 1;
+      padding: 0px;
+      margin-left: 5%;
+      .product_name,
+      .product_price {
+        padding-left: 0%;
+      }
+      .product_name {
+        height: 60px;
+        margin-bottom: 0;
+        order: 1;
+      }
+      .product_price {
+        width: 50%;
+        height: 50px;
+        line-height: 50px;
+        order: 3;
+      }
+      .product_inventory {
+        width: 100%;
+        height: 20px;
+        order: 2;
+      }
+      .product_quantity {
+        width: 50%;
+        order: 4;
+      }
+      .add_btn {
+        order: 5;
+      }
+    }
+    .product_discription {
+      margin-top: 20px;
+      min-height: 250px;
+      background-color: #fff;
+      padding: 20px;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    width: 70%;
+    .product_img_box {
+      flex: 1.5;
+      width: 50%;
+      height: 330px;
+      .product_img {
+        width: 100%;
+        height: 320px;
+      }
+    }
+  }
+  @media screen and (min-width: 1400px) {
+    width: 60%;
+  }
+}

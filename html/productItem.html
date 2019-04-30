@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="GiveMeShhheep" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="FB上的網址" />
+    <meta property="og:image" content="FB的圖片" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/layout.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style/productItem.min.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav_hamburger">
+          <button class="hamburger_icon">
+            <div class="icon_box">
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+              <span class="icon_bar"></span>
+            </div>
+          </button>
+        </div>
+        <ul id="nav_bar">
+          <li><a href="/">首頁</a></li>
+          <li><a href="./products.html">產品</a></li>
+          <li class="sign_out" style="display:none"><a href="javascript:;">登出</a></li>
+        </ul>
+        <div class="logo">
+          <a href="/"><h1>GiveMeShhheep</h1></a>
+        </div>
+        <div class="personal">
+          <a class="user" id="user" href="javascript:;"><i class="fas fa-user" id="user_icon"></i></a>
+          <a class="cart" id="cart" href="javascript:;"
+            ><i class="fas fa-shopping-cart " id="cart_icon"></i><span class="cart_store" id="cart_store">0</span></a
+          >
+        </div>
+      </nav>
+    </header>
+    <div class="loading_modal">
+      <div class="loading">
+        <div class="loadingAnimate">
+          <div class="sheep"></div>
+        </div>
+      </div>
+    </div>
+    <main>
+      <a class="fixed_cart" href="./cart.html"
+        ><i class="fas fa-shopping-cart"></i><span class="fixed_cart_store" id="fixed_cart_store">0</span></a
+      >
+      <div class="product_content">
+        <div class="product_img_box">
+          <a class="product_img_icon left_icon">
+            <i class="fas fa-chevron-left" id="leftBtn"></i>
+          </a>
+          <div class="product_img" data-imgindex="0"></div>
+          <a class="product_img_icon right_icon"><i class="fas fa-chevron-right" id="rightBtn"></i></a>
+        </div>
+        <div class="product_Info">
+          <div class="product_name">讓貓貓也好睡</div>
+          <div class="product_price">NT$ <span></span></div>
+          <div class="product_inventory">庫存：<span>10</span> 個</div>
+          <ul class="product_quantity">
+            <li><input type="button" name="lower" value="-" id="lower" /></li>
+            <li class="quantity_num">1</li>
+            <li><input type="button" value="+" id="add" /></li>
+          </ul>
+          <input class="add_btn" type="button" value="加入購物車" />
+        </div>
+        <div class="product_discription">
+          <p>商品描述：</p>
+          <p></p>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="subscribe">
+        <div class="subscribe_header_title">
+          <p>喜歡的話，訂閱我吧!</p>
+        </div>
+        <div class="email_box">
+          <div class="email_icon"><i class="far fa-envelope"></i></div>
+          <input class="email" type="email" name="email" />
+          <button class="submit_btn" type="submit">
+            <div class="arrow_icon"><i class="fas fa-arrow-right "></i></div>
+          </button>
+        </div>
+      </div>
+      <div class="information">
+        <div class="information_left">
+          <p class="info_text">
+            07-1234-5678 <br />
+            GiveMeShhheep@email.com <br />
+            800 高雄市新興區幸福路 520 號
+          </p>
+          <div class="info_icon">
+            <a href="javascript:;" class="icon" onclick="alert('目前沒有line')"><i class="fab fa-line"></i></a>
+            <a href="https://www.facebook.com/" class="icon"><i class="fab fa-facebook-square"></i></a>
+          </div>
+        </div>
+        <div class="info_bottom_text">2019 Design and make by Lucy Chen</div>
+        <a href="#"> <img src="../img/GMS_loading1.svg" class="info_img"/></a>
+      </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/productItem.js"></script>
+  </body>
+</html>
