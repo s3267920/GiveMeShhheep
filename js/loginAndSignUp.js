@@ -241,7 +241,8 @@
             .signInWithEmailAndPassword(newUser.email, newUser.password)
             .then(() => {
               alert('登入成功');
-              history.go(-1);
+              // history.go(-1);
+              location.href = '../index.html';
             })
             .catch(error => {
               const errorCode = error.code;
