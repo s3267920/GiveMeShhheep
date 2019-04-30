@@ -100,9 +100,9 @@
       personal.addEventListener('click', e => {
         if (e && (e.target.parentNode.id === 'user' || e.target.parentNode.className === 'personal')) {
           if (user) {
-            location.href = '/html/order.html';
+            location.href = './html/order.html';
           } else {
-            location.href = '/html/login.html';
+            location.href = './html/login.html';
           }
         }
         if (e && (e.target.parentNode.id === 'cart' || e.target.id === 'cart_icon')) {
