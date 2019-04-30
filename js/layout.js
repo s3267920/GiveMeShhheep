@@ -100,12 +100,12 @@
       personal.addEventListener('click', e => {
         if (e && (e.target.parentNode.id === 'user' || e.target.parentNode.className === 'personal')) {
           if (user) {
-            if (/index.html/.test(location.href) || !/html/.test(location.href)) {
-              location.href = './html/cart.html';
+            if (/index.html/.test(location.href) || /html/.test(location.href) === false) {
+              location.href = './html/order.html';
             }
             location.href = '../html/order.html';
           } else {
-            if (/index.html/.test(location.href) || !/html/.test(location.href)) {
+            if (/index.html/.test(location.href) || /html/.test(location.href) === false) {
               location.href = './html/login.html';
             }
             location.href = '../html/login.html';
@@ -113,12 +113,12 @@
         }
         if (e && (e.target.parentNode.id === 'cart' || e.target.id === 'cart_icon')) {
           if (user) {
-            if (/index.html/.test(location.href) || !/html/.test(location.href)) {
+            if (/index.html/.test(location.href) || /html/.test(location.href) === false) {
               location.href = './html/cart.html';
             }
             location.href = '../html/cart.html';
           } else {
-            if (/index.html/.test(location.href) || !/html/.test(location.href)) {
+            if (/index.html/.test(location.href) || /html/.test(location.href) === false) {
               location.href = './html/login.html';
             }
             location.href = '../html/login.html';
