@@ -4,6 +4,7 @@
   let h2Title = document.querySelector('main h2');
   let submitBtn = document.querySelector('.submit_btn');
   let submitBtnSpan = submitBtn.querySelector('span');
+  main.style.visibility = 'visible';
   let error = {
     email: '',
     password: ''

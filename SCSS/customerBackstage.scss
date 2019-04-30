@@ -329,6 +329,17 @@ main > nav {
       font-size: nth($font, 2);
     }
   }
+  .order_done {
+    .order_list_item_head {
+      background-color: color(color_gray, gray);
+      > div {
+        color: color(color_gray, white);
+      }
+    }
+    .order_list_item_body * {
+      color: color(color_gray, gray);
+    }
+  }
   @media screen and (min-width: 600px) {
     > li {
       width: 90%;

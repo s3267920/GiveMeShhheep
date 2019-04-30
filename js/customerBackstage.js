@@ -132,6 +132,9 @@
         </div>
       </div>
     `;
+      if (orderData[i].status === 'done') {
+        newLi.classList.add('order_done');
+      }
       newLi.innerHTML = content;
       orderListContent.appendChild(newLi);
       let orderListItem = document.getElementsByClassName('order_list_item');

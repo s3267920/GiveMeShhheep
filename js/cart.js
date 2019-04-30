@@ -127,7 +127,6 @@
       cartListContent.appendChild(newLi);
     }
     orderListHandler(cartListData, cartListQuantity);
-    console.log(cartListData);
     cartListContent.addEventListener('click', cartListClickHandler);
     if (cartListQuantity.length) {
       document.querySelector('.checkout').classList.add('checkout_btn_allow');

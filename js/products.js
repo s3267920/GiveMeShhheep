@@ -85,8 +85,7 @@
               discount: doc.data().price.discount
             },
             specification: doc.data().specification,
-            status: doc.data().status,
-            productIndex: doc.data().productIndex
+            status: doc.data().status
           };
           if (data.status) {
             productData.push(data);
