@@ -107,9 +107,9 @@
         }
         if (e && (e.target.parentNode.id === 'cart' || e.target.id === 'cart_icon')) {
           if (user) {
-            location.href = '/html/cart.html';
+            location.href = './html/cart.html';
           } else {
-            location.href = '/html/login.html';
+            location.href = './html/login.html';
           }
         }
       });
