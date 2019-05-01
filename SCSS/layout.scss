@@ -26,7 +26,9 @@ header {
   &.fixed_status {
     position: fixed;
     top: 0;
-    height: 110px;
+    .logo {
+      height: 110px;
+    }
   }
   nav {
     width: 100%;
