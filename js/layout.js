@@ -119,20 +119,19 @@
           } else {
             location.href = '../html/login.html';
           }
-          // if (!url.includes('/html') || url.includes('index.html')) {
-          //   if (user) {
-          //     location.href = './html/cart.html';
-          //   } else {
-          //     location.href = './html/login.html';
-          //   }
-          // } else {
-          //   console.log('aaa');
-          //   if (user) {
-          //     location.href = '../html/cart.html';
-          //   } else {
-          //     location.href = '../html/login.html';
-          //   }
-          // }
+          if (!url.includes('/html') || url.includes('index.html')) {
+            if (user) {
+              location.href = './html/cart.html';
+            } else {
+              location.href = './html/login.html';
+            }
+          } else {
+            if (user) {
+              location.href = '../html/cart.html';
+            } else {
+              location.href = '../html/login.html';
+            }
+          }
         }
       });
     });
