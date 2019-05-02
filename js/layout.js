@@ -85,11 +85,10 @@
         }
         cartStore.textContent = cartProduct.length;
       }
-      let cart = document.querySelector('.cart');
       let fixedCart = document.querySelector('.fixed_cart');
       let personal = document.querySelector('.personal');
       if (fixedCart) {
-        fixedCart.addEventListener('click', e => {
+        fixedCart.addEventListener('click', () => {
           if (user) {
             location.href = '../html/cart.html';
           } else {
@@ -98,19 +97,42 @@
         });
       }
       personal.addEventListener('click', e => {
+        let url = location.href;
         if (e && (e.target.parentNode.id === 'user' || e.target.parentNode.className === 'personal')) {
-          if (user) {
-            location.href = './html/order.html';
+          if (!url.includes('/html') || url.includes('index.html')) {
+            if (user) {
+              location.href = './html/order.html';
+            } else {
+              location.href = './html/login.html';
+            }
           } else {
-            location.href = './html/login.html';
+            if (user) {
+              location.href = '../html/order.html';
+            } else {
+              location.href = '../html/login.html';
+            }
           }
         }
         if (e && (e.target.parentNode.id === 'cart' || e.target.id === 'cart_icon')) {
           if (user) {
-            location.href = './html/cart.html';
+            location.href = '../html/cart.html';
           } else {
-            location.href = './html/login.html';
+            location.href = '../html/login.html';
           }
+          // if (!url.includes('/html') || url.includes('index.html')) {
+          //   if (user) {
+          //     location.href = './html/cart.html';
+          //   } else {
+          //     location.href = './html/login.html';
+          //   }
+          // } else {
+          //   console.log('aaa');
+          //   if (user) {
+          //     location.href = '../html/cart.html';
+          //   } else {
+          //     location.href = '../html/login.html';
+          //   }
+          // }
         }
       });
     });

@@ -579,10 +579,12 @@
             favoriteIcon.children[1].style.display = 'flex';
             favoriteList.push(data[dataIndex].id);
           }
-          db.firestore()
-            .collection('customersUser')
-            .doc(user.uid)
-            .update({ favoriteList: favoriteList });
+          if (user) {
+            db.firestore()
+              .collection('customersUser')
+              .doc(user.uid)
+              .update({ favoriteList: favoriteList });
+          }
           localStorageFavoriteData(favoriteList);
         }
       }
@@ -630,10 +632,12 @@
               else return;
             });
           }
-          db.firestore()
-            .collection('customersUser')
-            .doc(user.uid)
-            .update({ cartList: cartProduct });
+          if (user) {
+            db.firestore()
+              .collection('customersUser')
+              .doc(user.uid)
+              .update({ cartList: cartProduct });
+          }
           let cartStore = document.getElementById('cart_store');
           let fixedCartStore = document.getElementById('fixed_cart_store');
           cartStore.textContent = cartProduct.length;
