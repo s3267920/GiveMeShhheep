@@ -332,6 +332,7 @@ main {
   .content_box {
     display: flex;
     flex-direction: column;
+    max-width: 1300px;
     li {
       width: 100%;
     }
