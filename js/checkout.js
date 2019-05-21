@@ -2,7 +2,7 @@
   let db = firebase;
   let checkoutForm = document.getElementById('checkout_form');
   let main = document.querySelector('main');
-  // let loading = document.querySelector('.loading_modal');
+  let loading = document.querySelector('.loading_modal');
   let nextBtn = document.querySelector('.next_btn');
   let orderData = {
     cartListData: [],
@@ -136,8 +136,8 @@
         });
         orderData.price.totalPrice = totalProductPrice;
         orderData.price.shippingRate = 300;
-        // main.style.visibility = 'visible';
-        // loading.style.display = 'none';
+        main.style.visibility = 'visible';
+        loading.style.display = 'none';
       });
   }
 
