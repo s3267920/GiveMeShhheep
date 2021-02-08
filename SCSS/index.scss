@@ -167,6 +167,7 @@ main {
       font-family: 'PT Mono';
       font-weight: 300;
       letter-spacing: 2px;
+      transition: color 0.5s, background-color 0.5s;
       span {
         margin-top: 5px;
       }
@@ -217,10 +218,10 @@ main {
       width: 100%;
       box-sizing: border-box;
       a {
-        // padding: 30% 0;
         font-size: nth($font, 3);
         color: color(color_teal, main);
         height: 100px;
+        transition: color 0.5s, background-color 0.5s;
       }
     }
   }
@@ -321,6 +322,7 @@ main {
     font-weight: 400;
     letter-spacing: 2px;
     margin-bottom: 4%;
+
     span {
       font-family: 'PT Mono';
       margin-top: 5px;
@@ -570,13 +572,14 @@ main {
     .add_btn {
       cursor: pointer;
       width: 100%;
-      height: 65px;
+      height: 50px;
       border: none;
       background-color: color(color_gray, light);
       color: color(color_teal, dark);
       font-size: nth($font, 3);
       font-weight: 500;
       outline: none;
+      transition: color 0.5s;
       &:hover {
         background-color: color(color_teal, dark);
         color: color(other, white);

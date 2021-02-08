@@ -1,7 +1,7 @@
 {
   "name": "givemeshhheep",
   "version": "1.0.0",
-  "description": "",
+  "description": "### Demo：[https://s3267920.github.io/GiveMeShhheep/](https://s3267920.github.io/GiveMeShhheep/)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +11,14 @@
   "dependencies": {
     "bootstrap": "^4.2.1",
     "vue": "^2.5.22"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s3267920/GiveMeShhheep.git"
+  },
+  "bugs": {
+    "url": "https://github.com/s3267920/GiveMeShhheep/issues"
+  },
+  "homepage": "https://github.com/s3267920/GiveMeShhheep#readme"
 }

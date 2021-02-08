@@ -57,6 +57,7 @@ main > nav {
       height: 50px;
       display: flex;
       justify-content: center;
+      align-items: center;
       border: none;
       outline: none;
       background-color: color(color_teal, dark);
@@ -161,6 +162,8 @@ main > nav {
       > button {
         background-color: color(color_gray, dark);
         color: color(color_gray, white);
+        display: flex;
+        align-items: center;
         &:active {
           background-color: color(color_teal, teal);
         }

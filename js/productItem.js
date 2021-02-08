@@ -1,23 +1,20 @@
-(function() {
+(function () {
   const db = firebase;
   let main = document.querySelector('main');
   let loading = document.querySelector('.loading_modal');
   let cartProduct = JSON.parse(localStorage.getItem('cartList')) || [];
   window.addEventListener('load', () => {
-    db.auth().onAuthStateChanged(user => {
+    db.auth().onAuthStateChanged((user) => {
       if (user) {
         db.firestore()
           .collection('customersUser')
           .doc(user.uid)
           .get()
-          .then(doc => {
+          .then((doc) => {
             if (doc.data().cartList) {
               cartProduct = doc.data().cartList || [];
             } else {
-              db.firestore()
-                .collection('customersUser')
-                .doc(user.uid)
-                .update({ cartList: cartProduct });
+              db.firestore().collection('customersUser').doc(user.uid).update({ cartList: cartProduct });
             }
           });
       } else {
@@ -33,7 +30,7 @@
       .collection('product')
       .doc(getUrlParams())
       .get()
-      .then(data => {
+      .then((data) => {
         const productData = {
           id: data.id,
           imgList: data.data().imgList,
@@ -125,14 +122,11 @@
             .collection('customersUser')
             .doc(user.uid)
             .get()
-            .then(doc => {
+            .then((doc) => {
               if (doc.data().cartList) {
                 cartProduct = doc.data().cartList || [];
               } else {
-                db.firestore()
-                  .collection('customersUser')
-                  .doc(user.uid)
-                  .update({ cartList: cartProduct });
+                db.firestore().collection('customersUser').doc(user.uid).update({ cartList: cartProduct });
               }
               addProductHandler(cartProduct);
             });
@@ -147,7 +141,7 @@
         function addProductHandler(cartProduct) {
           //如果點選同一樣的話只累加數量
           let isRepeat = () => {
-            return cartProduct.some(compareData => {
+            return cartProduct.some((compareData) => {
               return compareData.dataId === data.id;
             });
           };
@@ -157,15 +151,14 @@
               quantity: quantity
             });
           } else {
-            cartProduct.forEach(cartProduct => {
+            cartProduct.forEach((cartProduct) => {
               if (cartProduct.dataId === data.id) cartProduct.quantity = cartProduct.quantity + quantity;
               else return;
             });
           }
-          db.firestore()
-            .collection('customersUser')
-            .doc(user.uid)
-            .update({ cartList: cartProduct });
+          if (user) {
+            db.firestore().collection('customersUser').doc(user.uid).update({ cartList: cartProduct });
+          }
           let cartStore = document.getElementById('cart_store');
           let fixedCartStore = document.getElementById('fixed_cart_store');
           cartStore.textContent = cartProduct.length;

@@ -179,6 +179,7 @@ header {
             font-size: nth($font, 3);
             padding: 25px 15px;
             border-radius: 50%;
+            transition: color 0.3s, background-color 0.3s;
             &:active {
               background-color: color(color_teal, dark);
               color: color(color_yellow, main);
@@ -332,6 +333,7 @@ main {
     background-color: color(other, white);
     color: color(color_teal, dark);
     box-shadow: 0 2px 5px color(color_gray, gray);
+
     i {
       padding: 10px 5px;
     }
