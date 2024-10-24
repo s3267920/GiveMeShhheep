@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^4.2.1",
-    "vue": "^2.5.22"
+    "vue": "^3.0.0"
   },
   "devDependencies": {},
   "repository": {
